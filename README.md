@@ -1,7 +1,7 @@
 # rockfish
 Easy Simple Mobile Middleware
 
-## rockfish android client jar
+## rockfish android client
 
 ## rockfish console
 
