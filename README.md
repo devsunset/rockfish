@@ -1,21 +1,23 @@
 # rockfish
 
-
    Easy Simple Mobile Middleware
+   
+   Client -> (HAProxy or Nginx Load balancing) -> Server (Console) -> (HAProxy or Nginx Load balancing) -> Service
 
-
-## ■ rockfish mobile client
-   * rockfish mobile client (android)
-   * rockfish mobile client (iphone)
-   * rockfish mobile client (web)
+## ■ rockfish client
+   * rockfish client (web) - prototype
+   * rockfish client (android) - TO-DO
+   * rockfish client (iphone) - TO-DO
    
 ## ■ rockfish console
-   * rockfish console (administrator)
+   * rockfish console (administrator) - TO-DO
 
 ## ■ rockfish server
-   * rockfish server (nodejs)
-   * rockfish server (erlang) 
+   * rockfish server (nodejs) - prototype
+   * rockfish server (erlang) - TO-DO
    
 ## ■ rockfish service
-   * rockfish service (play)
-   * rockfish service (spring)
+   * rockfish service (jsp) - prototype
+   * rockfish service (spring) - TO-DO
+   * rockfish service (play) - TO-DO
+   
