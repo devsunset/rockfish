@@ -20,4 +20,9 @@
    * rockfish service (jsp) - prototype
    * rockfish service (spring) - TO-DO
    * rockfish service (play) - TO-DO
-   
+
+## ■ rockfish control 
+   * rockfish 인증(Authentication), 권한부여(Authorization), 접근제어(Access Control) - TO-DO
+
+## ■ HAProxy or Nginx Load balancing
+   * Load balancing setting - TO-DO
