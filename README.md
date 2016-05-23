@@ -17,7 +17,7 @@
    * rockfish server (erlang) - TO-DO
    
 ## ■ rockfish service
-   * rockfish service (jsp) - prototype
+   * rockfish service (web) - prototype
    * rockfish service (spring) - TO-DO
    * rockfish service (play) - TO-DO
 
