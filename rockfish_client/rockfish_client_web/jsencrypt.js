@@ -1990,7 +1990,7 @@ JSX.extend = function(subc, superc, overrides) {
  * This software is licensed under the terms of the MIT License.
  * http://kjur.github.com/jsrsasign/license
  *
- * The above copyright and license notice shall be 
+ * The above copyright and license notice shall be
  * included in all copies or substantial portions of the Software.
  */
 
@@ -2003,17 +2003,17 @@ JSX.extend = function(subc, superc, overrides) {
  * @license <a href="http://kjur.github.io/jsrsasign/license/">MIT License</a>
  */
 
-/** 
+/**
  * kjur's class library name space
  * <p>
  * This name space provides following name spaces:
  * <ul>
  * <li>{@link KJUR.asn1} - ASN.1 primitive hexadecimal encoder</li>
  * <li>{@link KJUR.asn1.x509} - ASN.1 structure for X.509 certificate and CRL</li>
- * <li>{@link KJUR.crypto} - Java Cryptographic Extension(JCE) style MessageDigest/Signature 
+ * <li>{@link KJUR.crypto} - Java Cryptographic Extension(JCE) style MessageDigest/Signature
  * class and utilities</li>
  * </ul>
- * </p> 
+ * </p>
  * NOTE: Please ignore method summary and document of this namespace. This caused by a bug of jsdoc2.
   * @name KJUR
  * @namespace kjur's class library name space
@@ -2024,8 +2024,8 @@ if (typeof KJUR == "undefined" || !KJUR) KJUR = {};
  * kjur's ASN.1 class library name space
  * <p>
  * This is ITU-T X.690 ASN.1 DER encoder class library and
- * class structure and methods is very similar to 
- * org.bouncycastle.asn1 package of 
+ * class structure and methods is very similar to
+ * org.bouncycastle.asn1 package of
  * well known BouncyCaslte Cryptography Library.
  *
  * <h4>PROVIDING ASN.1 PRIMITIVES</h4>
@@ -2126,8 +2126,8 @@ KJUR.asn1.ASN1Util = new function() {
 	var dataB64 = CryptoJS.enc.Base64.stringify(dataWA);
 	var pemBody = dataB64.replace(/(.{64})/g, "$1\r\n");
         pemBody = pemBody.replace(/\r\n$/, '');
-	return "-----BEGIN " + pemHeader + "-----\r\n" + 
-               pemBody + 
+	return "-----BEGIN " + pemHeader + "-----\r\n" +
+               pemBody +
                "\r\n-----END " + pemHeader + "-----\r\n";
     };
 };
@@ -2542,7 +2542,7 @@ JSX.extend(KJUR.asn1.DERInteger, KJUR.asn1.ASN1Object);
  * @name KJUR.asn1.DERBitString
  * @class class for ASN.1 DER encoded BitString primitive
  * @extends KJUR.asn1.ASN1Object
- * @description 
+ * @description
  * <br/>
  * As for argument 'params' for constructor, you can specify one of
  * following properties:
@@ -2595,7 +2595,7 @@ KJUR.asn1.DERBitString = function(params) {
      * @function
      * @param {String} binaryString binary value string (i.e. '10111')
      * @description
-     * Its unused bits will be calculated automatically by length of 
+     * Its unused bits will be calculated automatically by length of
      * 'binaryValue'. <br/>
      * NOTE: Trailing zeros '0' will be ignored.
      */
@@ -2611,7 +2611,7 @@ KJUR.asn1.DERBitString = function(params) {
 	    var b = binaryString.substr(i, 8);
 	    var x = parseInt(b, 2).toString(16);
 	    if (x.length == 1) x = '0' + x;
-	    h += x;  
+	    h += x;
 	}
 	this.hTLV = null;
 	this.isModified = true;
@@ -3084,13 +3084,13 @@ JSX.extend(KJUR.asn1.DERSet, KJUR.asn1.DERAbstractStructured);
  * @description
  * <br/>
  * Parameter 'tagNoNex' is ASN.1 tag(T) value for this object.
- * For example, if you find '[1]' tag in a ASN.1 dump, 
+ * For example, if you find '[1]' tag in a ASN.1 dump,
  * 'tagNoHex' will be 'a1'.
  * <br/>
  * As for optional argument 'params' for constructor, you can specify *ANY* of
  * following properties:
  * <ul>
- * <li>explicit - specify true if this is explicit tag otherwise false 
+ * <li>explicit - specify true if this is explicit tag otherwise false
  *     (default is 'true').</li>
  * <li>tag - specify tag (default is 'a0' which means [0])</li>
  * <li>obj - specify ASN1Object which is tagged</li>
@@ -3156,7 +3156,7 @@ JSX.extend(KJUR.asn1.DERTaggedObject, KJUR.asn1.ASN1Object);
 // Permission to use, copy, modify, and/or distribute this software for any
 // purpose with or without fee is hereby granted, provided that the above
 // copyright notice and this permission notice appear in all copies.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 // WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -3221,7 +3221,7 @@ window.Hex = Hex;
 // Permission to use, copy, modify, and/or distribute this software for any
 // purpose with or without fee is hereby granted, provided that the above
 // copyright notice and this permission notice appear in all copies.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 // WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -3307,7 +3307,7 @@ window.Base64 = Base64;
 // Permission to use, copy, modify, and/or distribute this software for any
 // purpose with or without fee is hereby granted, provided that the above
 // copyright notice and this permission notice appear in all copies.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 // WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR

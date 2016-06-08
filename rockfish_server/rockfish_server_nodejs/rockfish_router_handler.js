@@ -13,12 +13,16 @@ var url = require('url');
 //■■■ require url(request module)
 var requestServiceCall = require('request');
 
+//■■■ require url(formidable module)
+var formidable = require('formidable');
+
 //■■■ require config.json (config module)
 var config = require('config.json')('./rockfish_config.json');
 
 //■■■ require url(mongo db module)
 var monk = require('monk');
 var db = monk(config.rockfish_mongodb_host+':'+config.rockfish_mongodb_port+'/rockfish');
+var collection = db.get('rockfish_service_log');
 
 /*
 	var db = monk('rockfish:rockfish@localhost:27017/rockfish');
@@ -28,7 +32,8 @@ var db = monk(config.rockfish_mongodb_host+':'+config.rockfish_mongodb_port+'/ro
 	});
 */
 
-var collection = db.get('rockfish_service_log');
+//■■■ require url(file module)
+var fs = require('fs');
 
 //■■■ require rofish_logger (logger module)
 var rockfish_logger = require('./rockfish_logger');
@@ -37,14 +42,14 @@ var rockfish_logger = require('./rockfish_logger');
 var constants = require('constants');
 
 //■■■ require crypto (crypto module)
-var crypto = require('crypto');  
+var crypto = require('crypto');
 
 //■■■ require fs (fs module)
-var fs = require('fs');  
+var fs = require('fs');
 
 //■■■ rsa private & public key
-var privateKey = fs.readFileSync('./cert/privkey.pem', 'utf8');  
-var publicKey  = fs.readFileSync('./cert/pubkey.pem', 'utf8');  
+var privateKey = fs.readFileSync('./cert/privkey.pem', 'utf8');
+var publicKey  = fs.readFileSync('./cert/pubkey.pem', 'utf8');
 
 //■■■ https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
 /*
@@ -105,7 +110,7 @@ var access_control_allow_headers =  'Content-Type';
 	access_control_allow_headers += ',Authorization';
 	access_control_allow_headers += ',Accept';
 	access_control_allow_headers += ',X-Requested-With';
-	access_control_allow_headers += ',X-Forwarded-For';	
+	access_control_allow_headers += ',X-Forwarded-For';
 	access_control_allow_headers += ',rockfish_access_id';
 	access_control_allow_headers += ',rockfish_ip';
 	access_control_allow_headers += ',rockfish_mac';
@@ -116,7 +121,8 @@ var access_control_allow_headers =  'Content-Type';
 	access_control_allow_headers += ',rockfish_target_service';
 	access_control_allow_headers += ',rockfish_client_app';
 	access_control_allow_headers += ',rockfish_client_app_version';
-	access_control_allow_headers += ',rockfish_encrypt_parameter';	
+	access_control_allow_headers += ',rockfish_multipart';
+	access_control_allow_headers += ',rockfish_encrypt_parameter';
 headers['Access-Control-Allow-Headers'] = access_control_allow_headers;
 headers['Access-Contrl-Allow-Methods'] = 'POST,OPTIONS';
 headers['Access-Control-Max-Age'] = '86400';
@@ -126,7 +132,7 @@ headers['Content-Type'] = 'application/json; charset=utf8';
 function rockfish_router_handler(request, response, serviceMethod) {
   // Process
   dynamicExecute(function(drequest, dresponse, dserviceMethod){
-	
+
 	// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 	// TO-DO : session create  & auth check
 	// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
@@ -160,6 +166,7 @@ function rockfish_router_handler(request, response, serviceMethod) {
 					,ROCKFISH_TARGET_SERVICE : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_target_service)
 					,ROCKFISH_CLIENT_APP : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_client_app)
 					,ROCKFISH_CLIENT_APP_VERSION : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_client_app_version)
+					,ROCKFISH_MULTIPART : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_multipart)
 					,ROCKFISH_ENCRYPT_PARAMETER : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_encrypt_parameter)
 				};
 
@@ -177,13 +184,15 @@ function rockfish_router_handler(request, response, serviceMethod) {
 			   		// REQUEST METHOD
 					if(drequest.method == 'POST') {
 
-						var reqbody='';
+						// General Send
+						if("G" == decryptStringWithRsaPrivateKey(drequest.headers.rockfish_multipart)){
+							var reqbody='';
+
 				            drequest.on('data', function (data) {
-				                reqbody +=data;
+				                reqbody += data;
 				            });
 				            drequest.on('end',function(){
-
-							    	var POST =  qs.parse(reqbody);
+			            			var POST =  qs.parse(reqbody);
 					                var url_parts = url.parse(drequest.url,true);
 
 					                if(POST ==='' || POST === null){
@@ -199,15 +208,15 @@ function rockfish_router_handler(request, response, serviceMethod) {
 					                	for(key in POST) {
 						                	if(inArray(key,encryptParameterArray)){
 						                		if( Object.prototype.toString.call( POST[key] ) === '[object Array]' ) {
-						                			for(var x=0;x < POST[key].length;x++){					                									                				
-						                				POST[key][x] = decryptStringWithRsaPrivateKey(POST[key][x]);	
+						                			for(var x=0;x < POST[key].length;x++){
+						                				POST[key][x] = decryptStringWithRsaPrivateKey(POST[key][x]);
 						                			}
-						                		}else{					                								                			
+						                		}else{
 						                			POST[key] = decryptStringWithRsaPrivateKey(POST[key]);
-						                		}				                		 
-						                	}								  					  
+						                		}
+						                	}
 										}
-					                }          
+					                }
 
 					                if(config.rockfish_request_logging_use == 'Y'){
 										collection.update({
@@ -218,7 +227,7 @@ function rockfish_router_handler(request, response, serviceMethod) {
 									}
 
 									var access_ip = drequest.headers['X-Forwarded-For'] || drequest.connection.remoteAddress;
-																									
+
 					                // target service call
 									requestServiceCall({
 											url: config.rockfish_target_service_http_url, //URL
@@ -226,17 +235,17 @@ function rockfish_router_handler(request, response, serviceMethod) {
 											headers: {
 												 'ROCKFISH_SERVER': 'ROCKFISH-NODEJS'
 												,'ROCKFISH_ACCESS_INFO' : JSON.stringify(access)
-												,'ROCKFISH_ACCESS_IP': access_ip											
-												,'Content-Type': 'application/x-www-form-urlencoded'  
+												,'ROCKFISH_ACCESS_IP': access_ip
+												,'Content-Type': 'application/json; charset=utf-8'
 												,'Content-Length': POST.length
-												,'Cache-Control' : 'max-age=0'	
+												,'Cache-Control' : 'max-age=0'
 											},
 											encoding:'utf8',
 											form: POST
 										 }
 										, function (error, sresponse, body) {
 										// response
-										if (!error){											
+										if (!error){
 											if(sresponse.statusCode >= 200 && sresponse.statusCode < 400 ){
 												var resultObj = {
 													 ROCKFISH_RESULT_CODE : 'S'
@@ -262,7 +271,7 @@ function rockfish_router_handler(request, response, serviceMethod) {
 												        if (err) rockfish_logger.error(err);
 												    });
 											    }
-								
+
 												dresponse.writeHead(sresponse.statusCode, headers);
 												dresponse.write(JSON.stringify(resultObj));
 												dresponse.end();
@@ -301,8 +310,227 @@ function rockfish_router_handler(request, response, serviceMethod) {
 											dresponse.end();
 										}
 									});
-
 				            });
+						}else{ // Multipart Send
+
+							var form = new formidable.IncomingForm();
+							var fields = [];
+						    var files = [];
+
+						    form.multiples = true;
+						    form.keepExtensions = true;
+						    form.uploadDir = config.rockfish_file_upload_temp_path;
+						    form.maxFieldsSize = parseInt(config.rockfish_file_upload_max_field_size) * 1024 * 1024;
+						    var limitTotalFilesSize = parseInt(config.rockfish_file_upload_limit_total_files_size) * 1024 * 1024;
+
+
+						    var allowFileType = config.rockfish_file_upload_allow_file_type;
+						    var allowFileTypeArray = null;
+
+						    if(allowFileType != '*'){
+						    	allowFileTypeArray = allowFileType.toLowerCase().split(",");
+						    }
+
+						    form
+						      .on('field', function(field, value) {
+						        fields.push([field, value]);
+						      })
+						      .on('file', function(field, file) {
+						        files.push([field, file]);
+						      })
+						      .on('fileBegin', function(name,file) {
+
+
+						      	   if(allowFileTypeArray !== null && allowFileTypeArray.length > 0){
+
+						      	   		if(!(inArray(getFileType(file.name),allowFileTypeArray))){
+						      	   			//throw new Error('Not allow Upload File type');
+
+							      	   		//////////////////////////////////////////////////////////////////////
+							      	   		var resultObj = {
+												 ROCKFISH_RESULT_CODE : 'E'
+												,ROCKFISH_RESULT_MESSAGE : '[rockfish] Not allow Upload File type.'
+												,ROCKFISH_HTTP_STATUS_CODE : 500
+												,ROCKFISH_HTTP_STATUS_MESSAGE : 'Internal Server Error'
+											};
+
+											collection.update({
+									        _id: rockfishLog._id
+										    },{$set : {'RESPONSE' : resultObj,'RESPONSE_TIME' : new Date()}}, function(err, rockfishResponse){
+										        if (err) rockfish_logger.error(err);
+										    });
+
+											dresponse.writeHead(500, headers);
+											dresponse.write(JSON.stringify(resultObj));
+											dresponse.end();
+											//////////////////////////////////////////////////////////////////////
+
+											//TO-DO Temp File Delete
+						      	   		}
+						      	   }
+
+						      	   if(limitTotalFilesSize < form.bytesExpected){
+						      	   		//throw new Error('Upload File Size Limit');
+
+						      	   		//////////////////////////////////////////////////////////////////////
+						      	   		var resultObj = {
+											 ROCKFISH_RESULT_CODE : 'E'
+											,ROCKFISH_RESULT_MESSAGE : '[rockfish] Upload File Size Limit.'
+											,ROCKFISH_HTTP_STATUS_CODE : 500
+											,ROCKFISH_HTTP_STATUS_MESSAGE : 'Internal Server Error'
+										};
+
+										collection.update({
+								        _id: rockfishLog._id
+									    },{$set : {'RESPONSE' : resultObj,'RESPONSE_TIME' : new Date()}}, function(err, rockfishResponse){
+									        if (err) rockfish_logger.error(err);
+									    });
+
+										dresponse.writeHead(500, headers);
+										dresponse.write(JSON.stringify(resultObj));
+										dresponse.end();
+										//////////////////////////////////////////////////////////////////////
+
+										//TO-DO Temp File Delete
+						      	   }
+							  })
+						      .on('end', function() {
+
+						      	var encryptParameterArray = decryptStringWithRsaPrivateKey(drequest.headers.rockfish_encrypt_parameter).split('|^|');
+
+								if(encryptParameterArray !==null && encryptParameterArray !=='' && encryptParameterArray.length > 0){
+									if(fields !=null && fields != undefined && fields.length > 0){
+										for(var fix = 0;fix < fields.length;fix++){
+											if(inArray(fields[fix][0],encryptParameterArray)){
+						                		fields[fix][1] = decryptStringWithRsaPrivateKey(fields[fix][1]);
+					                		}
+										}
+									}
+				                }
+
+								if(config.rockfish_request_logging_use == 'Y'){
+									collection.update({
+							        _id: rockfishLog._id
+								    },{$set : {'REQUEST' : JSON.stringify(fields) }}, function(err, rockfishRequest){
+								        if (err) rockfish_logger.error(err);
+								    });
+								}
+
+								var access_ip = drequest.headers['X-Forwarded-For'] || drequest.connection.remoteAddress;
+
+								// target service call
+								var reqMulti = requestServiceCall({
+										url: config.rockfish_target_service_http_url_multipart, //URL
+										method: 'POST',
+										headers: {
+											 'ROCKFISH_SERVER': 'ROCKFISH-NODEJS'
+											,'ROCKFISH_ACCESS_INFO' : JSON.stringify(access)
+											,'ROCKFISH_ACCESS_IP': access_ip
+											,'Content-Type': false
+											,'Cache-Control' : 'max-age=0'
+										}
+									 }
+									, function (error, sresponse, body) {
+									// response
+									if (!error){
+										if(sresponse.statusCode >= 200 && sresponse.statusCode < 400 ){
+											var resultObj = {
+												 ROCKFISH_RESULT_CODE : 'S'
+												,ROCKFISH_RESULT_MESSAGE : statusMap[sresponse.statusCode]
+												,ROCKFISH_HTTP_STATUS_CODE : sresponse.statusCode
+												,ROCKFISH_HTTP_STATUS_MESSAGE : statusMap[sresponse.statusCode]
+											};
+
+											if(config.rockfish_response_logging_use !== 'Y'){
+												collection.update({
+											        _id: rockfishLog._id
+											    },{$set : {'RESPONSE' : resultObj,'RESPONSE_TIME' : new Date()}}, function(err, rockfishResponse){
+											        if (err) rockfish_logger.error(err);
+											    });
+										    }
+
+											resultObj.ROCKFISH_RESULT_JSON = body;
+
+											if(config.rockfish_response_logging_use == 'Y'){
+												collection.update({
+											        _id: rockfishLog._id
+											    },{$set : {'RESPONSE' : resultObj,'RESPONSE_TIME' : new Date()}}, function(err, rockfishResponse){
+											        if (err) rockfish_logger.error(err);
+											    });
+										    }
+
+											dresponse.writeHead(sresponse.statusCode, headers);
+											dresponse.write(JSON.stringify(resultObj));
+											dresponse.end();
+										}else{
+											var resultObj = {
+												 ROCKFISH_RESULT_CODE : 'E'
+												,ROCKFISH_RESULT_MESSAGE : statusMap[sresponse.statusCode]
+												,ROCKFISH_HTTP_STATUS_CODE : sresponse.statusCode
+												,ROCKFISH_HTTP_STATUS_MESSAGE : statusMap[sresponse.statusCode]
+											};
+
+											collection.update({
+									        _id: rockfishLog._id
+										    },{$set : {'RESPONSE' : resultObj,'RESPONSE_TIME' : new Date()}}, function(err, rockfishResponse){
+										        if (err) rockfish_logger.error(err);
+										    });
+
+											dresponse.writeHead(sresponse.statusCode, headers);
+											dresponse.write(JSON.stringify(resultObj));
+											dresponse.end();
+										}
+									}else{
+										error.ROCKFISH_RESULT_CODE = 'E';
+										error.ROCKFISH_RESULT_MESSAGE = '[rockfish] target service process error';
+										error.ROCKFISH_HTTP_STATUS_CODE = 500;
+										error.ROCKFISH_HTTP_STATUS_MESSAGE = 'Internal Server Error';
+
+										collection.update({
+								        _id: rockfishLog._id
+									    },{$set : {'RESPONSE' : error,'RESPONSE_TIME' : new Date()}}, function(err, rockfishResponse){
+									        if (err) rockfish_logger.error(err);
+									    });
+
+										dresponse.writeHead(500, headers);
+										dresponse.write(JSON.stringify(error));
+										dresponse.end();
+									}
+
+									if(files !=null && files != undefined && files.length > 0){
+										for(var fix = 0;fix < files.length;fix++){
+											fs.unlink((files[fix][1]).path, function (err) {
+											  if (err)  rockfish_logger.error('upload temp file delete Exception : '+err);
+											});
+										}
+									}
+								});
+
+								var form = reqMulti.form();
+								// Field Append
+								if(fields !=null && fields != undefined && fields.length > 0){
+									for(var fix = 0;fix < fields.length;fix++){
+										form.append(fields[fix][0], fields[fix][1]);
+									}
+								}
+
+								// File Append
+								if(files !=null && files != undefined && files.length > 0){
+									for(var fix = 0;fix < files.length;fix++){
+										try {
+										      form.append(files[fix][0], fs.createReadStream((files[fix][1]).path), {
+											  filename: (files[fix][1]).name,
+											  contentType: (files[fix][1]).type
+											});
+										}catch(err) {
+										    rockfish_logger.error('upload file read Exception : '+err);
+										}
+									}
+								}
+
+						      });
+						    form.parse(drequest);
+						}
 				    }else{
 						var resultObj = {
 							 ROCKFISH_RESULT_CODE : 'E'
@@ -330,15 +558,14 @@ function rockfish_router_handler(request, response, serviceMethod) {
 					,ROCKFISH_HTTP_STATUS_MESSAGE : 'Not Found'
 				};
 
-				dresponse.writeHead(404, headers);
-				dresponse.write(JSON.stringify(resultObj));
+				dresponse.writeHead(200, headers);
+				dresponse.write(resultObj);
 				dresponse.end();
-			}	
+			}
 		}
-
 	}catch(exception){
   		rockfish_logger.error('dynamicExecute Exception : '+exception);
-  	} 	
+  	}
 
   }, request, response, serviceMethod); // end of dynamicExecute(function(drequest, dresponse, dserviceMethod){
 
@@ -364,7 +591,7 @@ function inArray(needle, haystack) {
 }
 
 //■■■ rsa encrypt
-function encryptStringWithRsaPublicKey(toEncrypt) {  
+function encryptStringWithRsaPublicKey(toEncrypt) {
    try{
 	 if(toEncrypt === null || toEncrypt === '' || toEncrypt === undefined){
 	  	  return '';
@@ -375,7 +602,7 @@ function encryptStringWithRsaPublicKey(toEncrypt) {
 	  }
   }catch(exception){
   	rockfish_logger.error('encryptStringWithRsaPublicKey Exception : '+exception);
-  } 
+  }
 };
 
 //■■■ rsa decrypt
@@ -384,14 +611,29 @@ function decryptStringWithRsaPrivateKey(toDecrypt) {
 	 if(toDecrypt === null || toDecrypt === '' || toDecrypt === undefined){
 	  	 return '';
 	  }else{
-		 var buffer = new Buffer(toDecrypt, 'base64');		 
+		 var buffer = new Buffer(toDecrypt, 'base64');
 	  	 var decrypted = crypto.privateDecrypt({'key':privateKey,padding:constants.RSA_PKCS1_PADDING}, buffer);
 	  	 return decrypted.toString('utf8');
 	  }
   }catch(exception){
   	rockfish_logger.error('decryptStringWithRsaPrivateKey Exception : '+exception);
-  } 
+  }
 };
+
+//■■■ get file extension
+function getFileType(filePath){
+	var index = -1;
+		index = filePath.lastIndexOf('.');
+
+	var type = "";
+
+	if(index != -1){
+		type = filePath.substring(index+1, filePath.len).toLowerCase();
+	}else {
+		type = "";
+	}
+	return type;
+}
 
 //■■■ dynamic template function call (Non-Blocking process)
 function dynamicExecute(dynmaicFunction, request, response, serviceMethod) {

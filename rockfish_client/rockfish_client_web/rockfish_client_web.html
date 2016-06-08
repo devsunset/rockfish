@@ -8,6 +8,7 @@
 <html>
 	<title>rockfish_client_web</title>
 	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script  src="jsencrypt.js"></script>
 	<script  src="rockfish_client_web.js"></script>
@@ -15,14 +16,14 @@
 	<script>
 	$(document).ready(function() {
 
-		// Use sample     
-	   $("#send").click(function(e) {		
+		// Use sample
+	   $("#send").click(function(e) {
 
-	   		// Login시 cookie 값에 rockfish_access_id 설정 
+	   		// Login시 cookie 값에 rockfish_access_id 설정
 	   		rockfishSetCookie("rockfish_access_id",rockfishRsaEncrypt("rockfish"));
 
 			// Form value
-			var formData = $("#sendForm").serializeArray();	
+			var formData = $("#sendForm").serializeArray();
 
 			// User defined value or hidden value setting
 			var param = new Object();
@@ -30,14 +31,13 @@
 			param.value="123";
 			formData.push(param);
 
-
 			/**
 			 * <pre>
 			 * rockfish ajax Common call function
 			 * </pre>
 			 * @param service : 호출 service target
 			 * @param data : 호출 parameter
-			 * @param encdata : 암호화 설정 값 
+			 * @param encdata : 암호화 설정 값
 			 *					 ROCKFISH_PARAMETER_PLAIN (전체 평문)
 			 *					 ROCKFISH_PARAMETER_ENCRYPT (전체 암호화)
 			 *					 Array() field value (암호화 하고자 하는 field)
@@ -45,25 +45,46 @@
 			 * @param errorcallback : error callback 함수
 			 * @param loadingbar : 공통으로 progress bar 등을 사용하는 경우 호출 Action에 따라 표시 유무 설정
 			 * @param async : 동기화 여부 설정 기본은 true
+			 * @param attachField : 첨부파일 Array Field
+			 * @param attachFile : 첨부파일 Array Object
 			 *
-			 * ■■■ TO-DO 표시 항목에 대해서는 사용자가 요건에 맞게 정의 하여 사용 ■■■  
+			 * ■■■ TO-DO 표시 항목에 대해서는 사용자가 요건에 맞게 정의 하여 사용 ■■■
 			 *
 			 */
-			var encArray = new Array();					
+
+			// encrypt field
+			var encArray = new Array();
 			encArray.push("single");
 			encArray.push("multiple");
-			
+
+			// attach file
+			var attachField = new Array();
+			var attachFile = new Array();
+			// 파일이 선택 된 경우에만  attachFile 에 값을 설정
+			if( Object.prototype.toString.call($("input[name=uploadfile]")[0].files[0]) === '[object File]' ){
+				attachField.push("uploadfile");
+				attachFile.push($("input[name=uploadfile]")[0].files[0]);
+			}
+
+			if( Object.prototype.toString.call($("input[name=uploadfilesub]")[0].files[0]) === '[object File]' ){
+				attachField.push("uploadfilesub");
+				attachFile.push($("input[name=uploadfilesub]")[0].files[0]);
+			}
+
 			rockfishAjax("ROCKFISH", formData, encArray, function(response){
 			      // [정상 - 로직 구현]
 			      //alert(JSON.stringify(response));
 			      $("#result").val(JSON.stringify(response));
-				  
+				  alert("success");
 			    },function(status,error){
 			      // [에러 - 로직 구현]
 			    	alert(status +" : "+error);
-			    }, 
-			    true,  // 공통 progress 사용시 표시 여부 설정 
-			    true); // async 여부 설정 생략 가능 default async true
+			    }
+			    ,true  // 공통 progress 사용시 표시 여부 설정
+			    ,true  // async 여부 설정 생략 가능 default async true
+			    ,attachField
+				,attachFile
+			  );
 		});
 
 	});
@@ -71,7 +92,7 @@
 	</head>
 	<body>
 		<h1> --------------------------------------</h1>
-		<h1> ROCKFISH CLIENT WEB SAMPLE </h1>	
+		<h1> ROCKFISH CLIENT WEB SAMPLE </h1>
 		<h1> --------------------------------------</h1>
 		<form id="sendForm">
 		 <input type="text" name="text" value="text" id="text">
@@ -96,6 +117,10 @@
 			  <label for="r1">radio1</label>
 			  <input type="radio" name="radio" value="radio2" id="r2">
 			  <label for="r2">radio2</label>
+
+		  <p>
+		  <input type="file" name="uploadfile" />
+		  <input type="file" name="uploadfilesub" />
 		</form>
 		<h1> --------------------------------------</h1>
 		<button id="send" value="Send">Send</button><p>

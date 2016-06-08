@@ -43,7 +43,7 @@ function rockfish_https_server_start(rockfish_router_handler) {
    };
 
   // https process
-  function onHttpsRequest(request, response) {    
+  function onHttpsRequest(request, response) {
     rockfish_router_handler(request, response, 'HTTPS');
   }
   https.createServer(options, onHttpsRequest).listen(config.rockfish_https_port);

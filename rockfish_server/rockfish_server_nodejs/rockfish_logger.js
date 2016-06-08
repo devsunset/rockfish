@@ -23,7 +23,7 @@ rockfish_logger = new winston.Logger({
         }),
         new winston.transports.File({
             level: config.rockfish_file_log_level,
-            filename: './logs/rockfish-logs.log',
+            filename: config.rockfish_file_log_path_file,
             handleExceptions: true,
             json: true,
             maxsize: 5242880, //5MB

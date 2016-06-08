@@ -4,9 +4,15 @@
   "rockfish_https_port": 9999,
   "rockfish_http_path": "/rockfishController",
   "rockfish_mongodb_host": "localhost",
-  "rockfish_mongodb_port": 27017,  
+  "rockfish_mongodb_port": 27017,
   "rockfish_request_logging_use" : "Y",
   "rockfish_response_logging_use" : "Y",
   "rockfish_file_log_level" : "debug",
-  "rockfish_target_service_http_url": "http://localhost:8989/rockfish/rockfish_service.jsp"
+  "rockfish_file_log_path_file" : "./logs/rockfish-logs.log",
+  "rockfish_file_upload_temp_path" : "./temp/",
+  "rockfish_file_upload_limit_total_files_size" : 10,
+  "rockfish_file_upload_max_field_size" : 2,
+  "rockfish_file_upload_allow_file_type" : "jpg,png,bmp,txt,xls,xlsx",
+  "rockfish_target_service_http_url": "http://localhost:8989/rockfish/rockfish_service.jsp",
+  "rockfish_target_service_http_url_multipart": "http://localhost:8989/rockfish/rockfish_upload.jsp"
 }
