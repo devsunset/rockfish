@@ -7,7 +7,7 @@
 ## ■ rockfish client (Mobile)
    * rockfish client (web) - prototype
    * rockfish client (android) - TO-DO
-   * rockfish client (iphone) - TO-DO
+   * rockfish client (iphone) - TO-DO (SPEC DEFINE)
    
 ## ■ rockfish console
    * rockfish console (administrator) - TO-DO
@@ -19,10 +19,10 @@
 ## ■ rockfish service
    * rockfish service (web) - prototype
    * rockfish service (spring) - TO-DO
-   * rockfish service (play) - TO-DO
+   * rockfish service (play framework) - TO-DO
 
 ## ■ rockfish control 
-   * rockfish 인증(Authentication), 권한부여(Authorization), 접근제어(Access Control) - TO-DO
+   * rockfish (Authentication), (Authorization), (Access Control) - TO-DO
 
 ## ■ HAProxy or Nginx Load balancing
    * Load balancing setting - TO-DO
