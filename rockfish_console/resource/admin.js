@@ -4,23 +4,21 @@
  */
 
 var topMenu_data = [
-    {_id: "m01", label: '<i class="axi axi-windows"></i> 대시보드', url: "index.html", target: "_self"},
-    {_id: "m02", label: '<i class="axi axi-asterisk"></i> 서비스 관리', url: "content.html", target: "_self"},
-    {_id: "m03", label: '<i class="axi axi-sitemap"></i> 사용자 관리', url: "content-1.html", target: "_self"},
-    {_id: "m04", label: '<i class="axi axi-pagelines"></i> 서비스 호출 로그', url: "content-2.html", target: "_self"},
-    {_id: "m05", label: '<i class="axi axi-pagelines"></i> 서비스 호출 통계', url: "content-2.html", target: "_self"},
-    {_id: "m06", label: '<i class="axi axi-asterisk"></i> PUSH 관리', url: "content.html", target: "_self"},
-    {_id: "m07", label: '<i class="axi axi-archive"></i> PUSH 로그', url: "content.html", target: "_self"}
+    {_id: "m01", label: '<i class="axi axi-windows"></i> Dash Board', url: "index.html", target: "_self"},
+    {_id: "m02", label: '<i class="axi axi-asterisk"></i> Service 통계', url: "content.html", target: "_self"},
+    {_id: "m03", label: '<i class="axi axi-sitemap"></i> Service 로그', url: "content-1.html", target: "_self"},
+    {_id: "m04", label: '<i class="axi axi-pagelines"></i> Service 관리', url: "content-2.html", target: "_self"},
+    {_id: "m05", label: '<i class="axi axi-pagelines"></i> 사용자 관리', url: "content-2.html", target: "_self"},
+    {_id: "m06", label: '<i class="axi axi-pagelines"></i> 관리자 관리', url: "content-2.html", target: "_self"}
 ];
 
 var sideMenu_data = [
-    {_id: "m01", label: '<i class="axi axi-windows"></i> 대시보드', url: "index.html", target: "_self"},
-    {_id: "m02", label: '<i class="axi axi-asterisk"></i> 서비스 관리', url: "content.html", target: "_self"},
-    {_id: "m03", label: '<i class="axi axi-sitemap"></i> 사용자 관리', url: "content-1.html", target: "_self"},
-    {_id: "m04", label: '<i class="axi axi-pagelines"></i> 서비스 호출 로그', url: "content-2.html", target: "_self"},
-    {_id: "m05", label: '<i class="axi axi-pagelines"></i> 서비스 호출 통계', url: "content-2.html", target: "_self"},
-    {_id: "m06", label: '<i class="axi axi-asterisk"></i> PUSH 관리', url: "content.html", target: "_self"},
-    {_id: "m07", label: '<i class="axi axi-archive"></i> PUSH 로그', url: "content.html", target: "_self"}
+    {_id: "m01", label: '<i class="axi axi-windows"></i> Dash Board', url: "index.html", target: "_self"},
+    {_id: "m02", label: '<i class="axi axi-asterisk"></i> Service 통계', url: "content.html", target: "_self"},
+    {_id: "m03", label: '<i class="axi axi-sitemap"></i> Service 로그', url: "content-1.html", target: "_self"},
+    {_id: "m04", label: '<i class="axi axi-pagelines"></i> Service 관리', url: "content-2.html", target: "_self"},
+    {_id: "m05", label: '<i class="axi axi-pagelines"></i> 사용자 관리', url: "content-2.html", target: "_self"},
+    {_id: "m06", label: '<i class="axi axi-pagelines"></i> 관리자 관리', url: "content-2.html", target: "_self"}
 ];
 
 var topMenu = new AXTopDownMenu();
