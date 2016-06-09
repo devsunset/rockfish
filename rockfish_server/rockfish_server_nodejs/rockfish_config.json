@@ -3,6 +3,8 @@
   "rockfish_http_port": 8888,
   "rockfish_https_port": 9999,
   "rockfish_http_path": "/rockfishController",
+  "rockfish_http_path_download": "/rockfishDownloadController",
+  "rockfish_http_path_download_static": "/rockfishDownloadStaticController",
   "rockfish_mongodb_host": "localhost",
   "rockfish_mongodb_port": 27017,
   "rockfish_request_logging_use" : "Y",
@@ -12,7 +14,9 @@
   "rockfish_file_upload_temp_path" : "./temp/",
   "rockfish_file_upload_limit_total_files_size" : 10,
   "rockfish_file_upload_max_field_size" : 2,
-  "rockfish_file_upload_allow_file_type" : "jpg,png,bmp,txt,xls,xlsx",
+  "rockfish_file_upload_allow_file_type" : "jpg,png,bmp,txt,xls,xlsx,zip",
   "rockfish_target_service_http_url": "http://localhost:8989/rockfish/rockfish_service.jsp",
-  "rockfish_target_service_http_url_multipart": "http://localhost:8989/rockfish/rockfish_upload.jsp"
+  "rockfish_target_service_http_url_multipart": "http://localhost:8989/rockfish/rockfish_upload.jsp",
+  "rockfish_target_service_http_url_download": "http://localhost:8989/rockfish/rockfish_download.jsp",
+  "rockfish_target_service_http_url_download_static": "http://localhost:8989/rockfish/rockfish_download_static.jsp"
 }

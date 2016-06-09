@@ -16,9 +16,8 @@
 	<script>
 	$(document).ready(function() {
 
-		// Use sample
-	   $("#send").click(function(e) {
-
+		// Use sample General Send
+	   $("#sendG").click(function(e) {
 	   		// Login시 cookie 값에 rockfish_access_id 설정
 	   		rockfishSetCookie("rockfish_access_id",rockfishRsaEncrypt("rockfish"));
 
@@ -47,6 +46,63 @@
 			 * @param async : 동기화 여부 설정 기본은 true
 			 * @param attachField : 첨부파일 Array Field
 			 * @param attachFile : 첨부파일 Array Object
+			 * @param downolad : 다운로드 호출 설정
+			 *
+			 * ■■■ TO-DO 표시 항목에 대해서는 사용자가 요건에 맞게 정의 하여 사용 ■■■
+			 *
+			 */
+
+			// encrypt field
+			var encArray = new Array();
+			encArray.push("single");
+			encArray.push("multiple");
+
+			rockfishAjax("ROCKFISH", formData, encArray, function(response){
+			      // [정상 - 로직 구현]
+			      alert("success");
+			      //alert(JSON.stringify(response));
+			      $("#result").val(JSON.stringify(response));
+
+			    },function(status,error){
+			      // [에러 - 로직 구현]
+			    	alert(status +" : "+error);
+			    }
+			    ,true  // 공통 progress 사용시 표시 여부 설정
+			    ,true  // async 여부 설정 생략 가능 default async true
+			  );
+		});
+
+	   // Use sample Multipart
+	   $("#sendM").click(function(e) {
+	   		// Login시 cookie 값에 rockfish_access_id 설정
+	   		rockfishSetCookie("rockfish_access_id",rockfishRsaEncrypt("rockfish"));
+
+			// Form value
+			var formData = $("#sendForm").serializeArray();
+
+			// User defined value or hidden value setting
+			var param = new Object();
+			param.name="user_defined_value";
+			param.value="123";
+			formData.push(param);
+
+			/**
+			 * <pre>
+			 * rockfish ajax Common call function
+			 * </pre>
+			 * @param service : 호출 service target
+			 * @param data : 호출 parameter
+			 * @param encdata : 암호화 설정 값
+			 *					 ROCKFISH_PARAMETER_PLAIN (전체 평문)
+			 *					 ROCKFISH_PARAMETER_ENCRYPT (전체 암호화)
+			 *					 Array() field value (암호화 하고자 하는 field)
+			 * @param callback : success callback 함수
+			 * @param errorcallback : error callback 함수
+			 * @param loadingbar : 공통으로 progress bar 등을 사용하는 경우 호출 Action에 따라 표시 유무 설정
+			 * @param async : 동기화 여부 설정 기본은 true
+			 * @param attachField : 첨부파일 Array Field
+			 * @param attachFile : 첨부파일 Array Object
+			 * @param downolad : 다운로드 호출 설정
 			 *
 			 * ■■■ TO-DO 표시 항목에 대해서는 사용자가 요건에 맞게 정의 하여 사용 ■■■
 			 *
@@ -73,20 +129,77 @@
 
 			rockfishAjax("ROCKFISH", formData, encArray, function(response){
 			      // [정상 - 로직 구현]
+			      alert("success");
 			      //alert(JSON.stringify(response));
 			      $("#result").val(JSON.stringify(response));
-				  alert("success");
+
 			    },function(status,error){
 			      // [에러 - 로직 구현]
 			    	alert(status +" : "+error);
 			    }
 			    ,true  // 공통 progress 사용시 표시 여부 설정
 			    ,true  // async 여부 설정 생략 가능 default async true
-			    ,attachField
-				,attachFile
+			    ,attachField  // 첨부 파일 Field Arry
+				,attachFile  // 첨부 파일 Object Array
 			  );
 		});
 
+	   // Use sample Download
+	   $("#sendD").click(function(e) {
+	   		// Login시 cookie 값에 rockfish_access_id 설정
+	   		rockfishSetCookie("rockfish_access_id",rockfishRsaEncrypt("rockfish"));
+
+			// Form value
+			var formData = $("#sendForm").serializeArray();
+
+			// User defined value or hidden value setting
+			var param = new Object();
+			param.name="user_defined_value";
+			param.value="123";
+			formData.push(param);
+
+			/**
+			 * <pre>
+			 * rockfish ajax Common call function
+			 * </pre>
+			 * @param service : 호출 service target
+			 * @param data : 호출 parameter
+			 * @param encdata : 암호화 설정 값
+			 *					 ROCKFISH_PARAMETER_PLAIN (전체 평문)
+			 *					 ROCKFISH_PARAMETER_ENCRYPT (전체 암호화)
+			 *					 Array() field value (암호화 하고자 하는 field)
+			 * @param callback : success callback 함수
+			 * @param errorcallback : error callback 함수
+			 * @param loadingbar : 공통으로 progress bar 등을 사용하는 경우 호출 Action에 따라 표시 유무 설정
+			 * @param async : 동기화 여부 설정 기본은 true
+			 * @param attachField : 첨부파일 Array Field
+			 * @param attachFile : 첨부파일 Array Object
+			 * @param downolad : 다운로드 호출 설정
+			 *
+			 * ■■■ TO-DO 표시 항목에 대해서는 사용자가 요건에 맞게 정의 하여 사용 ■■■
+			 *
+			 */
+
+			// encrypt field
+			var encArray = new Array();
+			encArray.push("single");
+			encArray.push("multiple");
+
+			rockfishAjax("ROCKFISH", formData, encArray, function(response){
+			      // [정상 - 로직 구현]
+			      // IGNORE
+
+			    },function(status,error){
+			      // [에러 - 로직 구현]
+			    	alert(status +" : "+error);
+			    }
+			    ,true  // 공통 progress 사용시 표시 여부 설정
+			    ,true  // async 여부 설정 생략 가능 default async true
+			    ,null  // 첨부 파일 Field Arry
+				,null  // 첨부 파일 Object Array
+				,true  // 다운 로드 프로세스 여부
+			  );
+		});
 	});
 	</script>
 	</head>
@@ -123,8 +236,14 @@
 		  <input type="file" name="uploadfilesub" />
 		</form>
 		<h1> --------------------------------------</h1>
-		<button id="send" value="Send">Send</button><p>
+		<button id="sendG" value="sendG">General Send</button><p>
+		<button id="sendM" value="sendM">Multipart Send</button><p>
+		<button id="sendD" value="sendD">Download Send</button><p>
 		<h1> --------------------------------------</h1>
 		<textarea id="result" rows=10 cols=70></textarea>
+
+		<!-- Static File call -->
+		<img src="http://localhost:8888/rockfishDownloadStaticController?a=1&b=2">
+
 	</body>
 </html>

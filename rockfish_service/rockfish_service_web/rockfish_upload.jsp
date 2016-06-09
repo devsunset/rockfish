@@ -20,7 +20,7 @@
                redirectPort="8444"  maxPostSize="-1"/>
 */
 
-System.out.println("[ METHOD ] :"+request.getMethod());
+System.out.println("■■■■■■■■■■■■■■■ [ METHOD ] :"+request.getMethod() +" : MULTIPART");
 // HEADER
 Enumeration<String> em = request.getHeaderNames();
 System.out.println("■■■■■■■■■■■■■■■ request.getHeaderNames() ■■■■■■■■■■■■■■■");

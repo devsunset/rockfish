@@ -58,11 +58,12 @@ var ROCKFISH_RSA_JSENCRYPT = new JSEncrypt();
  * @param async : 동기화 여부 설정 기본은 true
  * @param attachField : 첨부파일 Array Field
  * @param attachFile : 첨부파일 Array Object
+ * @param downolad : 다운로드 호출 설정
  *
  * ■■■ TO-DO 표시 항목에 대해서는 사용자가 요건에 맞게 정의 하여 사용 ■■■
  *
  */
-function rockfishAjax(service, data, encdata, callback, errorcallback, loadingbar, async, attachField , attachFile){
+function rockfishAjax(service, data, encdata, callback, errorcallback, loadingbar, async, attachField , attachFile, downolad){
 	if(service === undefined || service === null || service.trim() == ""){
 		alert("error : service value is empty");
 		return;
@@ -73,9 +74,19 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 	//var url = "https://localhost:9999/rockfishController";
 	var url = "http://localhost:8888/rockfishController";
 
+	var downloadurl = "http://localhost:8888/rockfishDownloadController";
+
+	var rockfishSendType = "G";   // G : General  M : Multipart D : Download
+
+
 	if(typeof async === undefined){
 		async = true;
 	}
+
+	if(typeof downolad === undefined){
+		downolad = false;
+	}
+
 
 	var paramData = null;
 	var encryptParameter = "";
@@ -107,14 +118,11 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		}
     }
 
-    var generalRockfishSend = true;
-
-
-    if(attachField !== null && typeof attachField !== "undefined"
-    	&& attachFile !== null && typeof attachFile !== "undefined"
+    if(attachField !== null && typeof attachField !== 'undefined'
+    	&& attachFile !== null && typeof attachFile !== 'undefined'
     	&& attachField.length == attachFile.length){
 
-    	generalRockfishSend = false;
+    	rockfishSendType = "M";
 
     	if (window.File && window.FileList && window.Blob && window.FileReader && window.FormData) {
 		    var formData = new FormData();
@@ -139,8 +147,11 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		}
     }
 
+    if(downolad){
+    	rockfishSendType = "D";
+    }
 
-    if(generalRockfishSend){
+    if(rockfishSendType == "G"){
     	$.ajax({
 			type : "POST",
 			url : url,
@@ -158,13 +169,62 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	xhr.setRequestHeader("rockfish_ip", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_mac", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_phone", rockfishRsaEncrypt("-"));					// Ignore Web Client
+		    	xhr.setRequestHeader("rockfish_device", rockfishRsaEncrypt("-"));					// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_os", rockfishRsaEncrypt("BROWSER"));
 		    	xhr.setRequestHeader("rockfish_os_version", rockfishRsaEncrypt(navigator.appName));
 		    	xhr.setRequestHeader("rockfish_os_version_desc", rockfishRsaEncrypt(navigator.userAgent));
 		    	xhr.setRequestHeader("rockfish_target_service", rockfishRsaEncrypt(service));
 		    	xhr.setRequestHeader("rockfish_client_app", rockfishRsaEncrypt("rockfish")); 		 // TO-DO	Client App
 		    	xhr.setRequestHeader("rockfish_client_app_version", rockfishRsaEncrypt("v.0.0.1"));  // TO-DO	Client App Version
-		    	xhr.setRequestHeader("rockfish_multipart", rockfishRsaEncrypt("G"));
+		    	xhr.setRequestHeader("rockfish_send_type", rockfishRsaEncrypt("G"));
+		    	xhr.setRequestHeader("rockfish_encrypt_parameter", rockfishRsaEncrypt(encryptParameter));
+
+		    	// TO-DO COMMON PROGRESS START (EX : PROGRESSING BAR LOADING)  loadingbar true : false
+		    },
+		    complete: function() {
+		    	// TO-DO COMMON PROGRESS END (EX : PROGRESSING BAR CLOASE) loadingbar true : false
+		    },
+		    error : function(request, status, error) {
+		    	if(errorcallback !== null && typeof errorcallback !== "undefined"){
+		    		errorcallback(status,error);
+		    	}else{
+		    		// TO-DO  customer define
+			    	var errorMsg = 'status(code) : ' + request.status + '\n';
+				    errorMsg += 'statusText : ' + request.statusText + '\n';
+				    errorMsg += 'responseText : ' + request.responseText + '\n';
+				    errorMsg += 'textStatus : ' + status + '\n';
+				    errorMsg += 'errorThrown : ' + error;
+				    alert(errorMsg);
+		    	}
+		    }
+		});
+    }else if(rockfishSendType == "M"){
+    	$.ajax({
+			type : "POST",
+			url : url,
+			async : async,
+			cache : false,
+			processData : false,
+		    data : paramData,
+			crossDomain : true,
+		    contentType: false,
+		    success : function(response, status, request) {
+		    	callback(response);
+		    },
+		    beforeSend: function(xhr) {
+		    	/* ROCKFISH CUSTMOMER HEADER*/
+		    	xhr.setRequestHeader("rockfish_access_id", rockfishGetCookie("rockfish_access_id"));
+		    	xhr.setRequestHeader("rockfish_ip", rockfishRsaEncrypt("-"));						// Ignore Web Client
+		    	xhr.setRequestHeader("rockfish_mac", rockfishRsaEncrypt("-"));						// Ignore Web Client
+		    	xhr.setRequestHeader("rockfish_phone", rockfishRsaEncrypt("-"));					// Ignore Web Client
+		    	xhr.setRequestHeader("rockfish_device", rockfishRsaEncrypt("-"));					// Ignore Web Client
+		    	xhr.setRequestHeader("rockfish_os", rockfishRsaEncrypt("BROWSER"));
+		    	xhr.setRequestHeader("rockfish_os_version", rockfishRsaEncrypt(navigator.appName));
+		    	xhr.setRequestHeader("rockfish_os_version_desc", rockfishRsaEncrypt(navigator.userAgent));
+		    	xhr.setRequestHeader("rockfish_target_service", rockfishRsaEncrypt(service));
+		    	xhr.setRequestHeader("rockfish_client_app", rockfishRsaEncrypt("rockfish")); 		 // TO-DO	Client App
+		    	xhr.setRequestHeader("rockfish_client_app_version", rockfishRsaEncrypt("v.0.0.1"));  // TO-DO	Client App Version
+		    	xhr.setRequestHeader("rockfish_send_type", rockfishRsaEncrypt("M"));
 		    	xhr.setRequestHeader("rockfish_encrypt_parameter", rockfishRsaEncrypt(encryptParameter));
 
 		    	// TO-DO COMMON PROGRESS START (EX : PROGRESSING BAR LOADING)  loadingbar true : false
@@ -192,12 +252,21 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 			url : url,
 			async : async,
 			cache : false,
-			processData : false,
 		    data : paramData,
 			crossDomain : true,
-		    contentType: false,
 		    success : function(response, status, request) {
-		    	callback(response);
+		    	rockfishAjaxDownload(downloadurl,response.ROCKFISH_RESULT_JSON);
+		    	/*
+		    	var contTypeDisposition = request.getResponseHeader ("Content-Disposition");
+		    	if (contTypeDisposition && contTypeDisposition.indexOf("=") !== -1) {
+		    		var filename = contTypeDisposition.substring(contTypeDisposition.indexOf("=")+1,contTypeDisposition.length);
+		    		var blob = new Blob([response], {type: "octet/stream"});
+		    		var link=document.createElement('a');
+		            link.href=window.URL.createObjectURL(blob);
+		            link.download=filename;
+		            link.click();
+	            }
+	            */
 		    },
 		    beforeSend: function(xhr) {
 		    	/* ROCKFISH CUSTMOMER HEADER*/
@@ -205,13 +274,14 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	xhr.setRequestHeader("rockfish_ip", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_mac", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_phone", rockfishRsaEncrypt("-"));					// Ignore Web Client
+		    	xhr.setRequestHeader("rockfish_device", rockfishRsaEncrypt("-"));					// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_os", rockfishRsaEncrypt("BROWSER"));
 		    	xhr.setRequestHeader("rockfish_os_version", rockfishRsaEncrypt(navigator.appName));
 		    	xhr.setRequestHeader("rockfish_os_version_desc", rockfishRsaEncrypt(navigator.userAgent));
 		    	xhr.setRequestHeader("rockfish_target_service", rockfishRsaEncrypt(service));
 		    	xhr.setRequestHeader("rockfish_client_app", rockfishRsaEncrypt("rockfish")); 		 // TO-DO	Client App
 		    	xhr.setRequestHeader("rockfish_client_app_version", rockfishRsaEncrypt("v.0.0.1"));  // TO-DO	Client App Version
-		    	xhr.setRequestHeader("rockfish_multipart", rockfishRsaEncrypt("M"));
+		    	xhr.setRequestHeader("rockfish_send_type", rockfishRsaEncrypt("D"));
 		    	xhr.setRequestHeader("rockfish_encrypt_parameter", rockfishRsaEncrypt(encryptParameter));
 
 		    	// TO-DO COMMON PROGRESS START (EX : PROGRESSING BAR LOADING)  loadingbar true : false
@@ -233,7 +303,6 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	}
 		    }
 		});
-
     }
 };
 
@@ -302,4 +371,41 @@ function rockfishGetCookie(cName) {
         cValue = cookieData.substring(start, end);
     }
     return unescape(cValue);
+}
+
+/**
+ * <pre>
+ * download action
+ * </pre>
+ * @param url : download url
+ * @param data : json object
+ *
+ */
+function rockfishAjaxDownload(url, data) {
+    var $iframe;
+    var iframe_doc;
+    var iframe_html;
+
+    if (($iframe = $('#download_iframe')).length === 0) {
+        $iframe = $("<iframe id='download_iframe'" +
+                    " style='display: none' src='about:blank'></iframe>"
+                   ).appendTo("body");
+    }
+
+    iframe_doc = $iframe[0].contentWindow || $iframe[0].contentDocument;
+    if (iframe_doc.document) {
+        iframe_doc = iframe_doc.document;
+    }
+
+    iframe_html = "<html><head></head><body><form method='POST' action='" + url +"'>";
+
+    Object.keys(data).forEach(function(key){
+        iframe_html += "<input type='hidden' name='"+key+"' value='"+rockfishRsaEncrypt(data[key])+"'>";
+    });
+
+    iframe_html +="</form></body></html>";
+
+    iframe_doc.open();
+    iframe_doc.write(iframe_html);
+    $(iframe_doc).find('form').submit();
 }
