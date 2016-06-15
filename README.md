@@ -7,7 +7,7 @@
    Server -> (HAProxy or Nginx Load balancing) ->
    Service
 
-## ■ rockfish client (Mobile)
+## ■ rockfish client
    * rockfish client (web) - prototype
    * rockfish client (android) - TO-DO
    * rockfish client (iphone) - TO-DO
