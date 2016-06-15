@@ -22,8 +22,8 @@
    * rockfish service (web) - prototype
    * rockfish service (spring) - TO-DO
 
-## ■ rockfish control
+## ■ rockfish setting   
+   * rockfish control
    * rockfish (Authentication), (Authorization), (Access Control) - TO-DO
-
-## ■ HAProxy or Nginx Load balancing 
+   * HAProxy or Nginx Load balancing 
    * Load balancing setting - TO-DO 

@@ -47,10 +47,3 @@ windows openssl use
 >> set OPENSSL_CONF=C:\OpenSSL-Win64\bin\openssl.cfg
 >> openssl genrsa -out privkey.pem 2048
 >> openssl rsa -in privkey.pem -pubout -out pubkey.pem
-
-■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-■■■ client crul ■■■
-
-curl -d "a=1&b=2" http://localhost:8888/rockfishController?para=123
-
-curl -k -d "a=1&b=2" https://localhost:9999/rockfishController?para=123
