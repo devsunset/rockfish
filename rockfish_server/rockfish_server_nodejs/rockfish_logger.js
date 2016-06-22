@@ -4,16 +4,10 @@
 /* desc     : rockfish middleware server (logger)
 /*■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
 
-//■■■ require winston(winston module)
 var winston = require('winston');
-
-//■■■ require moment(moment module)
 var moment = require('moment');
-
-//■■■ require config.json (config module)
 var config = require('config.json')('./rockfish_config.json');
 
-//■■■ rockfish logger
 rockfish_logger = new winston.Logger({
     transports: [
         new (winston.transports.Console)({
@@ -33,5 +27,4 @@ rockfish_logger = new winston.Logger({
     ]
 });
 
-//■■■ exports rockfish_logger
 module.exports = rockfish_logger;

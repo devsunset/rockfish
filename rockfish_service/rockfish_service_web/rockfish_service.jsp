@@ -25,10 +25,12 @@
 
 	String rv = "";
 	rv += "{";
+
 	while (params.hasMoreElements()){
 		String name = (String)params.nextElement();
 		System.out.println(name + " : " +request.getParameter(name));
 		rv += "'"+name+"' : '"+request.getParameter(name)+"',";
+
 		if("LOCK".equals(name)){
 			System.out.println("■■■■■■■■■■■■■■■ LOCK START");
 			Thread.sleep(9000); // sleep 9 seconds

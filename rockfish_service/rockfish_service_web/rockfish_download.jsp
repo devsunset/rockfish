@@ -18,12 +18,8 @@
 	FileInputStream is = null;
 	ServletOutputStream sos = null;
 
-	ServletContext scontext = getServletContext();
-	String savefile = "attach";
-	String realFolder = scontext.getRealPath(savefile);
-
 	try{
-		file = new File(realFolder+File.separator+"download.zip");
+		file = new File("/rockfish/attach/"+"download.zip");
 		byte b[] = new byte[4096];
 
 		response.reset();

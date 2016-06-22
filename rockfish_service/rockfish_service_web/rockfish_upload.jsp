@@ -13,13 +13,6 @@
 <%@ page import="org.apache.commons.fileupload.disk.DiskFileItemFactory"%>
 <%@ page import="org.apache.commons.fileupload.*"%>
 <%
-/*
-	server.xml  maxPostSize setting
-    <Connector port="8989" protocol="HTTP/1.1"
-               connectionTimeout="20000"
-               redirectPort="8444"  maxPostSize="-1"/>
-*/
-
 System.out.println("■■■■■■■■■■■■■■■ [ METHOD ] :"+request.getMethod() +" : MULTIPART");
 // HEADER
 Enumeration<String> em = request.getHeaderNames();
@@ -30,17 +23,6 @@ while(em.hasMoreElements()){
     System.out.println(name + " : " + val) ;
 }
 
-/*
-	InputStream in=request.getInputStream();
-	byte[] ch=new byte[100];
-	int len=0;
-
-	while((len=in.read(ch))>-1) {
-		System.out.println(new String(ch,0,len));
-	}
-	in.close();
-*/
-
 boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
 if (isMultipart) {
@@ -50,10 +32,6 @@ if (isMultipart) {
 	upload.setHeaderEncoding("utf-8");
 
 	List items = null;
-
-	ServletContext scontext = getServletContext();
-	String savefile = "attach";
-	String realFolder = scontext.getRealPath(savefile);
 
 	try {
 		items = upload.parseRequest(request);
@@ -70,14 +48,13 @@ if (isMultipart) {
 		if (item.isFormField()) {
 			String name = item.getFieldName();
 			String value = new String(item.getString().getBytes("8859_1"),"utf-8");
-			//String value = item.getString();
 			rv += "'"+name+"' : '"+value+"',";
 		} else {
 			try {
 					String itemName = item.getName();
 					if(itemName !=null && !"".equals(itemName)){
 						File root=File.listRoots()[0];
-						File f = new File(realFolder+"\\"+itemName);
+						File f = new File("/rockfish/attach/"+itemName);
 						f.setWritable(true);
 						f.setReadable(true);
 						item.write(f);

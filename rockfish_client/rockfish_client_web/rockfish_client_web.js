@@ -73,7 +73,6 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 	// HTTPS 사용시 self-sign에 따른 오류 발생 - 공인 인증서 사용하면 HTTPS 사용 가능
 	//var url = "https://localhost:9999/rockfishController";
 	var url = "http://localhost:8888/rockfishController";
-
 	var downloadurl = "http://localhost:8888/rockfishDownloadController";
 
 	var rockfishSendType = "G";   // G : General  M : Multipart D : Download

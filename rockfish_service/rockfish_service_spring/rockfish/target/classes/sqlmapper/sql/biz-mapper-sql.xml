@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="biz">
+	<select id="selectRockfish" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				 IDX
+				,TEMP1
+				,TEMP2
+				,TEMP3
+			FROM
+				TB_ROCKFISH
+			WHERE
+				IDX = #{IDX}		
+		]]>
+	</select>
+	
+	<select id="selectRockfishList" parameterType="hashmap" resultType="hashmap">
+		<!-- <include refid="common.pagingPre"/>  -->
+		<![CDATA[		  
+		  SELECT *
+		  FROM  TB_ROCKFISH
+		  WHERE	IDX > #{IDX}	
+		]]>
+		
+		<!-- SELECT  @rnum :=@rnum +1 AS ROW_NUMBER, 
+			 TB_ROCKFISH.*
+			 FROM (SELECT @rnum :=0) r, TB_ROCKFISH
+			ORDER BY IDX DESC -->
+			
+		<!-- <include refid="common.pagingPost"/>  -->
+	</select>
+	
+	<insert id="insertRockfish" parameterType="hashmap" useGeneratedKeys="true" keyProperty="IDX">
+		<![CDATA[
+			INSERT INTO TB_ROCKFISH
+			(
+			     TEMP1
+			    ,TEMP2
+			    ,TEMP3
+			)
+			VALUES
+			(
+				 #{TEMP1}
+				,#{TEMP2}
+				,#{TEMP3}
+			)
+		]]>
+	</insert>
+	
+	<update id="updateRockfish" parameterType="hashmap">
+		<![CDATA[
+			UPDATE TB_ROCKFISH 
+			SET
+				 TEMP1 = #{TEMP1}
+				,TEMP2 = #{TEMP2}
+				,TEMP3 = #{TEMP3}
+			WHERE
+				IDX = #{IDX}	
+		]]>
+	</update>
+	
+	<delete id="deleteRockfish" parameterType="hashmap">
+		<![CDATA[
+			DELETE FROM TB_ROCKFISH
+			WHERE IDX = #{IDX}
+		]]>
+	</delete>
+</mapper>

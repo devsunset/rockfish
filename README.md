@@ -2,6 +2,8 @@
 
    Easy Simple Mobile Middleware
 
+   Non-Bolcking Proxy Process
+
 ## Process Flow
    Client -> (HAProxy or Nginx Load balancing) ->
    Server -> (HAProxy or Nginx Load balancing) ->

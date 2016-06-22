@@ -2,14 +2,14 @@
   "name": "rockfish_server_nodejs",
   "version": "0.0.0",
   "dependencies": {
-    "config.json": "~0.0.4",
-	"formidable": "~1.0.17",
-    "moment": "~2.13.0",
-    "mongodb": "^2.1.18",
-    "monk": "^1.0.1",
-    "request": "~2.72.0",
-    "winston": "~2.2.0",
-    "node-uuid": "~1.4.7"
+  "config.json": "~0.0.4",
+  "formidable": "~1.0.17",
+  "moment": "~2.13.0",
+  "mongodb": "^2.1.18",
+  "monk": "^1.0.1",
+  "request": "~2.72.0",
+  "winston": "~2.2.0",
+  "node-uuid": "~1.4.7"
   },
   "author": {
     "name": "devsunset",
