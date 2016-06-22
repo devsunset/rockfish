@@ -29,7 +29,7 @@
    * rockfish service (play) - TO-DO
 
 ## ■ rockfish setting   
-   # rockfish (Authentication), (Authorization), (Access Control) 
+   * rockfish (Authentication), (Authorization), (Access Control) 
    * rockfish control - TO-DO   
-   # HAProxy or Nginx Load balancing 
+   * HAProxy or Nginx Load balancing 
    * Load balancing setting - TO-DO 
