@@ -12,8 +12,8 @@
   "rockfish_request_logging_use" : "Y",
   "rockfish_response_logging_use" : "Y",
   "rockfish_file_log_level" : "debug",
-  "rockfish_file_log_path_file" : "/rockfish/logs/rockfish-server-nodejs-logs.log",
-  "rockfish_file_upload_temp_path" : "/rockfish/attach_temp/",
+  "rockfish_file_log_path_file" : "/home/devsunset/devrepo/rockfish/logs/rockfish-server-nodejs-logs.log",
+  "rockfish_file_upload_temp_path" : "/home/devsunset/devrepo/rockfish/attach_temp/",
   "rockfish_file_upload_limit_total_files_size" : 10,
   "rockfish_file_upload_max_field_size" : 2,
   "rockfish_file_upload_allow_file_type" : "jpg,png,bmp,txt,xls,xlsx,zip"
