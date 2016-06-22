@@ -72,7 +72,7 @@
     
     <!-- 기본 출력 설정 -->
     <root>
-        <level value="DEBUG" />
+        <level value="INFO" />
         <appender-ref ref="console" />
         <appender-ref ref="errFile"/>
         <!-- <appender-ref ref="rollingFile"/> -->
