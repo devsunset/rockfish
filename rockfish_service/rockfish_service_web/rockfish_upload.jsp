@@ -54,7 +54,7 @@ if (isMultipart) {
 					String itemName = item.getName();
 					if(itemName !=null && !"".equals(itemName)){
 						File root=File.listRoots()[0];
-						File f = new File("/rockfish/attach/"+itemName);
+						File f = new File("/home/devsunset/devrepo/rockfish/attach/"+itemName);
 						f.setWritable(true);
 						f.setReadable(true);
 						item.write(f);

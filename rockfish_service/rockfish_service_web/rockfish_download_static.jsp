@@ -19,7 +19,7 @@
 	ServletOutputStream sos = null;
 
 	try{
-		file = new File("/rockfish/attach/"+"download.jpg");
+		file = new File("/home/devsunset/devrepo/rockfish/attach/"+"download.jpg");
 		byte b[] = new byte[4096];
 
 		response.reset();

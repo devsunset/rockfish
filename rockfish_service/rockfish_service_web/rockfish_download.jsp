@@ -19,7 +19,7 @@
 	ServletOutputStream sos = null;
 
 	try{
-		file = new File("/rockfish/attach/"+"download.zip");
+		file = new File("/home/devsunset/devrepo/rockfish/attach/"+"download.zip");
 		byte b[] = new byte[4096];
 
 		response.reset();
