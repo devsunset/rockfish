@@ -169,6 +169,7 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	xhr.setRequestHeader("rockfish_mac", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_phone", rockfishRsaEncrypt("-"));					// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_device", rockfishRsaEncrypt("-"));					// Ignore Web Client
+				xhr.setRequestHeader("rockfish_imei", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_os", rockfishRsaEncrypt("BROWSER"));
 		    	xhr.setRequestHeader("rockfish_os_version", rockfishRsaEncrypt(navigator.appName));
 		    	xhr.setRequestHeader("rockfish_os_version_desc", rockfishRsaEncrypt(navigator.userAgent));
@@ -217,6 +218,7 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	xhr.setRequestHeader("rockfish_mac", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_phone", rockfishRsaEncrypt("-"));					// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_device", rockfishRsaEncrypt("-"));					// Ignore Web Client
+				xhr.setRequestHeader("rockfish_imei", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_os", rockfishRsaEncrypt("BROWSER"));
 		    	xhr.setRequestHeader("rockfish_os_version", rockfishRsaEncrypt(navigator.appName));
 		    	xhr.setRequestHeader("rockfish_os_version_desc", rockfishRsaEncrypt(navigator.userAgent));
@@ -274,6 +276,7 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	xhr.setRequestHeader("rockfish_mac", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_phone", rockfishRsaEncrypt("-"));					// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_device", rockfishRsaEncrypt("-"));					// Ignore Web Client
+				xhr.setRequestHeader("rockfish_imei", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_os", rockfishRsaEncrypt("BROWSER"));
 		    	xhr.setRequestHeader("rockfish_os_version", rockfishRsaEncrypt(navigator.appName));
 		    	xhr.setRequestHeader("rockfish_os_version_desc", rockfishRsaEncrypt(navigator.userAgent));

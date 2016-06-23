@@ -9,6 +9,7 @@
   "rockfish_mongodb_port": 27017,
   "rockfish_mongodb_username": "rockfish",
   "rockfish_mongodb_password": "rockfish",
+  "rockfish_service_master_change_apply_time" : 15000,
   "rockfish_request_logging_use" : "Y",
   "rockfish_response_logging_use" : "Y",
   "rockfish_file_log_level" : "debug",

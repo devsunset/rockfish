@@ -86,6 +86,7 @@ var access_control_allow_headers =  'Content-Type';
 	access_control_allow_headers += ',rockfish_mac';
 	access_control_allow_headers += ',rockfish_phone';
 	access_control_allow_headers += ',rockfish_device';
+	access_control_allow_headers += ',rockfish_imei';
 	access_control_allow_headers += ',rockfish_os';
 	access_control_allow_headers += ',rockfish_os_version';
 	access_control_allow_headers += ',rockfish_os_version_desc';
@@ -127,6 +128,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 			if(SERVICE_TARGET == null
 				&& url_partsCheck.pathname != config.rockfish_http_path_download
 				&& url_partsCheck.pathname != config.rockfish_http_path_download_static){
+
 					var resultObj = {
 						 ROCKFISH_RESULT_CODE : 'E'
 						,ROCKFISH_RESULT_MESSAGE : '[rockfish] Target Service is not found.'
@@ -135,7 +137,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 					};
 					dresponse.writeHead(404, headers);
 					dresponse.write(JSON.stringify(resultObj));
-					dresponse.end();
+					dresponse.end();				
 			}else{
 
 				if(url_partsCheck.pathname === config.rockfish_http_path){
@@ -145,6 +147,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 						,ROCKFISH_MAC : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_mac)
 						,ROCKFISH_PHONE : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_phone)
 						,ROCKFISH_DEVICE : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_device)
+						,ROCKFISH_IMEI : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_imei)
 						,ROCKFISH_OS : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_os)
 						,ROCKFISH_OS_VERSION : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_os_version)
 						,ROCKFISH_OS_VERSION_DESC : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_os_version_desc)
