@@ -15,6 +15,7 @@
    * rockfish client (iphone) - TO-DO
    
 ## ■ rockfish console
+   * rockfish console ui (AXU & axijs) - TO-DO   
    * rockfish console (nodejs) - TO-DO   
    * rockfish console (python) - TO-DO   
    * rockfish console (ruby) - TO-DO
