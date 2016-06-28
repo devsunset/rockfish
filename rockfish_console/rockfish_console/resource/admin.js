@@ -4,21 +4,23 @@
  */
 
 var topMenu_data = [
-    {_id: "m01", label: '<i class="axi axi-windows"></i> Dash Board', url: "index.html", target: "_self"},
-    {_id: "m02", label: '<i class="axi axi-asterisk"></i> Service 통계', url: "content.html", target: "_self"},
-    {_id: "m03", label: '<i class="axi axi-sitemap"></i> Service 로그', url: "content-1.html", target: "_self"},
-    {_id: "m04", label: '<i class="axi axi-pagelines"></i> Service 관리', url: "content-2.html", target: "_self"},
-    {_id: "m05", label: '<i class="axi axi-pagelines"></i> 사용자 관리', url: "content-2.html", target: "_self"},
-    {_id: "m06", label: '<i class="axi axi-pagelines"></i> 관리자 관리', url: "content-2.html", target: "_self"}
+    {_id: "m01", label: '<i class="axi axi-windows"></i> DashBoard', url: "dashboard.html", target: "_self"},
+    {_id: "m02", label: '<i class="axi axi-asterisk"></i> Monitoring', url: "montoring.html", target: "_self"},
+    {_id: "m03", label: '<i class="axi axi-asterisk"></i> Log', url: "log.html", target: "_self"},
+    {_id: "m04", label: '<i class="axi axi-pagelines"></i> Service', url: "service.html", target: "_self"},
+    {_id: "m05", label: '<i class="axi axi-pagelines"></i> Setting', url: "setting.html", target: "_self"},
+    {_id: "m06", label: '<i class="axi axi-sitemap"></i> Admin', url: "admin.html", target: "_self"},
+    {_id: "m07", label: '<i class="axi axi-sitemap"></i> User', url: "user.html", target: "_self"}
 ];
 
 var sideMenu_data = [
-    {_id: "m01", label: '<i class="axi axi-windows"></i> Dash Board', url: "index.html", target: "_self"},
-    {_id: "m02", label: '<i class="axi axi-asterisk"></i> Service 통계', url: "content.html", target: "_self"},
-    {_id: "m03", label: '<i class="axi axi-sitemap"></i> Service 로그', url: "content-1.html", target: "_self"},
-    {_id: "m04", label: '<i class="axi axi-pagelines"></i> Service 관리', url: "content-2.html", target: "_self"},
-    {_id: "m05", label: '<i class="axi axi-pagelines"></i> 사용자 관리', url: "content-2.html", target: "_self"},
-    {_id: "m06", label: '<i class="axi axi-pagelines"></i> 관리자 관리', url: "content-2.html", target: "_self"}
+    {_id: "m01", label: '<i class="axi axi-windows"></i> DashBoard', url: "dashboard.html", target: "_self"},
+    {_id: "m02", label: '<i class="axi axi-asterisk"></i> Monitoring', url: "montoring.html", target: "_self"},
+    {_id: "m03", label: '<i class="axi axi-asterisk"></i> Log', url: "log.html", target: "_self"},
+    {_id: "m04", label: '<i class="axi axi-pagelines"></i> Service', url: "service.html", target: "_self"},
+    {_id: "m05", label: '<i class="axi axi-pagelines"></i> Setting', url: "setting.html", target: "_self"},
+    {_id: "m06", label: '<i class="axi axi-sitemap"></i> Admin', url: "admin.html", target: "_self"},
+    {_id: "m07", label: '<i class="axi axi-sitemap"></i> User', url: "user.html", target: "_self"}
 ];
 
 var topMenu = new AXTopDownMenu();

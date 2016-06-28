@@ -1,76 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!-- include head -->
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="No-Cache"> 
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
-
 	 <title>Rockfish Console</title>
-
 	<link rel="shortcut icon" href="http://dev.axisj.com/ui/axisj.ico" type="image/x-icon" />
 	<link rel="icon" href="http://dev.axisj.com/ui/axisj.ico" type="image/x-icon" />
-
 	<link rel="stylesheet" type="text/css" href="http://cdno.axisj.com/axicon/axicon.min.css" />
-	<link rel="stylesheet" type="text/css" href="http://cdno.axisj.com/axisj/ui/kakao/AXJ.min.css" id="axu-theme-axisj" />
-
+	<link rel="stylesheet" type="text/css" href="http://cdno.axisj.com/axisj/ui/cocker/AXJ.min.css" id="axu-theme-axisj" />
 	<script type="text/javascript" src="http://cdno.axisj.com/axisj/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="http://cdno.axisj.com/axisj/dist/AXJ.min.js"></script>
-
 	<link rel="stylesheet" href="ui/cacao/admin.css" id="axu-theme-admin" />
 	<link rel="stylesheet" href="ui/custom.css" />
-
-    <script type="text/javascript" src="resource/admin.js"></script>
 	<script type="text/javascript" src="resource/Chart.min.js"></script>
+	<!-- include head -->
 </head>
+<script type="text/javascript" language="javascript">
+        $(document).ready(function() {
+            $('#site_header').load('include/include_header.html');
+            $('#site_left').load('include/include_left.html');
+            $('#site_footer').load('include/include_footer.html');
+        });
+</script>
 <body>
 <div id="AXPage">
-	<!-- ax-header: include -->
-	<div class="ax-header">
-		<div class="ax-wrap">
-			<div class="ax-layer">
-				<div class="ax-col-12">
-					<div class="ax-unit">
-						<div class="ax-logo">
-							<a href="index.html"><span class="logo-img"><i class="axi axi-axisj"></i></span><span class="logo-txt">Rockfish Console</span></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="ax-layer">
-				<div class="ax-col-8">
-					<div class="ax-unit">
-                        <!-- 상단 top-down-menu 표시 영역 : s-->
-						<div id="ax-top-menu" class="ax-top-menu AXMenuBox"></div>
-                        <!-- e : 상단 top-down-menu 표시 영역 -->
-                        <div class="mx-top-menu"><a id="mx-top-menu-handle" class="mx-menu-button"><i class="axi axi-th"></i></a></div>
-					</div>
-				</div>
-				<div class="ax-col-4">
-					<div class="ax-unit">
-						<ul class="ax-loginfo" id="ax-loginfo">
-							<li class="profile"><div class="photo"></div></li>
-							<li class="account"><a href="#ax">rockfish</a></li>
-							<li class="btns"><a href="#ax" class="AXButton" onclick="location.href = 'login.html';"><i class="axi axi-power-off"></i> 로그아웃</a></li>
-							<!--li class="lang"><a href="#ax"><i class="axi axi-keyboard-o"></i> 한국어</a></li-->
-						</ul>
-						<div class="mx-loginfo"><a id="mx-loginfo-handle" class="mx-menu-button"><i class="axi axi-bars"></i></a></div>
-					</div>
-				</div>
-				<div class="ax-clear"></div>
-			</div>
-		</div>
-	</div>
-	<div class="H60"></div>
+	 <!-- ax-header: include -->
+    <div id="site_header"></div>
     <!-- e ax-header : include -->
-
 
 	<div class="ax-body">
 		<div class="ax-wrap">
 
 			<div class="ax-layer ax-title">
 				<div class="ax-col-12 ax-content">
-					<h1>대시보드</h1>
-					<p class="desc">웹 사이트의 전체적인 상황을 추척하고 보여줍니다.</p>
+					<h1>Rockfish Dashboard</h1>
+					<p class="desc">Rockfish Middleware DashBoard</p>
 				</div>
 				<div class="ax-clear"></div>
 			</div>
@@ -85,100 +54,60 @@
 								<div class="ax-unit">
 									<div class="ax-box sample-01">
 										<div class="ax-box-wrap">
-											<h1>
-												Inline 테이블
-												<a href="#" class="more">more <i class="axi axi-external-link-square"></i></a>
-											</h1>
-											<p>
-												테이블의 기본 형을 정의 합니다.<br />
-											</p>
+											<h3>
+												Top 5 - App Call Service Summary (1Week)
+												<!-- <a href="#" class="more">more <i class="axi axi-external-link-square"></i></a> -->
+											</h3>
 											<table cellpadding="0" cellspacing="0" class="AXGridTable">
 												<colgroup>
-													<col width="60" />
+													<col width="250" />
 													<col />
-													<col width="50" />
-													<col />
-													<col width="50" />
-													<col />
+													<col width="100" />
 												</colgroup>
 												<thead>
 												<tr>
 													<td>
 														<div class="tdRel">
-															&nbsp;
+															App Name
 														</div>
 													</td>
-													<td colspan="2">
+													<td>
 														<div class="tdRel">
-															발생건수
+															Call Service Count
 														</div>
 													</td>
-													<td colspan="2">
+													<td>
 														<div class="tdRel">
-															누계건수
-														</div>
-													</td>
-													<td colspan="2">
-														<div class="tdRel">
-															전년대비(누계)
+															Call Service Rate
 														</div>
 													</td>
 												</tr>
 												</thead>
 												<tbody>
-												<tr>
-													<td>사고</td>
-													<td>55건</td>
-													<td>99</td>
-													<td>1,022건</td>
-													<td>0</td>
-													<td>1,022건</td>
-													<td>1</td>
-												</tr>
-												<tr>
-													<td>사고</td>
-													<td>55건</td>
-													<td>99</td>
-													<td>1,022건</td>
-													<td>0</td>
-													<td>1,022건</td>
-													<td>1</td>
-												</tr>
-												<tr class="gray">
-													<td>사고</td>
-													<td>55건</td>
-													<td>99</td>
-													<td>1,022건</td>
-													<td>0</td>
-													<td>1,022건</td>
-													<td>1</td>
-												</tr>
 												<tr class="red">
-													<td>사고</td>
-													<td>55건</td>
+													<td>Rockfish1</td>
 													<td>99</td>
-													<td>1,022건</td>
-													<td>0</td>
-													<td>1,022건</td>
-													<td>1</td>
-												</tr>
-												<tr class="green">
-													<td>사고</td>
-													<td>55건</td>
-													<td>99</td>
-													<td>1,022건</td>
-													<td>0</td>
-													<td>1,022건</td>
-													<td>1</td>
+													<td>50%</td>
 												</tr>
 												<tr class="blue">
-													<td>사고</td>
-													<td>55건</td>
+													<td>Rockfish2</td>
 													<td>99</td>
-													<td>1,022건</td>
-													<td>0</td>
-													<td>1,022건</td>
-													<td>1</td>
+													<td>40%</td>
+												</tr>
+												<tr class="green">
+													<td>Rockfish3</td>
+													<td>99</td>
+													<td>30%</td>
+												</tr>
+												<tr class="gray">
+													<td>Rockfish4</td>
+													<td>99</td>
+													<td>20%</td>
+												</tr>
+												<tr>
+													<td>Rockfish5</td>
+													<td>99</td>
+													<td>10%</td>
 												</tr>
 												</tbody>
 											</table>
@@ -192,11 +121,10 @@
 								<div class="ax-unit">
 									<div class="ax-box">
 										<div class="ax-box-wrap">
-											<h1>
-												AXGrid 출력
-												<a href="#" class="more">more <i class="axi axi-external-link-square"></i></a>
-											</h1>
-											<p>그리드를 이용한 목록 출력</p>
+											<h3>
+												App Call Service Detail (1Week)
+												<!-- <a href="#" class="more">more <i class="axi axi-external-link-square"></i></a> -->
+											</h3>
 											<div id="page-grid-box"></div>
 										</div>
 									</div>
@@ -212,11 +140,10 @@
 								<div class="ax-unit">
 									<div class="ax-box">
 										<div class="ax-box-wrap">
-											<h1>
-												Chart Doughnut
-												<a href="#" class="more">more <i class="axi axi-external-link-square"></i></a>
-											</h1>
-											<p>Chart.js를 이용한 차트 Canvas태그를 사용가능해야 합니다.</p>
+											<h3>
+												Top 50 - App Call Service Detail Summary (1Week)
+												<!-- <a href="#" class="more">more <i class="axi axi-external-link-square"></i></a> -->
+											</h3>
 											<canvas id="chart-canvas-doughnut" height="200" style="min-height: 256px;"></canvas>
 										</div>
 									</div>
@@ -228,11 +155,10 @@
 								<div class="ax-unit">
 									<div class="ax-box">
 										<div class="ax-box-wrap">
-											<h1>
-												Chart Line
-												<a href="#" class="more">more <i class="axi axi-external-link-square"></i></a>
-											</h1>
-											<p>Chart.js를 이용한 차트 Canvas태그를 사용가능해야 합니다.</p>
+											<h3>
+												Service Call History (1Week)
+												<!-- <a href="#" class="more">more <i class="axi axi-external-link-square"></i></a> -->
+											</h3>
 											<canvas id="chart-canvas-line" height="200" style="min-height: 256px;"></canvas>
 										</div>
 									</div>
@@ -254,46 +180,12 @@
     <!-- e ax-body -->
 
     <!-- 좌측 퀵 메뉴 : s-->
-    <div class="ax-aside">
-        <div class="ax-layer ax-aside-menu-box">
-            <a class="ax-aside-menu"><i class="axi axi-angle-double-right fa-lg"></i><i class="axi axi-angle-double-left fa-lg"></i></a>
-        </div>
-        <div class="ax-layer ax-aside-box">
-            <div class="ax-unit">
-                <div class="ax-box">
-                    <h3>MENU</h3>
-                    <ul class="ax-aside-ul" id="ax-aside-ul"></ul>
-                </div>
-            </div>
-        </div>
-    </div>
+     <div id="site_left"></div>
     <!-- e : 좌측 퀵 메뉴-->
 
 	<!-- ax-footer : include -->
-	 <div class="ax-footer">
-        <div class="ax-wrap">
-            <div class="ax-col-6">
-                <div class="ax-unit">
-                    <ul class="ax-version">
-                        <li><a href="https://github.com/devsunset/rockfish" target="_blank"><i class="axi axi-github-square"></i>Rockfish Console</a></li>
-                        <li><i class="axi axi-check-circle-o"></i> ver. <a href="#ax">0.1</a></li>
-                        <li><select id="theme-select"></select></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="ax-col-6">
-                <div class="ax-unit">
-                    <ul class="ax-funcs">
-                        <li><a href="https://www.axisj.com" target="_blank"><i class="axi axi-axisj"></i> AXISJ.com</a></li>
-                        <li><a href="https://github.com/axisj" target="_blank"><i class="axi axi-github-square"></i> AXISJ gitHub</a></li>
-                        <li><a href="https://www.facebook.com/axisj" target="_blank"><i class="axi axi-facebook-square"></i> Facebook</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="ax-clear"></div>
-        </div>
-    </div>
-	<!-- ax-footer : include -->
+    <div id="site_footer"></div>
+    <!-- ax-footer : include -->
 </div>
 <script type="text/javascript">
 	var page_menu_id = "m01"; // admin.js > topMenu_data 에 정의된 id
@@ -380,23 +272,20 @@
 						mx:{min:0, max:767}, dx:{min:767}
 					},
 					colGroup : [
-						{key:"no", label:"번호", width:"40", align:"center", formatter:"money"},
-						{key:"title", label:"제목", width:"200"},
-						{key:"writer", label:"작성자", width:"90", align:"center"},
-						{key:"regDate", label:"작성일", width:"90", align:"center"},
-						{key:"desc", label:"비고", width:"*"}
+						{key:"no", label:"Column1", width:"40", align:"center", formatter:"money"},
+						{key:"column1", label:"Column2", width:"200"},
+						{key:"column2", label:"Column3", width:"100", align:"center"},
+						{key:"column3", label:"Column4", width:"100", align:"center"},
+						{key:"column4", label:"Column5", width:"*"}
 					],
 					view: {
 						label:true,
 						column: [ // col 은 4
-							{key:"title", label:"제목", col:4, addClass:"underLine"},
-							{key:"no", label:"번호", col:1},
-							{key:"desc", label:"비고", col:3},
-							{key:"writer", label:"작성자"},
-							{key:"regDate", label:"작성일"},
-							{key:"", label:"사용자연산", formatter: function(){
-								return (this.item.no * 987).money();
-							}}
+							{key:"column1", label:"Column1", col:4, addClass:"underLine"},
+							{key:"column2", label:"Column2", col:1},
+							{key:"column3", label:"Column3", col:3},
+							{key:"column4", label:"Column4"},
+							{key:"column5", label:"Column5"}
 						],
 						buttons: [
 							{addClass:"handle", onclick:function(){
@@ -422,7 +311,7 @@
 				});
 
 				this.target.setList({
-					ajaxUrl:"data/loadGrid.php", ajaxPars:"param1=1&param2=2", onLoad:function(){
+					ajaxUrl:"data/loadGrid.json", ajaxPars:"param1=1&param2=2", onLoad:function(){
 						//trace(this);
 					}
 				});

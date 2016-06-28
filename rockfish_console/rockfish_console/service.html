@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- include head -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="No-Cache"> 
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+     <title>Rockfish Console</title>
+    <link rel="shortcut icon" href="http://dev.axisj.com/ui/axisj.ico" type="image/x-icon" />
+    <link rel="icon" href="http://dev.axisj.com/ui/axisj.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="http://cdno.axisj.com/axicon/axicon.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdno.axisj.com/axisj/ui/cocker/AXJ.min.css" id="axu-theme-axisj" />
+    <script type="text/javascript" src="http://cdno.axisj.com/axisj/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdno.axisj.com/axisj/dist/AXJ.min.js"></script>
+    <link rel="stylesheet" href="ui/cacao/admin.css" id="axu-theme-admin" />
+    <link rel="stylesheet" href="ui/custom.css" />
+    <script type="text/javascript" src="resource/Chart.min.js"></script>
+    <!-- include head -->
+</head>
+<script type="text/javascript" language="javascript">
+        $(document).ready(function() {
+            $('#site_header').load('include/include_header.html');
+            $('#site_left').load('include/include_left.html');
+            $('#site_footer').load('include/include_footer.html');
+        });
+</script>
+<body>
+<div id="AXPage">
+    <!-- ax-header: include -->
+    <div id="site_header"></div>
+    <!-- e ax-header : include -->
+
+	<div class="ax-body">
+		<div class="ax-wrap">
+			<div class="ax-layer ax-title">
+				<div class="ax-col-12 ax-content">
+				   <h1>Rockfish Service</h1>
+                   <p class="desc">Rockfish Middleware Service</p>
+				</div>
+                <div class="ax-clear"></div>
+			</div>
+			<div class="ax-layer">
+				<div class="ax-col-12 ax-content">
+						
+					<!-- s.CXPage -->
+					<div id="CXPage">
+                        <div class="ax-unit">
+                            <div class="ax-box">
+                                <!-- s.본문 시작 -->
+
+                                <div class="ax-section"> <!-- ax-grid, ax-tree, ax-section, ax-form -->
+                                    <h2>
+                                        <i class="axi axi-bmg-product"></i>
+                                        Service Info
+                                    </h2>
+                                    <table cellpadding="0" cellspacing="0" class="AXFormTable">
+                                        <colgroup>
+                                            <col width="100" />
+                                            <col />
+                                            <col width="100" />
+                                            <col />
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        TEXT1
+                                                    </div>
+                                                </th>
+                                                <td colspan="3">
+                                                    <div class="tdRel">
+                                                        <label>
+                                                            <input type="radio" name="" value="" /> SEND_TYPE
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        TEXT2
+                                                    </div>
+                                                </th>
+                                                <td colspan="3">
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel">
+                                                            <select name="" class="AXSelect" id="AXSelect_m0" style="width:200px;"></select>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        TEXT3
+                                                    </div>
+                                                </th>
+                                                <td colspan="3">
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <input type="text" name="" value="" placeholder="" class="AXInput" />
+                                                            <span>
+                                                                - Description
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="H10"></div>
+
+                                    <h2>
+                                        <i class="axi axi-store-mall-directory"></i>
+                                        Service List
+                                    </h2>
+
+
+                                </div>
+
+                                <div class="ax-button-group">
+                                    <div class="ax-align-center">
+                                        <button type="button" class="AXButton W50 Blue" id="ax-grid-btn-regist">
+                                            <i class="axi axi-plus-circle"></i> Save
+                                        </button>
+                                        <button type="button" class="AXButton W50" id="ax-grid-btn-remove">
+                                            <i class="axi axi-minus-circle"></i>
+                                            Del
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- e.본문 -->
+                            </div>
+                        </div>
+					</div>
+					<!-- e.CXPage -->					
+						
+				</div>
+				<div class="ax-clear"></div>
+			</div>
+		</div>
+	</div>
+    <!-- e ax-body -->
+
+    <!-- 좌측 퀵 메뉴 : s-->
+     <div id="site_left"></div>
+    <!-- e : 좌측 퀵 메뉴-->
+
+    <!-- ax-footer : include -->
+    <div id="site_footer"></div>
+    <!-- ax-footer : include -->
+</div>
+<script type="text/javascript">
+    var page_menu_id = "m04"; // admin.js > topMenu_data 에 정의된 id
+</script>
+<script type="text/javascript">
+    var fnObj = {
+        pageStart: function(){
+
+            this.bindEvent();
+        },
+        bindEvent: function(){
+            var _this = this;
+
+            $("#AXSelect_m0").bindSelect({
+                ajaxUrl: "data/selectData.json", ajaxPars: "", ajaxAsync:false,
+                isspace: true, isspaceTitle: "Choice",
+                setValue:"",
+                alwaysOnChange: true,
+                onchange: function(){
+                    //toast.push(Object.toJSON(this));
+                }
+            });
+        }
+    };
+</script>
+</body>
+</html>
