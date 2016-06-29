@@ -137,7 +137,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 					};
 					dresponse.writeHead(404, headers);
 					dresponse.write(JSON.stringify(resultObj));
-					dresponse.end();				
+					dresponse.end();
 			}else{
 
 				if(url_partsCheck.pathname === config.rockfish_http_path){

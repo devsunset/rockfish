@@ -16,12 +16,12 @@ rockfish_logger = new winston.Logger({
             }
         }),
         new winston.transports.File({
-            level: config.rockfish_file_log_level,
-            filename: config.rockfish_file_log_path_file,
+            level: config.rockfish_server_log_level,
+            filename: config.rockfish_server_log_path_file,
             handleExceptions: true,
             json: true,
-            maxsize: 5242880, //5MB
-            maxFiles: 10,
+            maxsize: config.rockfish_server_log_maxsize,
+            maxFiles: config.rockfish_server_log_maxfiles,
             colorize: false
         })
     ]

@@ -4,9 +4,6 @@
     <!-- include head -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta http-equiv="Expires" content="-1">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Cache-Control" content="No-Cache"> 
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
      <title>Rockfish Console</title>
     <link rel="shortcut icon" href="http://dev.axisj.com/ui/axisj.ico" type="image/x-icon" />
@@ -50,16 +47,13 @@
                         <div class="ax-unit">
                             <div class="ax-box">
                                 <!-- s.본문 시작 -->
-
                                 <div class="ax-section"> <!-- ax-grid, ax-tree, ax-section, ax-form -->
                                     <h2>
                                         <i class="axi axi-bmg-product"></i>
-                                        Rockfish Server Coniguration
+                                        Rockfish Server Coniguration Description (rockfish_config.json)
                                     </h2>
                                     <table cellpadding="0" cellspacing="0" class="AXFormTable">
                                         <colgroup>
-                                            <col width="100" />
-                                            <col />
                                             <col width="100" />
                                             <col />
                                         </colgroup>
@@ -67,43 +61,423 @@
                                             <tr>
                                                 <th>
                                                     <div class="tdRel">
-                                                        TEXT1
+                                                        SERVER TYPE
                                                     </div>
                                                 </th>
-                                                <td colspan="3">
-                                                    <div class="tdRel">
-                                                        <label>
-                                                            <input type="radio" name="" value="" /> Category
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>
-                                                    <div class="tdRel">
-                                                        TEXT2
-                                                    </div>
-                                                </th>
-                                                <td colspan="3">
-                                                    <div class="tdRel">
-                                                        <label class="AXInputLabel">
-                                                            <select name="" class="AXSelect" id="AXSelect_m0" style="width:200px;"></select>
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>
-                                                    <div class="tdRel">
-                                                        TEXT3
-                                                    </div>
-                                                </th>
-                                                <td colspan="3">
+                                                <td>
                                                     <div class="tdRel">
                                                         <label class="AXInputLabel fullWidth">
-                                                            <input type="text" name="" value="" placeholder="" class="AXInput" />
                                                             <span>
-                                                                - Description
+                                                                ◎k: rockfish_http_https<br>
+                                                                ◎v: HTTP || HTTPS || ALL<br>
+                                                                ◎d: HTTP, HTTPS, ALL 중 하나만 설정 ALL 설정 시 HTTP, HTTPS 모두 Serive<br>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        HTTP PORT
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_http_port<br>
+                                                                ◎v: 8888<br>
+                                                                ◎d: HTTP port 설정<br>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>  
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        HTTPS PORT
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_https_port<br>
+                                                                ◎v: 9999<br>
+                                                                ◎d: HTTPS port 설정
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>                                           
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        ACTION PATH 1
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_http_path<br>
+                                                                ◎v: /rockfishController<br>
+                                                                ◎d: 일반 Action 호출 path (변경 금지)
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        ACTION PATH 2
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_http_path_download<br>
+                                                                ◎v: /rockfishDownloadController<br>
+                                                                ◎d: 다운로드 Action 호출 path (변경 금지)
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        ACTION PATH 3
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_http_path_download_static<br>
+                                                                ◎v: /rockfishDownloadStaticController<br>
+                                                                ◎d: 정적 파일 다운로드 Action 호출 path (변경 금지)
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        MongoDB HOST
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_mongodb_host<br>
+                                                                ◎v: localhost<br>
+                                                                ◎d: MongoDB ip
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        MongoDB PORT
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_mongodb_port<br>
+                                                                ◎v: 27017<br>
+                                                                ◎d: MongoDB port
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        MongoDB USER
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_mongodb_username<br>
+                                                                ◎v: rockfish<br>
+                                                                ◎d: MongoDB Account
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        MongoDB PWD
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_mongodb_password<br>
+                                                                ◎v: rockfish<br>
+                                                                ◎d: MongoDB password
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        SERVICE INFO
+                                                        APPLY TIME
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_service_master_change_apply_time<br>
+                                                                ◎v: 15000<br>
+                                                                ◎d: Serice 정보 갱신 주기. 단위 : 1000/1 초, default:15000(15초) 최소 1000(1초) 이상 값으로 설정 
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        REQUEST LOGGING
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_request_logging_use<br>
+                                                                ◎v: Y || N <br>
+                                                                ◎d: request parameter 로깅 유무 Y : 사용 , N : 사용 안함
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        RESPONSE LOGGING
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_response_logging_use<br>
+                                                                ◎v: Y || N <br>
+                                                                ◎d: response value 로깅 유무 Y : 사용 , N : 사용 안함
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        SERVER LOGGING
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_server_log_level<br>
+                                                                ◎v: silly || debug || verbose || info || warn || error<br>
+                                                                ◎d: rockfish log file logging level 설정 { error: 0, warn: 1, info: 2, verbose: 3, debug: 4, silly: 5 }
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        SERVER LOGGING
+                                                        FILE PATH
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_server_log_path_file<br>
+                                                                ◎v: /home/devsunset/devrepo/rockfish/logs/rockfish-server-nodejs-logs.log<br>
+                                                                ◎d: rockfish log file path 설정
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        SERVER LOGGING
+                                                        FILE SIZE
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_server_log_maxsize<br>
+                                                                ◎v: 5242880<br>
+                                                                ◎d: rockfish log file max size. 단위 : byte,  default :5242880(5M)
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        SERVER LOGGING
+                                                        FILE COUNT
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_server_log_maxfiles<br>
+                                                                ◎v: 10<br>
+                                                                ◎d: rockfish log file max count. 단위 : 개,  default :10(개)
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        FILE UPLOAD
+                                                        TEMP PATH
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_file_upload_temp_path<br>
+                                                                ◎v: /home/devsunset/devrepo/rockfish/attach_temp/<br>
+                                                                ◎d: rockfish upload temp file path 설정
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        FILE UPLOAD
+                                                        LIMIT SIZE
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_file_upload_limit_total_files_size<br>
+                                                                ◎v: 10<br>
+                                                                ◎d: rockfish upload file limit size. 단위 : MB,  default :10(MB) - 첨부 파일 개별 용량이 아닌 한번의 요청 시 총 파일 크기임
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        FILE UPLOAD 
+                                                        ALLOW TYPE
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_file_upload_allow_file_type<br>
+                                                                ◎v: jpg,png,bmp,txt,xls,xlsx,zip<br>
+                                                                ◎d: rockfish upload allow type 쉼표로 확장자 소문자로 구분해 기입 , '*' 설정 시 모든 확장자 허용 
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        REQUEST FIELD
+                                                        LIMIT SIZE
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_file_upload_max_field_size<br>
+                                                                ◎v: 2<br>
+                                                                ◎d: rockfish request parameter field limit size. 단위 : MB,  default :2(MB) - request parameter field limit size
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
+                                                        SAMPLE
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                               === rockfish_config.json === <br>
+                                                               {<br>
+                                                                  "rockfish_http_https": "ALL",<br>
+                                                                  "rockfish_http_port": 8888,<br>
+                                                                  "rockfish_https_port": 9999,<br>
+                                                                  "rockfish_http_path": "/rockfishController",<br>
+                                                                  "rockfish_http_path_download": "/rockfishDownloadController",<br>
+                                                                  "rockfish_http_path_download_static": "/rockfishDownloadStaticController",<br>
+                                                                  "rockfish_mongodb_host": "localhost",<br>
+                                                                  "rockfish_mongodb_port": 27017,<br>
+                                                                  "rockfish_mongodb_username": "rockfish",<br>
+                                                                  "rockfish_mongodb_password": "rockfish",<br>
+                                                                  "rockfish_service_master_change_apply_time" : 15000,<br>
+                                                                  "rockfish_request_logging_use" : "Y",<br>
+                                                                  "rockfish_response_logging_use" : "Y",<br>
+                                                                  "rockfish_server_log_level" : "debug",<br>
+                                                                  "rockfish_server_log_path_file" : "/home/devsunset/devrepo/rockfish/logs/<br>rockfish-server-nodejs-logs.log",<br>
+                                                                  "rockfish_server_log_maxsize" : 5242880,<br>
+                                                                  "rockfish_server_log_maxfiles" : 10,<br>
+                                                                  "rockfish_file_upload_temp_path" : "/home/devsunset/devrepo/rockfish/attach_temp/",<br>
+                                                                  "rockfish_file_upload_limit_total_files_size" : 10,<br>
+                                                                  "rockfish_file_upload_allow_file_type" : "jpg,png,bmp,txt,xls,xlsx,zip",<br>
+                                                                  "rockfish_file_upload_max_field_size" : 2<br>
+                                                                }<br>
                                                             </span>
                                                         </label>
                                                     </div>
@@ -112,19 +486,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-
-                                <div class="ax-button-group">
-                                    <div class="ax-align-center">
-                                        <button type="button" class="AXButton W50 Blue" id="ax-grid-btn-regist">
-                                            <i class="axi axi-plus-circle"></i> Save
-                                        </button>
-                                        <button type="button" class="AXButton W50" id="ax-grid-btn-remove">
-                                            <i class="axi axi-minus-circle"></i>
-                                            Del
-                                        </button>
-                                    </div>
-                                </div>
-
                                 <!-- e.본문 -->
                             </div>
                         </div>
@@ -147,27 +508,6 @@
     <!-- ax-footer : include -->
 <script type="text/javascript">
     var page_menu_id = "m05"; // admin.js > topMenu_data 에 정의된 id
-</script>
-<script type="text/javascript">
-    var fnObj = {
-        pageStart: function(){
-
-            this.bindEvent();
-        },
-        bindEvent: function(){
-            var _this = this;
-
-            $("#AXSelect_m0").bindSelect({
-                ajaxUrl: "data/selectData.json", ajaxPars: "", ajaxAsync:false,
-                isspace: true, isspaceTitle: "Choice",
-                setValue:"",
-                alwaysOnChange: true,
-                onchange: function(){
-                    //toast.push(Object.toJSON(this));
-                }
-            });
-        }
-    };
 </script>
 </body>
 </html>

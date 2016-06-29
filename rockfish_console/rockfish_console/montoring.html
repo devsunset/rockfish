@@ -4,9 +4,6 @@
 	<!-- include head -->
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<meta http-equiv="Expires" content="-1">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Cache-Control" content="No-Cache"> 
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
 	 <title>Rockfish Console</title>
 	<link rel="shortcut icon" href="http://dev.axisj.com/ui/axisj.ico" type="image/x-icon" />
@@ -273,28 +270,12 @@
 						mx:{min:0, max:767}, dx:{min:767}
 					},
 					colGroup : [
-						{key:"no", label:"Column1", width:"40", align:"center", formatter:"money"},
-						{key:"column1", label:"Column2", width:"200"},
-						{key:"column2", label:"Column3", width:"100", align:"center"},
-						{key:"column3", label:"Column4", width:"100", align:"center"},
-						{key:"column4", label:"Column5", width:"*"}
+						{key:"no", label:"No", width:"40", align:"center", formatter:"money"},
+						{key:"column1", label:"App Name", width:"150"},
+						{key:"column2", label:"Service Name", width:"*", align:"left"},
+						{key:"column3", label:"Call Service Count", width:"150", align:"right"}
 					],
-					view: {
-						label:true,
-						column: [ // col 은 4
-							{key:"column1", label:"Column1", col:4, addClass:"underLine"},
-							{key:"column2", label:"Column2", col:1},
-							{key:"column3", label:"Column3", col:3},
-							{key:"column4", label:"Column4"},
-							{key:"column5", label:"Column5"}
-						],
-						buttons: [
-							{addClass:"handle", onclick:function(){
-								toast.push("handle Click");
-								trace(this.item);
-							}}
-						]
-					},
+					
 					body : {
 						onclick: function(){
 							//toast.push(Object.toJSON({index:this.index, item:this.item}));
