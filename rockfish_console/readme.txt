@@ -8,7 +8,10 @@
 ■■■ console server start ■■■
 
 #nodejs
-set DEBUG=rockfish_console_nodejs:* & npm start
+(Windows)
+set DEBUG=rockfish_console_nodejs:* & npm start 
+(Linux)
+DEBUG=rockfish_console_nodejs:* npm start 
 
 #python
 python manage.py runserver 3000
