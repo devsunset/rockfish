@@ -7,8 +7,8 @@
    Never Die Process
 
 ## Process Flow
-   Client -> (HAProxy or Nginx Load balancing) ->
-   Server -> (HAProxy or Nginx Load balancing) ->
+   Client -> (Load balancing) ->
+   Server -> (Load balancing) ->
    Service
 
 ## ■ rockfish client
@@ -19,13 +19,14 @@
    
 ## ■ rockfish console
    * rockfish console ui (AXU & axijs) - TO-DO   
-   * rockfish console (nodejs) - TO-DO   
-   * rockfish console (python) - TO-DO   
-   * rockfish console (ruby) - TO-DO
+   * rockfish console (nodejs & express) - TO-DO   
+   * rockfish console (python & django) - TO-DO   
+   * rockfish console (ruby & rails) - TO-DO
 
 ## ■ rockfish server
    * rockfish server (nodejs) - Beta version completed
-   * rockfish server (erlang) - (Next)
+   * rockfish server (erlang) - TO-DO
+   * rockfish server (go) - TO-DO
    
 ## ■ rockfish service
    * rockfish service (web) - prototype version
@@ -35,7 +36,7 @@
 ## ■ rockfish setting   
    * rockfish (Authentication), (Authorization), (Access Control) 
    * rockfish control (couchbase or redis) - TO-DO   
-   * HAProxy or Nginx Load balancing & Docker
+   * Load balancing & Docker
    * Load balancing setting - TO-DO 
    * Docker setting - TO-DO 
 

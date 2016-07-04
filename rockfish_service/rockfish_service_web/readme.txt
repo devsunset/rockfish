@@ -1,4 +1,6 @@
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+■■■ Prototype version completed ■■■
+
 ■■■ tomcat setting ■■■
 
   # server.xml  

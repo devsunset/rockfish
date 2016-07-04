@@ -1,9 +1,9 @@
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 ## ■ rockfish console
    * rockfish console ui (AXU & axijs) - TO-DO   
-   * rockfish console (nodejs) - TO-DO   
-   * rockfish console (python) - TO-DO   
-   * rockfish console (ruby) - TO-DO
+   * rockfish console (nodejs & express) - TO-DO   
+   * rockfish console (python & django) - TO-DO   
+   * rockfish console (ruby & rails) - TO-DO
 
 ■■■ console server start ■■■
 
@@ -262,6 +262,3 @@ db.access.mapReduce(
 { "_id" : "/", "value" : { "count" : 1744 } }
 { "_id" : "*", "value" : { "count" : 98 } }
 { "_id" : "/robots.txt", "value" : { "count" : 71 } }
-
-
-http://kimyhcj.tistory.com/17
