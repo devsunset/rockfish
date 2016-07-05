@@ -21,6 +21,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// welcome page setting
+app.get('/', function(req, res){
+    res.sendfile('login.html', { root: __dirname + "/public/" } );
+});
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler

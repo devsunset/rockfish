@@ -8,10 +8,10 @@
     <link rel="shortcut icon" href="http://dev.axisj.com/ui/axisj.ico" type="image/x-icon" />
     <link rel="icon" href="http://dev.axisj.com/ui/axisj.ico" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="http://cdno.axisj.com/axicon/axicon.min.css" />
-    <link rel="stylesheet" type="text/css" href="http://cdno.axisj.com/axisj/ui/cocker/AXJ.min.css" id="axu-theme-axisj" />
+    <link rel="stylesheet" type="text/css" href="http://cdno.axisj.com/axisj/ui/kakao/AXJ.min.css" id="axu-theme-axisj" />
     <script type="text/javascript" src="http://cdno.axisj.com/axisj/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="http://cdno.axisj.com/axisj/dist/AXJ.min.js"></script>
-    <link rel="stylesheet" href="ui/cacao/admin.css" id="axu-theme-admin" />
+    <link rel="stylesheet" href="ui/cacao-dark/admin.css" id="axu-theme-admin" />
     <link rel="stylesheet" href="ui/custom.css" />
 	<script type="text/javascript">
 	var fnObj = {
@@ -31,8 +31,7 @@
     <div class="ax-modal-header">
         <div class="ax-col-12">
             <div class="ax-unit">
-                <h1>POPUP</h1>
-                <p class="desc">POPUP-SAMPLE</p>
+                <h1>User Information</h1>
             </div>
         </div>
         <div class="ax-clear"></div>
@@ -45,11 +44,11 @@
                     <form name="table-form" method="get" onsubmit="return false;">
                         <div class="ax-rwd-table">
                             <div class="item-group" style="">
-                                <div class="item">
+                                <div class="item fullWidth">
                                     <label class="item-lable">
-                                        <span class="th" style="min-width:100px;">TEXT1</span>
+                                        <span class="th" style="min-width:100px;">APP</span>
                                         <span class="td inputText" style="" title="">
-                                            <input type="text" name="user_key" title="" placeholder="" value="" class="AXInput" style="width:50px;" readonly="readonly" />
+                                            <input type="text" name="APP" title="" placeholder="" value="" class="AXInput" readonly="readonly" />
                                         </span>
                                     </label>
                                 </div>
@@ -59,9 +58,9 @@
                             <div class="item-group" style="">
                                 <div class="item fullWidth">
                                     <label class="item-lable">
-                                        <span class="th" style="min-width:100px;">TEXT2</span>
+                                        <span class="th" style="min-width:100px;">ID</span>
                                         <span class="td inputText" style="" title="">
-                                            <input type="text" name="email_id" title="" placeholder="" value="" class="AXInput av-email av-required" />
+                                            <input type="text" name="ID" title="" placeholder="" value="" class="AXInput" readonly="readonly" />
                                         </span>
                                     </label>
                                 </div>
@@ -69,11 +68,11 @@
                                 <div class="group-clear"></div>
                             </div>
                             <div class="item-group" style="">
-                                <div class="item">
+                                <div class="item fullWidth">
                                     <label class="item-lable">
-                                        <span class="th" style="min-width:100px;">TEXT3</span>
+                                        <span class="th" style="min-width:100px;">NAME</span>
                                         <span class="td inputText" style="" title="">
-                                            <input type="password" name="passwd" title="" placeholder="" value="" class="AXInput av-required" style="width:150px;" />
+                                            <input type="text" name="NAME" title="" placeholder="" value="" class="AXInput" readonly="readonly" />
                                         </span>
                                     </label>
                                 </div>
@@ -81,23 +80,35 @@
                                 <div class="group-clear"></div>
                             </div>
                             <div class="item-group" style="">
-                                <div class="item">
+                                <div class="item fullWidth">
                                     <label class="item-lable">
-                                        <span class="th" style="min-width:100px;">TEXT4</span>
+                                        <span class="th" style="min-width:100px;">ROCKFISH SESSION KEY</span>
                                         <span class="td inputText" style="" title="">
-                                            <select name="user_lvl" class="AXSelect">
-                                                <option value="1">DATA1</option>
-                                                <option value="2">DATA2</option>
-                                            </select>
+                                            <input type="text" name="NAME" title="" placeholder="" value="" class="AXInput" readonly="readonly" />
                                         </span>
                                     </label>
                                 </div>
                                 <div class="item-clear"></div>
-                                <div class="item secondItem">
+                                <div class="group-clear"></div>
+                            </div>
+                            <div class="item-group" style="">
+                                <div class="item fullWidth">
                                     <label class="item-lable">
-                                        <span class="th" style="min-width:100px;">TEXT5</span>
+                                        <span class="th" style="min-width:100px;">LOGIN TIME</span>
                                         <span class="td inputText" style="" title="">
-                                            <input type="text" name="reg_dt" title="" placeholder="" value="" class="AXInput" style="width:120px;" readonly="readonly" />
+                                            <input type="text" name="LOGIN_TIME" title="" placeholder="" value="" class="AXInput" readonly="readonly" />
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="item-clear"></div>
+                                <div class="group-clear"></div>
+                            </div>
+                            <div class="item-group" style="">
+                                <div class="item fullWidth">
+                                    <label class="item-lable">
+                                        <span class="th" style="min-width:100px;">USER INFO</span>
+                                        <span class="td inputText" style="" title="">
+                                            <input type="text" name="USER_INFO" title="" placeholder="" value="" class="AXInput" readonly="readonly" />
                                         </span>
                                     </label>
                                 </div>
@@ -116,8 +127,7 @@
         <div class="ax-wrap">
             <div class="ax-col-12">
                 <div class="ax-unit center">
-                    <button type="button" class="AXButton" onclick="parent.myModal.close();">OK</button>
-                    <button type="button" class="AXButton" onclick="parent.myModal.close();">NO</button>
+                    <button type="button" class="AXButton" onclick="parent.myModal.close();">Close</button>
                 </div>
             </div>
             <div class="ax-clear"></div>
