@@ -1,11 +1,13 @@
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var compression = require('compression');
 
-var routes = require('./routes/index');
+var routes = require('./routes/console');
 
 var app = express();
 
@@ -21,12 +23,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// session
+app.use(session({
+  key: 'rockfish_session_key', // 세션키
+  secret: 'rockfish console',  // 비밀키
+  cookie: {
+    maxAge: 1000 * 60 * 30 // 쿠키 유효기간 30분
+  }
+}));
+
 // welcome page setting
 app.get('/', function(req, res){
     res.sendfile('login.html', { root: __dirname + "/public/" } );
 });
 
-app.use('/', routes);
+app.use('/console', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

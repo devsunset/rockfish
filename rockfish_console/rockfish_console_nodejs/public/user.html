@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
      <title>Rockfish Console</title>
-    <link rel="shortcut icon" href="http://dev.axisj.com/ui/axisj.ico" type="image/x-icon" />
-    <link rel="icon" href="http://dev.axisj.com/ui/axisj.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="http://cdno.axisj.com/axicon/axicon.min.css" />
     <link rel="stylesheet" type="text/css" href="http://cdno.axisj.com/axisj/ui/kakao/AXJ.min.css" id="axu-theme-axisj" />
     <script type="text/javascript" src="http://cdno.axisj.com/axisj/jquery/jquery.min.js"></script>
@@ -27,7 +27,7 @@
                 <div class="ax-col-12">
                     <div class="ax-unit">
                         <div class="ax-logo">
-                            <a href="dashboard.html"><span class="logo-img"><i class="axi axi-axisj"></i></span><span class="logo-txt">Rockfish Console</span></a>
+                            <a href="dashboard.html"><span class="logo-img"><i><img src="images/logo_32x32.png" style="margin-top:7px"></i></span><span class="logo-txt">Rockfish Console</span></a>
                         </div>
                     </div>
                 </div>
@@ -45,9 +45,8 @@
                     <div class="ax-unit">
                         <ul class="ax-loginfo" id="ax-loginfo">
                             <li class="profile"><div class="photo"></div></li>
-                            <li class="account"><a href="#ax">rockfish</a></li>
-                            <li class="btns"><a href="#ax" class="AXButton" onclick="location.href = 'login.html';"><i class="axi axi-power-off"></i> Logout</a></li>
-                            <!--li class="lang"><a href="#ax"><i class="axi axi-keyboard-o"></i> 한국어</a></li-->
+                            <li class="account"><a href="#ax" id="rockfish_session_user_id">&nbsp;</a></li>
+                            <li class="btns"><a href="#ax" class="AXButton" id="logoutButton"><i class="axi axi-power-off"></i> Logout</a></li>
                         </ul>
                         <div class="mx-loginfo"><a id="mx-loginfo-handle" class="mx-menu-button"><i class="axi axi-bars"></i></a></div>
                     </div>
@@ -132,6 +131,7 @@
             <div class="ax-col-6">
                 <div class="ax-unit">
                     <ul class="ax-funcs">
+                        <li>logo Icons made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></li>
                         <li><a href="https://www.axisj.com" target="_blank"><i class="axi axi-axisj"></i> AXISJ.com</a></li>
                         <li><a href="https://github.com/axisj" target="_blank"><i class="axi axi-github-square"></i> AXISJ gitHub</a></li>
                         <li><a href="https://www.facebook.com/axisj" target="_blank"><i class="axi axi-facebook-square"></i> Facebook</a></li>
@@ -149,6 +149,36 @@
 <script type="text/javascript">
     var fnObj = {
         pageStart: function(){
+            //Session Check
+            var url = '/console/sessionCheck'
+            var pars = new Object();
+             new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+                    if(res.rockfish_result_code == "S"){
+                        $("#rockfish_session_user_id").html(res.rockfish_result_data.user_name);
+                    }else{
+                       AXUtil.alert("Session is invalid or Session is time out.");
+                       document.location.href="/login.html";
+                    }
+                },
+                onerr:function(res){
+                    toast.push("Session Check Error.");
+                }
+            });
+
+            $('#logoutButton').click(function(){
+                if(AXUtil.confirm('Do you want log out ?')){
+                    var url = "/console/logout";
+                    var pars = new Object();
+                    new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+                           document.location.href="login.html";
+                        },
+                        onerr:function(res){
+                            AXUtil.alert("Log out process error");
+                        }
+                    });
+                }
+            });     
+            
             this.search.bind();
             this.grid.bind();
             this.modal.bind();
@@ -185,8 +215,8 @@
             },
             submit: function(){
                 var pars = this.target.getParam();
-                toast.push("콘솔창에 파라미터 정보를 출력하였습니다.");
                 trace(pars);
+                alert("TO-DO");
             }
         },
         grid: {
@@ -246,6 +276,8 @@
                 });
             },
             open: function(type, item){
+                alert("TO-DO");
+                return;
                 this.target.open({
                     method:"GET",
                     url:"user_modal.html",
