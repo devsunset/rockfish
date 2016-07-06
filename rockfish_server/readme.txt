@@ -28,6 +28,8 @@ db.rockfish_service_master.insert({"SERVICE_APP" : "ROCKFISH_APP" ,"SERVICE" : "
 db.rockfish_service_master.insert({"SERVICE_APP" : "ROCKFISH_APP" ,"SERVICE" : "ROCKFISH_MULTIPART_UPLOAD","SERVICE_TITLE" : "ROCKFISH MULTIPART UPLOAD","SERVICE_DESC" : "업로드 호출","SERVICE_URL" : "http://localhost:8080/rockfish/common/uploadRockfish.do","SERVICE_PROTOCOL" : "HTTP","SERVICE_METHOD" : "POST", "SERVICE_STATUS" : "Y","SERVICE_TYPE" : "M","REG_DATE" : new Date(),"MOD_DATE" : new Date()})
 db.rockfish_service_master.insert({"SERVICE_APP" : "ROCKFISH_APP" ,"SERVICE" : "ROCKFISH_GENERAL_DOWNLOAD","SERVICE_TITLE" : "ROCKFISH GENERAL DOWNLOAD","SERVICE_DESC" : "다운로드 호출","SERVICE_URL" : "http://localhost:8080/rockfish/common/downloadRockfish.do","SERVICE_PROTOCOL" : "HTTP","SERVICE_METHOD" : "POST", "SERVICE_STATUS" : "Y","SERVICE_TYPE" : "D","REG_DATE" : new Date(),"MOD_DATE" : new Date()})
 
+# CREATE ROCKFISH_ADMIN_MASTER TABLE
+db.rockfish_admin_master.insert({"ID" : "rockfish", "PASSWORD" : "5b3dafec50864579", "NAME" : "rockfish", "DESC" : "Defalt rockfish console admin", "STATUS" : "Y", "REG_DATE" : new Date(),  "MOD_DATE" : new Date()})
 
 show dbs
 

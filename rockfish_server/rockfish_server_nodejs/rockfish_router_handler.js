@@ -11,12 +11,11 @@ var formidable = require('formidable');
 var fs = require('fs');
 var constants = require('constants');
 var crypto = require('crypto');
-var fs = require('fs');
 var uuid = require('node-uuid');
 var config = require('config.json')('./rockfish_config.json');
 var rockfish_logger = require('./rockfish_logger');
 var monk = require('monk');
-var db = monk(config.rockfish_mongodb_username+':'+config.rockfish_mongodb_password+'@localhost:27017/rockfish');
+var db = monk(config.rockfish_mongodb_username+':'+config.rockfish_mongodb_password+'@'+config.rockfish_mongodb_host+':'+config.rockfish_mongodb_port+'/rockfish');
 var collection = db.get('rockfish_service_log');
 var privateKey = fs.readFileSync('./cert/privkey.pem', 'utf8');
 var publicKey  = fs.readFileSync('./cert/pubkey.pem', 'utf8');
@@ -128,7 +127,6 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 			if(SERVICE_TARGET == null
 				&& url_partsCheck.pathname != config.rockfish_http_path_download
 				&& url_partsCheck.pathname != config.rockfish_http_path_download_static){
-
 					var resultObj = {
 						 ROCKFISH_RESULT_CODE : 'E'
 						,ROCKFISH_RESULT_MESSAGE : '[rockfish] Target Service is not found.'
