@@ -6,6 +6,8 @@
 
    Never Die Process
 
+   Easy Simple Scale Out Support
+
 ## Process Flow
    Client -> (Load balancing) ->
    Server -> (Load balancing) ->
@@ -13,9 +15,9 @@
 
 ## ■ rockfish client
    * rockfish api define - TO-DO
-   * rockfish client (web) - Beta version completed
    * rockfish client (android) - TO-DO
-   * rockfish client (iphone) - No Implement
+   * rockfish client (web) - Beta version completed   
+   * rockfish client (iphone) - TO-DO
    
 ## ■ rockfish console
    * rockfish console ui (AXU & axijs) - TO-DO   
@@ -23,22 +25,22 @@
    * rockfish console (python & django) - TO-DO   
    * rockfish console (ruby & rails) - TO-DO
 
-## ■ rockfish server
-   * rockfish server (nodejs) - Beta version completed
+## ■ rockfish server   
    * rockfish server (erlang) - TO-DO
    * rockfish server (go) - TO-DO
+   * rockfish server (nodejs) - Beta version completed
    
 ## ■ rockfish service
-   * rockfish service (web) - prototype version
-   * rockfish service (spring) - Beta version completed
    * rockfish service (play) - TO-DO
-
+   * rockfish service (spring) - Beta version completed
+   * rockfish service (web) - prototype version completed
+   
 ## ■ rockfish setting   
-   * rockfish_control - TO-DO  
-     (Authentication), (Authorization), (Access Control)  (couchbase or redis)
+   * rockfish_control  (couchbase or redis) - TO-DO  
+     (Authentication), (Authorization), (Access Control) 
    * rockfish_docker - TO-DO  
-   * rockfish_loadbalancing - TO-DO 
-     HAProxy or Nginx
+   * rockfish_loadbalancing (HAProxy or Nginx) - TO-DO 
+    
      
 ## ■ License
 GNU LESSER GENERAL PUBLIC LICENSE

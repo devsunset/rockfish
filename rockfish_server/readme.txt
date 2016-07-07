@@ -1,8 +1,8 @@
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-## ■ rockfish server
-   * rockfish server (nodejs) - Beta version completed
+## ■ rockfish server   
    * rockfish server (erlang) - TO-DO
    * rockfish server (go) - TO-DO
+   * rockfish server (nodejs) - Beta version completed
 
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 ■■■ mongodb setting ■■■
