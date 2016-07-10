@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
      <title>Rockfish Console</title>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="static/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="static/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="http://cdno.axisj.com/axicon/axicon.min.css" />
     <link rel="stylesheet" type="text/css" href="http://cdno.axisj.com/axisj/ui/kakao/AXJ.min.css" id="axu-theme-axisj" />
     <script type="text/javascript" src="http://cdno.axisj.com/axisj/jquery/jquery.min.js"></script>
@@ -324,7 +324,7 @@
                     	$("#rockfish_session_user_id").html(res.rockfish_result_data.user_name);
                     }else{
                        AXUtil.alert("Session is invalid or Session is time out.");
-                       document.location.href="/login.html";
+                       document.location.href="/index.html";
                     }
                 },
                 onerr:function(res){
@@ -337,7 +337,7 @@
                     var url = "/console/logout";
                     var pars = new Object();
                     new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
-                           document.location.href="login.html";
+                           document.location.href="index.html";
                         },
                         onerr:function(res){
                             AXUtil.alert("Log out process error");
