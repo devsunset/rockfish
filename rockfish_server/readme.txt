@@ -1,7 +1,7 @@
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 ## ■ rockfish server   
-   * rockfish server (erlang) - TO-DO
-   * rockfish server (go) - TO-DO
+   * rockfish server (erlang) - Next TO-DO
+   * rockfish server (go) - Next TO-DO
    * rockfish server (nodejs) - Beta version completed
 
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■

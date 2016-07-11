@@ -1,5 +1,7 @@
+# require
 require 'mongo'
 require 'neatjson'
+
 
 # Turn off debug-mode
 Mongo::Logger.logger.level = Logger::WARN
@@ -7,12 +9,15 @@ Mongo::Logger.logger.level = Logger::WARN
 
 class ConsoleController < ApplicationController
 
+  # mongodb client
   @@client = Mongo::Client.new('mongodb://rockfish:rockfish@localhost:27017/rockfish')
 
+  # index page
   def index
   	render :file => 'public/index.html'
   end
 
+  # session check process
   def sessionCheck
      response_data = {}
      response_data['rockfish_result_code'] = 'E'
@@ -29,6 +34,7 @@ class ConsoleController < ApplicationController
   end
 
   ### TO - DO RSA decrypted and AES Encrypted
+  # login process
   def login
     puts('###########################')
     puts(params[:ID])
@@ -51,6 +57,7 @@ class ConsoleController < ApplicationController
     render :json => response_data
   end
 
+  # logout process
   def logout
     session[:user_id] = nil
     session[:user_name] = nil

@@ -1,3 +1,4 @@
+// require
 var express = require('express');
 var router = express.Router();
 
@@ -21,7 +22,22 @@ var resData = new Object();
 resData.rockfish_result_code = RESULT_FAIL_CODE;
 resData.rockfish_result_msg = '';
 
-//■■■ Login Process
+// session check process
+router.post('/sessionCheck', function(req, res, next) {
+	if(req.session.user_id !== null && req.session.user_id !== undefined && req.session.user_id !== ""){
+		 resData.rockfish_result_code = RESULT_SUCCESS_CODE;
+		 var sessionData = new Object();
+		 sessionData.user_id =  req.session.user_id;
+		 sessionData.user_name =  req.session.user_name;
+		 resData.rockfish_result_data = sessionData;
+		 res.json(resData);
+	}else{
+		resData.rockfish_result_code = RESULT_FAIL_CODE;
+		res.json(resData);
+	}
+});
+
+// login process
 router.post('/login', function(req, res, next) {
 	var params = getParams(req);
 	if(params.ID !== undefined && params.ID.trim() !=="" 
@@ -57,7 +73,7 @@ router.post('/login', function(req, res, next) {
 	}
 });
 
-//■■■ Logout  Process
+// logout  process
 router.post('/logout', function(req, res, next) {
 	 //req.session.destory();  // 세션 삭제
 	 req.session.destroy(function(err) {
@@ -68,22 +84,6 @@ router.post('/logout', function(req, res, next) {
 	 resData.rockfish_result_code = RESULT_SUCCESS_CODE;
 	 res.json(resData);
 });
-
-//■■■ Session Check Process
-router.post('/sessionCheck', function(req, res, next) {
-	if(req.session.user_id !== null && req.session.user_id !== undefined && req.session.user_id !== ""){
-		 resData.rockfish_result_code = RESULT_SUCCESS_CODE;
-		 var sessionData = new Object();
-		 sessionData.user_id =  req.session.user_id;
-		 sessionData.user_name =  req.session.user_name;
-		 resData.rockfish_result_data = sessionData;
-		 res.json(resData);
-	}else{
-		resData.rockfish_result_code = RESULT_FAIL_CODE;
-		res.json(resData);
-	}
-});
-
 
 //■■■ request get parameter
 function getParams(req){

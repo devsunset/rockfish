@@ -1,0 +1,60 @@
+= Vert.x Mail examples
+
+Here you'll find some examples how to use Vert.x mail-service to send mails
+to a SMTP server either from the local machine or via the event bus on another
+machine.
+
+
+By default these example starts a "fake" mails server (just logging on the console):
+
+[source]
+----
+LocalSmtpServer.start(2526);
+----
+
+If you want to use a different SMTP server, just remove this line and configure the options.
+
+The examples use a few different configs
+
+== link:src/main/java/io/vertx/example/mail/MailLocalhost.java[MailLocalhost]
+
+Just send a mail without authentication.
+
+== link:src/main/java/io/vertx/example/mail/MailLogin.java[MailLogin]
+
+Send a mail to an external smtp server (e.g. googlemail, sendgrid, aol etc)
+requiring a login.
+
+The login will currently use DIGEST-MD5, CRAM-MD5, PLAIN and LOGIN in order of
+preference, if the server announces AUTH but you don't need it (e.g. if you are
+authenticated by a local ip address) turn login off with `LoginOption.DISABLE`
+To specifically select a AUTH method or define the order of preference, you
+can do `setAuthMethods("METHOD1 METHOD2")`.
+
+== link:src/main/java/io/vertx/example/mail/MailServiceExample.java[MailServiceExample]
+
+Send a mail via the event bus to another vert.x instance registered as
+`vertx.mail`. This will use the config set by the service and doesn't use a local
+config object.
+
+This example shows how to leave out the From address in a mail but setting
+the bounceAddress property instead.
+
+the example deploys the mail service, however you can refactor the example to skip this step and start the service as
+ follows:
+
+----
+vertx run service:io.vertx.mail-service
+----
+
+and vertx will pick up the package from maven and start it with default config.
+
+== link:src/main/java/io/vertx/example/mail/MailHeaders.java[MailHeaders]
+
+Send a mail with supplied headers (e.g. Received, Message-ID, Reply-To)
+
+This example shows how you can send headers in a mail.
+
+== link:src/main/java/io/vertx/example/mail/MailImages.java[MailImages]
+
+This example shows how to send inlined images in mails.
