@@ -10,9 +10,7 @@
 
 ## Process Flow
 ```
-   Client <-> (Load balancing) <->
-   Server & Console <-> (Load balancing) <->
-   Service
+   Client <-> (Load balancing) <->   Server & Console <-> (Load balancing) <->   Service
 ```   
 
 ## ■ rockfish client
