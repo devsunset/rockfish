@@ -18,6 +18,11 @@
     <script type="text/javascript" src="static/resource/Chart.min.js"></script>
     <script type="text/javascript" src="static/resource/jsencrypt.js"></script>
     <!-- include head -->
+    <style>
+        .AXprogressLoadedText {
+          display:none;   
+        }
+    </style>
 </head>
 <body>
 <div id="AXPage">
@@ -158,6 +163,10 @@
     var page_menu_id = "m04"; // admin.js > topMenu_data 에 정의된 id
 </script>
 <script type="text/javascript">
+    var myProgress = new AXProgress();  
+    var serviceOpenId = "";
+    var serviceOpenType = "";
+
     var fnObj = {
         pageStart: function(){
             //Session Check
@@ -188,12 +197,14 @@
                         }
                     });
                 }
-            });     
-            
+            });   
+
             this.search.bind();
             this.grid.bind();
             this.modal.bind();
-            this.bindEvent();
+            this.bindEvent();  
+
+            this.search.submit();
         },
         bindEvent: function(){
             var _this = this;
@@ -232,7 +243,7 @@
                                     }
                                 }
                             },  
-                            {label:"STATUS", labelWidth:"100", type:"selectBox", width:"230", key:"selectbox", addClass:"secondItem", valueBoxStyle:"", value:"",
+                            {label:"STATUS", labelWidth:"100", type:"selectBox", width:"230", key:"SERVICE_STATUS", addClass:"secondItem", valueBoxStyle:"", value:"",
                                 options:[{optionValue:"", optionText:"ALL"}, {optionValue:"Y", optionText:"Y"}, {optionValue:"N", optionText:"N"}],
                                 AXBind:{
                                     type:"select", config:{
@@ -301,9 +312,27 @@
                 });
             },
             submit: function(){
+                fnObj.progress.start();
                 var pars = this.target.getParam();
-                toast.push("콘솔창에 파라미터 정보를 출력하였습니다.");
-                trace(pars);
+                var url = '/console/serviceSearchList'
+                new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+                        myProgress.close();
+                        mask.close();
+                        if(res.rockfish_result_code == "S"){
+                           fnObj.grid.target.setList(res.list);
+                        }else if(res.rockfish_result_code == "X"){
+                           AXUtil.alert("Session is invalid or Session is time out.");
+                           document.location.href="/index.html";
+                        }else{
+                           AXUtil.alert(res.rockfish_result_msg);
+                        }
+                    },
+                    onerr:function(res){
+                       myProgress.close();
+                       mask.close();
+                       AXUtil.alert("SERVER ERROR");
+                    }
+                });
             }
         },
         grid: {
@@ -324,33 +353,24 @@
                         {key:"SERVICE", label:"Service", width:"250"},
                         {key:"SERVICE_TITLE", label:"Title", width:"250"},
                         {key:"SERVICE_URL", label:"Url", width:"450"},
-                        {key:"SERVICE_TYPE", label:"Type", width:"150"},
-                        {key:"SERVICE_STATUS", label:"Status", width:"60"},                        
-                        {key:"SERVICE_PROTOCOL", label:"Protocol", width:"70"},
-                        {key:"SERVICE_METHOD", label:"Method", width:"60"},
+                        {key:"SERVICE_TYPE", label:"Type", width:"50", align:"center"},
+                        {key:"SERVICE_STATUS", label:"Status", width:"60", align:"center"},                        
+                        {key:"SERVICE_PROTOCOL", label:"Protocol", width:"70", align:"center"},
+                        {key:"SERVICE_METHOD", label:"Method", width:"60", align:"center"},
                         {key:"SERVICE_DESC", label:"Desc", width:"200"},
-                        {key:"REG_DATE", label:"Reg Date", width:"120", align:"center"},
-                        {key:"MOD_DATE", label:"Mod Date", width:"120", align:"center"},
+                        {key:"REG_DATE", label:"Reg Date", width:"180", align:"center"},
+                        {key:"MOD_DATE", label:"Mod Date", width:"180", align:"center"},
                     ],
                     body : {
                         onclick: function(){
-                            //toast.push(Object.toJSON({index:this.index, item:this.item}));
-                            //alert(this.list);
-                            //alert(this.page);
                             fnObj.modal.open("gridView", this.item);
                         }
                     },
                     page:{
-                        paging:true,
+                        paging:false,
                         pageNo:1,
                         pageSize:100,
                         status:{formatter: null}
-                    }
-                });
-
-                this.target.setList({
-                    ajaxUrl:"data/loadGrid.json", method:"GET", ajaxPars:"param1=1&param2=2", onLoad:function(){
-                        //trace(this);
                     }
                 });
             }
@@ -369,16 +389,97 @@
                 });
             },
             open: function(type, item){
+                if(item !=null && item !== undefined && item !== "" ){
+                    serviceOpenId = item._id;
+                    serviceOpenType = "M";
+                }else{
+                    serviceOpenId = "";
+                    serviceOpenType = "C";
+                }
                 this.target.open({
                     method:"GET",
                     url:"service_modal.html",
-                    pars:"a=1&b=2&c=3".queryToObject(),
+                    pars:"arg=null".queryToObject(),
                     top:100, width:600,
                     closeByEscKey:true
                 });
             }
-        }
+        },
+        progress: {
+            start: function(){
+                mask.open();
+                myProgress.start(function(){
+                    if(this.isEnd){                        
+                        myProgress.close();
+                        mask.close();
+                    }else{
+                        myProgress.update();
+                    }   
+                }, 
+                {
+                    totalCount:100,
+                    width:100,
+                    top:200,
+                    title:"Processing ...",
+                    theme:"AXCircleProgress"
+                });
+            }
+        }  
     };
+
+    $('#ax-grid-btn-regist').click(function(){
+        fnObj.modal.open(null,null);
+    });
+
+    $('#ax-grid-btn-remove').click(function(){
+        var selectData = fnObj.grid.target.getCheckedList(0);
+        if(selectData !=null && selectData !== undefined && selectData.length > 0){
+            if(AXUtil.confirm("Do you want delete ?")){
+                fnObj.progress.start();
+                var url = '/console/serviceDelete'
+                var pars = new Object();
+                var _idData = "";
+                $.each(selectData,function(i,d){
+                   _idData += d._id+"|";
+                }); 
+                pars.serviceOpenIds = _idData.substring(0,_idData.length-1);
+
+                 new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+                        myProgress.close();
+                        mask.close();
+                        if(res.rockfish_result_code == "S"){
+                            AXUtil.alert("Delete success.");
+                            fnObj.search.submit();
+                        }else if(res.rockfish_result_code == "X"){
+                           AXUtil.alert("Session is invalid or Session is time out.");
+                           document.location.href="/index.html";
+                        }else{
+                           AXUtil.alert(res.rockfish_result_msg);
+                        }
+                    },
+                    onerr:function(res){
+                        toast.push("Session Check Error.");
+                    }
+                });
+            }
+        }else{
+            AXUtil.alert("No selected data");
+        }
+    });
+
+    $(document).keydown(function(e){   
+        if(e.target.nodeName == "INPUT"){       
+            if(e.keyCode === 13){   
+                fnObj.search.submit();
+            }
+        }
+    });
+
+    $(document).change(function(e){   
+        if(e.target.nodeName == "SELECT"){       
+            fnObj.search.submit();
+        }
+    });
 </script>
 </body>
 </html>

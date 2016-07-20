@@ -1,5 +1,4 @@
 {
-  "result": "ok",
   "list": [
     {
       "no": 1,
@@ -206,6 +205,5 @@
     "pageNo": 1,
     "pageCount": 100,
     "listCount": 20
-  },
-  "msg": ""
+  }
 }

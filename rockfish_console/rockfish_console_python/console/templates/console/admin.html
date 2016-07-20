@@ -18,6 +18,12 @@
     <script type="text/javascript" src="static/resource/Chart.min.js"></script>
     <script type="text/javascript" src="static/resource/jsencrypt.js"></script>
     <!-- include head -->
+    <!-- include head -->
+    <style>
+        .AXprogressLoadedText {
+          display:none;   
+        }
+    </style>
 </head>
 <body>
 <div id="AXPage">
@@ -160,6 +166,10 @@
     var page_menu_id = "m06"; // admin.js > topMenu_data 에 정의된 id
 </script>
 <script type="text/javascript">
+    var myProgress = new AXProgress();  
+    var idOpenId = "";
+    var idOpenType = "";
+
     var fnObj = {
         pageStart: function(){
             //Session Check
@@ -196,6 +206,8 @@
             this.grid.bind();
             this.modal.bind();
             this.bindEvent();
+
+            this.search.submit();
         },
         bindEvent: function(){
             var _this = this;
@@ -232,7 +244,7 @@
                                     type:"twinDate", config:{
                                         align:"right", valign:"top", startTargetID:"REG_DATE1",
                                         onChange:function(){
-                                            toast.push(Object.toJSON(this));
+                                            //toast.push(Object.toJSON(this));
                                         }
                                     }
                                 }
@@ -245,7 +257,7 @@
                                     type:"twinDate", config:{
                                         align:"right", valign:"top", startTargetID:"MOD_DATE1",
                                         onChange:function(){
-                                            toast.push(Object.toJSON(this));
+                                            //toast.push(Object.toJSON(this));
                                         }
                                     }
                                 }
@@ -266,9 +278,27 @@
                 });
             },
             submit: function(){
+                fnObj.progress.start();
                 var pars = this.target.getParam();
-                toast.push("콘솔창에 파라미터 정보를 출력하였습니다.");
-                trace(pars);
+                var url = '/console/adminSearchList'
+                new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+                        myProgress.close();
+                        mask.close();
+                        if(res.rockfish_result_code == "S"){
+                           fnObj.grid.target.setList(res.list);
+                        }else if(res.rockfish_result_code == "X"){
+                           AXUtil.alert("Session is invalid or Session is time out.");
+                           document.location.href="/index.html";
+                        }else{
+                           AXUtil.alert(res.rockfish_result_msg);
+                        }
+                    },
+                    onerr:function(res){
+                       myProgress.close();
+                       mask.close();
+                       AXUtil.alert("SERVER ERROR");
+                    }
+                });
             }
         },
         grid: {
@@ -288,29 +318,20 @@
                         {key:"ID", label:"Id", width:"150"},
                         {key:"NAME", label:"Name", width:"150"},
                         {key:"DESC", label:"Desc", width:"*"},
-                        {key:"STATUS", label:"Status", width:"150", align:"center"},
-                        {key:"REG_DATE", label:"Reg Date", width:"150" , align:"center"},
-                        {key:"MOD_DATE", label:"Mod Date", width:"150" , align:"center"},
+                        {key:"STATUS", label:"Status", width:"60", align:"center"},
+                        {key:"REG_DATE", label:"Reg Date", width:"180" , align:"center"},
+                        {key:"MOD_DATE", label:"Mod Date", width:"180" , align:"center"},
                     ],
                     body : {
                         onclick: function(){
-                            //toast.push(Object.toJSON({index:this.index, item:this.item}));
-                            //alert(this.list);
-                            //alert(this.page);
                             fnObj.modal.open("gridView", this.item);
                         }
                     },
                     page:{
-                        paging:true,
+                        paging:false,
                         pageNo:1,
                         pageSize:100,
                         status:{formatter: null}
-                    }
-                });
-
-                this.target.setList({
-                    ajaxUrl:"data/loadGrid.json", method:"GET", ajaxPars:"param1=1&param2=2", onLoad:function(){
-                        //trace(this);
                     }
                 });
             }
@@ -329,16 +350,97 @@
                 });
             },
             open: function(type, item){
+               if(item !=null && item !== undefined && item !== "" ){
+                    idOpenId = item._id;
+                    idOpenType = "M";
+                }else{
+                    idOpenId = "";
+                    idOpenType = "C";
+                }
                 this.target.open({
                     method:"GET",
                     url:"admin_modal.html",
-                    pars:"a=1&b=2&c=3".queryToObject(),
+                    pars:"arg=null".queryToObject(),
                     top:100, width:600,
                     closeByEscKey:true
                 });
             }
-        }
+        },
+        progress: {
+            start: function(){
+                mask.open();
+                myProgress.start(function(){
+                    if(this.isEnd){                        
+                        myProgress.close();
+                        mask.close();
+                    }else{
+                        myProgress.update();
+                    }   
+                }, 
+                {
+                    totalCount:100,
+                    width:100,
+                    top:200,
+                    title:"Processing ...",
+                    theme:"AXCircleProgress"
+                });
+            }
+        }  
     };
+
+    $('#ax-grid-btn-regist').click(function(){
+        fnObj.modal.open(null,null);
+    });
+
+    $('#ax-grid-btn-remove').click(function(){
+        var selectData = fnObj.grid.target.getCheckedList(0);
+        if(selectData !=null && selectData !== undefined && selectData.length > 0){
+            if(AXUtil.confirm("Do you want delete ?")){
+                fnObj.progress.start();
+                var url = '/console/adminDelete'
+                var pars = new Object();
+                var _idData = "";
+                $.each(selectData,function(i,d){
+                   _idData += d._id+"|";
+                }); 
+                pars.idOpenIds = _idData.substring(0,_idData.length-1);
+
+                 new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+                        myProgress.close();
+                        mask.close();
+                        if(res.rockfish_result_code == "S"){
+                            AXUtil.alert("Delete success.");
+                            fnObj.search.submit();
+                        }else if(res.rockfish_result_code == "X"){
+                           AXUtil.alert("Session is invalid or Session is time out.");
+                           document.location.href="/index.html";
+                        }else{
+                           AXUtil.alert(res.rockfish_result_msg);
+                        }
+                    },
+                    onerr:function(res){
+                        toast.push("Session Check Error.");
+                    }
+                });
+            }
+        }else{
+            AXUtil.alert("No selected data");
+        }
+    });
+
+    $(document).keydown(function(e){   
+        if(e.target.nodeName == "INPUT"){       
+            if(e.keyCode === 13){   
+                fnObj.search.submit();
+            }
+        }
+    });
+
+    $(document).change(function(e){   
+        if(e.target.nodeName == "SELECT"){       
+            fnObj.search.submit();
+        }
+    });
 </script>
 </body>
 </html>

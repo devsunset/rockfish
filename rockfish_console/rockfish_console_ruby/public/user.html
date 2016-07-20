@@ -184,6 +184,8 @@
             this.grid.bind();
             this.modal.bind();
             this.bindEvent();
+
+            this.search.submit();
         },
         bindEvent: function(){
             var _this = this;
@@ -216,8 +218,8 @@
             },
             submit: function(){
                 var pars = this.target.getParam();
+                toast.push("To-Do : (Rockfish Control)");
                 trace(pars);
-                alert("TO-DO");
             }
         },
         grid: {
@@ -255,12 +257,6 @@
                         status:{formatter: null}
                     }
                 });
-
-                this.target.setList({
-                    ajaxUrl:"data/loadGrid.json", method:"GET", ajaxPars:"param1=1&param2=2", onLoad:function(){
-                        //trace(this);
-                    }
-                });
             }
         },
         modal: {
@@ -277,7 +273,6 @@
                 });
             },
             open: function(type, item){
-                alert("TO-DO");
                 return;
                 this.target.open({
                     method:"GET",
@@ -289,6 +284,20 @@
             }
         }
     };
+
+    $(document).keydown(function(e){   
+        if(e.target.nodeName == "INPUT"){       
+            if(e.keyCode === 13){   
+                fnObj.search.submit();
+            }
+        }
+    });
+
+    $(document).change(function(e){   
+        if(e.target.nodeName == "SELECT"){       
+            fnObj.search.submit();
+        }
+    });
 </script>
 </body>
 </html>

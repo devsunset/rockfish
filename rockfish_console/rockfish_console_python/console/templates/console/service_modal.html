@@ -16,7 +16,18 @@
     <link rel="stylesheet" href="static/ui/custom.css" />
     <script type="text/javascript" src="static/resource/jsencrypt.js"></script>
     <!-- include head -->
+    <style>
+        .AXprogressLoadedText {
+          display:none;   
+        }
+    </style>
 	<script type="text/javascript">
+
+    AXConfig.AXValidator.validateErrMessage.required = "[{label}] is required";
+
+    var myValidator = new AXValidator();
+    var myProgress = new AXProgress();  
+
 	var fnObj = {
 		pageStart: function(){
             //Session Check
@@ -24,7 +35,7 @@
             var pars = new Object();
              new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
                     if(res.rockfish_result_code == "S"){
-                        //skip
+                        initSearch();
                     }else{
                        AXUtil.alert("Session is invalid or Session is time out.");
                        parent.document.location.href="/index.html";
@@ -34,11 +45,127 @@
                     toast.push("Session Check Error.");
                 }
             });
+
+            myValidator.setConfig({
+                targetFormName : "serviceForm"
+            });
 		},
         pageResize: function(){
             parent.myModal.resize();
-        }
+        },
+        serviceValidator: function(){
+            var validateResult = myValidator.validate();
+            if (!validateResult) {
+                var msg = myValidator.getErrorMessage();
+                AXUtil.alert(msg);
+                myValidator.getErrorElement().focus();
+                return false;
+            }else{
+                return true;
+            }
+        },
+        progress: {
+            start: function(){
+                mask.open();
+                myProgress.start(function(){
+                    if(this.isEnd){                        
+                        myProgress.close();
+                        mask.close();
+                    }else{
+                        myProgress.update();
+                    }   
+                }, 
+                {
+                    totalCount:30,
+                    width:100,
+                    top:200,
+                    title:"Processing ...",
+                    theme:"AXCircleProgress"
+                });
+            }
+        }  
 	};
+
+    function initSearch(){
+        if(parent.serviceOpenType == "M"){
+            var url = '/console/serviceInfo'
+            var pars = new Object();
+                pars.serviceInfoId = parent.serviceOpenId;
+             new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+                    if(res.rockfish_result_code == "S"){
+                        if(res.list !=null && res.list !== undefined && res.list.length == 1){
+                              var data = res.list[0];
+                              $("#SERVICE_APP").val(data.SERVICE_APP);
+                              $("#SERVICE").val(data.SERVICE);
+                              $("#SERVICE_TITLE").val(data.SERVICE_TITLE);
+                              $("#SERVICE_TYPE").val(data.SERVICE_TYPE);
+                              $("#SERVICE_STATUS").val(data.SERVICE_STATUS);
+                              $("#SERVICE_PROTOCOL").val(data.SERVICE_PROTOCOL);
+                              $("#SERVICE_METHOD").val(data.SERVICE_METHOD);
+                              $("#SERVICE_URL").val(data.SERVICE_URL);
+                              $("#SERVICE_DESC").val(data.SERVICE_DESC);
+                              
+                              $("#SERVICE_APP").attr("disabled" ,true);
+                              $("#SERVICE").attr("disabled" ,true);
+                      
+                    }else if(res.rockfish_result_code == "X"){
+                       AXUtil.alert("Session is invalid or Session is time out.");
+                       parent.document.location.href="/index.html";
+                    }else{
+                       AXUtil.alert(res.rockfish_result_msg);
+                    }
+                  }
+                },
+                onerr:function(res){
+                    toast.push("Server Error.");
+                }
+            });
+        }
+    }
+
+    function save(){
+        if(fnObj.serviceValidator()){
+            if(AXUtil.confirm("Do you want save ?")){
+                 fnObj.progress.start();
+                var url = '/console/serviceSave'
+                var pars = new Object();
+                    pars.serviceInfoId = parent.serviceOpenId;
+                    pars.saveMode = parent.serviceOpenType;
+                    pars.SERVICE_APP = $("#SERVICE_APP").val();
+                    pars.SERVICE = $("#SERVICE").val();
+                    pars.SERVICE_TITLE = $("#SERVICE_TITLE").val();
+                    pars.SERVICE_TYPE = $("#SERVICE_TYPE option:selected").val();
+                    pars.SERVICE_DESC = $("#SERVICE_DESC").val();
+                    pars.SERVICE_URL = $("#SERVICE_URL").val();
+                    pars.SERVICE_PROTOCOL = $("#SERVICE_PROTOCOL option:selected").val();
+                    pars.SERVICE_METHOD = $("#SERVICE_METHOD option:selected").val();
+                    pars.SERVICE_STATUS = $("#SERVICE_STATUS option:selected").val();
+
+                 new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+                        myProgress.close();
+                        mask.close();
+                        if(res.rockfish_result_code == "S"){
+                            AXUtil.alert("Save success.");
+                            parent.fnObj.search.submit();
+                            parent.myModal.close();
+                        }else if(res.rockfish_result_code == "X"){
+                           AXUtil.alert("Session is invalid or Session is time out.");
+                           parent.document.location.href="/index.html";
+                        }else{
+                           AXUtil.alert(res.rockfish_result_msg);
+                        }
+                    },
+                    onerr:function(res){
+                        myProgress.close();
+                        mask.close();
+                        
+                        toast.push("Server Error.");
+                    }
+                });
+            }
+       }
+    }
+
     axdom(window).ready(fnObj.pageStart);
     axdom(window).resize(fnObj.pageResize);
 	</script>
@@ -58,14 +185,14 @@
             <div class="ax-layer">
                 <div class="ax-col-12">
 
-                    <form name="table-form" method="get" onsubmit="return false;">
+                    <form name="serviceForm" method="post" onsubmit="return false;">
                         <div class="ax-rwd-table">
                             <div class="item-group" style="">
                                 <div class="item fullWidth">
                                     <label class="item-lable">
                                         <span class="th" style="min-width:100px;">APP</span>
                                         <span class="td inputText" style="" title="">
-                                            <input type="text" name="SERVICE_APP" title="" placeholder="" value="" class="AXInput av-required" />
+                                            <input type="text" id="SERVICE_APP" name="SERVICE_APP" title="" placeholder="" value="" class="AXInput av-required" />
                                         </span>
                                     </label>
                                 </div>
@@ -77,7 +204,7 @@
                                     <label class="item-lable">
                                         <span class="th" style="min-width:100px;">SERVICE</span>
                                         <span class="td inputText" style="" title="">
-                                            <input type="text" name="SERVICE" title="" placeholder="" value="" class="AXInput av-required" />
+                                            <input type="text" id="SERVICE" name="SERVICE" title="" placeholder="" value="" class="AXInput av-required" />
                                         </span>
                                     </label>
                                 </div>
@@ -89,7 +216,7 @@
                                     <label class="item-lable">
                                         <span class="th" style="min-width:100px;">TITLE</span>
                                         <span class="td inputText" style="" title="">
-                                            <input type="text" name="SERVICE_TITLE" title="" placeholder="" value="" class="AXInput av-required" />
+                                            <input type="text" id="SERVICE_TITLE" name="SERVICE_TITLE" title="" placeholder="" value="" class="AXInput av-required" />
                                         </span>
                                     </label>
                                 </div>
@@ -101,7 +228,7 @@
                                     <label class="item-lable">
                                         <span class="th" style="min-width:100px;">TYPE</span>
                                         <span class="td inputText" style="" title="">
-                                            <select name="SERVICE_TYPE" class="AXSelect">
+                                            <select id="SERVICE_TYPE" name="SERVICE_TYPE" class="AXSelect">
                                                 <option value="G">General</option>
                                                 <option value="M">Multipart</option>
                                                 <option value="D">Download</option>
@@ -117,7 +244,7 @@
                                     <label class="item-lable">
                                         <span class="th" style="min-width:100px;">STATUS</span>
                                         <span class="td inputText" style="" title="">
-                                            <select name="SERVICE_STATUS" class="AXSelect">
+                                            <select id="SERVICE_STATUS" name="SERVICE_STATUS" class="AXSelect">
                                                 <option value="Y">Y</option>
                                                 <option value="N">N</option>
                                             </select>
@@ -132,7 +259,7 @@
                                     <label class="item-lable">
                                         <span class="th" style="min-width:100px;">PROTOCOL</span>
                                         <span class="td inputText" style="" title="">
-                                            <select name="SERVICE_PROTOCOL" class="AXSelect">
+                                            <select id="SERVICE_PROTOCOL" name="SERVICE_PROTOCOL" class="AXSelect">
                                                 <option value="HTTP">HTTP</option>
                                                 <!-- <option value="HTTPS">HTTPS</option> -->
                                             </select>
@@ -147,7 +274,7 @@
                                     <label class="item-lable">
                                         <span class="th" style="min-width:100px;">METHOD</span>
                                         <span class="td inputText" style="" title="">
-                                            <select name="SERVICE_METHOD" class="AXSelect">
+                                            <select id="SERVICE_METHOD" name="SERVICE_METHOD" class="AXSelect">
                                                 <option value="POST">POST</option>
                                                 <!-- <option value="GET">GET</option> -->
                                             </select>
@@ -162,7 +289,7 @@
                                     <label class="item-lable">
                                         <span class="th" style="min-width:100px;">URL</span>
                                         <span class="td inputText" style="" title="">
-                                            <input type="text" name="SERVICE_URL" title="" placeholder="" value="" class="AXInput av-required" />
+                                            <input type="text" id="SERVICE_URL" name="SERVICE_URL" title="" placeholder="" value="" class="AXInput av-required" />
                                         </span>
                                     </label>
                                 </div>
@@ -174,7 +301,7 @@
                                     <label class="item-lable">
                                         <span class="th" style="min-width:100px;">DESC</span>
                                         <span class="td inputText" style="" title="">
-                                            <input type="text" name="SERVICE_DESC" title="" placeholder="" value="" class="AXInput av-required" />
+                                            <input type="text" id="SERVICE_DESC" name="SERVICE_DESC" title="" placeholder="" value="" class="AXInput av-required" />
                                         </span>
                                     </label>
                                 </div>
@@ -193,7 +320,7 @@
         <div class="ax-wrap">
             <div class="ax-col-12">
                 <div class="ax-unit center">
-                    <button type="button" class="AXButton" onclick="parent.myModal.close();">Save</button>
+                    <button type="button" class="AXButton" onclick="save();">Save</button>
                     <button type="button" class="AXButton" onclick="parent.myModal.close();">Close</button>
                 </div>
             </div>

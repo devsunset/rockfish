@@ -18,6 +18,11 @@
     <script type="text/javascript" src="static/resource/Chart.min.js"></script>
     <script type="text/javascript" src="static/resource/jsencrypt.js"></script>
     <!-- include head -->
+    <style>
+        .AXprogressLoadedText {
+          display:none;   
+        }
+    </style>
 </head>
 <body>
 <div id="AXPage">
@@ -148,6 +153,16 @@
     var page_menu_id = "m03"; // admin.js > topMenu_data 에 정의된 id
 </script>
 <script type="text/javascript">
+    var myProgress = new AXProgress();  
+    var logOpenId = "";
+
+    var sDate = new Date();
+    sDate.setTime(sDate.getTime()-1000*60*60*24*7);
+    var startDate = sDate.date().print();
+
+    var eDate = new Date();
+    var endDate = eDate.date().print();
+
     var fnObj = {
         pageStart: function(){
             //Session Check
@@ -184,6 +199,12 @@
             this.grid.bind();
             this.modal.bind();
             this.bindEvent();
+
+             
+            //$( "input[name*='REQUEST_TIME1']" ).attr("readonly", "readonly");
+            //$( "input[name*='REQUEST_TIME2']" ).attr("readonly", "readonly");
+
+            this.search.submit();
         },
         bindEvent: function(){
             var _this = this;
@@ -208,7 +229,7 @@
                     rows:[
                         {display:true, addClass:"gray", style:"", list:[
                             {label:"APP", labelWidth:"100", type:"inputText", width:"220", key:"APP", addClass:"", valueBoxStyle:"", value:""},
-                            {label:"SERICE", labelWidth:"100", type:"inputText", width:"220", key:"TARGET_SERICE", addClass:"secondItem", valueBoxStyle:"", value:""},
+                            {label:"SERICE", labelWidth:"100", type:"inputText", width:"220", key:"TARGET_SERVICE", addClass:"secondItem", valueBoxStyle:"", value:""},
                             {label:"TYPE", labelWidth:"100", type:"selectBox", width:"230", key:"SEND_TYPE", addClass:"secondItem", valueBoxStyle:"", value:"",
                                 options:[{optionValue:"", optionText:"ALL"}, {optionValue:"G", optionText:"General"}, {optionValue:"M", optionText:"Multipart"}, {optionValue:"D", optionText:"Download"}],
                                 AXBind:{
@@ -221,19 +242,29 @@
                             },     
                         ]},
                         {display:true, addClass:"", style:"", list:[
-                            {label:"REQUEST TIME", labelWidth:"", type:"inputText", width:"100", key:"REQUEST_TIME1", addClass:"", valueBoxStyle:"", value:"",
+                            {label:"REQUEST TIME", labelWidth:"", type:"inputText", width:"100", key:"REQUEST_TIME1", addClass:"", valueBoxStyle:"", value:startDate,
                                 onChange: function(){}
                             },
-                            {label:"", labelWidth:"", type:"inputText", width:"100", key:"REQUEST_TIME2", addClass:"secondItem", valueBoxStyle:"padding-left:0px;", value:"",
+                            {label:"", labelWidth:"", type:"inputText", width:"100", key:"REQUEST_TIME2", addClass:"secondItem", valueBoxStyle:"padding-left:0px;", value:endDate,
                                 AXBind:{
                                     type:"twinDate", config:{
                                         align:"right", valign:"top", startTargetID:"REQUEST_TIME1",
                                         onChange:function(){
-                                            toast.push(Object.toJSON(this));
+                                            //toast.push(Object.toJSON(this));
                                         }
                                     }
                                 }
                             },
+                            {label:"RESULT", labelWidth:"100", type:"selectBox", width:"230", key:"ROCKFISH_RESULT", addClass:"secondItem", valueBoxStyle:"", value:"",
+                                options:[{optionValue:"", optionText:"ALL"}, {optionValue:"S", optionText:"Success"}, {optionValue:"E", optionText:"Fail"}],
+                                AXBind:{
+                                    type:"select",  config:{
+                                        onChange:function(){
+                                            //toast.push(Object.toJSON(this));
+                                        }
+                                    }
+                                }
+                            }, 
                             {label:"ENCRYPT USE", labelWidth:"100", type:"selectBox", width:"230", key:"ROCKFISH_ENCRYPT_PARAMETER", addClass:"secondItem", valueBoxStyle:"", value:"",
                                 options:[{optionValue:"", optionText:"ALL"}, {optionValue:"Y", optionText:"Y"}, {optionValue:"N", optionText:"N"}],
                                 AXBind:{
@@ -249,8 +280,15 @@
                             {label:"ACCESS ID", labelWidth:"100", type:"inputText", width:"220", key:"ROCKFISH_ACCESS_ID", addClass:"", valueBoxStyle:"", value:""},
                             {label:"DEVICE", labelWidth:"100", type:"inputText", width:"220", key:"ROCKFISH_DEVICE", addClass:"secondItem", valueBoxStyle:"", value:""},
                             {label:"OS", labelWidth:"100", type:"selectBox", width:"230", key:"ROCKFISH_OS", addClass:"secondItem", valueBoxStyle:"", value:"",
-                                options:[{optionValue:"", optionText:"ALL"}, {optionValue:"ANDROID", optionText:"ANDROID"}, {optionValue:"IPHONE", optionText:"IPHONE"},{optionValue:"BROWSER", optionText:"BROWSER"}],
-                                AXBind:{
+                                options:[{optionValue:"", optionText:"ALL"}
+                                ,{optionValue:"ANDROID", optionText:"ANDROID"}                                
+                                ,{optionValue:"IPHONE", optionText:"IPHONE"}
+                                ,{optionValue:"TIZEN", optionText:"TIZEN"}
+                                ,{optionValue:"MS", optionText:"MS"}
+                                ,{optionValue:"BROWSER", optionText:"BROWSER"}
+                                ,{optionValue:"ETC", optionText:"ETC"}
+                                ]
+                                ,AXBind:{
                                     type:"select", config:{
                                         onChange:function(){
                                             //toast.push(Object.toJSON(this));
@@ -260,9 +298,9 @@
                             },    
                         ]},
                         {display:false, addClass:"", style:"", list:[
-                            {label:"OS VERSION", labelWidth:"100", type:"inputText", width:"220", key:"inputText2", addClass:"", valueBoxStyle:"", value:""},
-                            {label:"VERSION DESC", labelWidth:"100", type:"inputText", width:"220", key:"inputText3", addClass:"secondItem", valueBoxStyle:"", value:""},
-                            {label:"SERVER", labelWidth:"100", type:"selectBox", width:"230", key:"SERVICE_METHOD", addClass:"secondItem", valueBoxStyle:"", value:"",
+                            {label:"OS VERSION", labelWidth:"100", type:"inputText", width:"220", key:"ROCKFISH_OS_VERSION", addClass:"", valueBoxStyle:"", value:""},
+                            {label:"VERSION DESC", labelWidth:"100", type:"inputText", width:"220", key:"ROCKFISH_OS_VERSION_DESC", addClass:"secondItem", valueBoxStyle:"", value:""},
+                            {label:"PROTOCOL", labelWidth:"100", type:"selectBox", width:"230", key:"SERVICE_METHOD", addClass:"secondItem", valueBoxStyle:"", value:"",
                                 options:[{optionValue:"", optionText:"ALL"}, {optionValue:"HTTP", optionText:"HTTP"}, {optionValue:"HTTPS", optionText:"HTTPS"}],
                                 AXBind:{
                                     type:"select", config:{
@@ -276,10 +314,36 @@
                     ]
                 });
             },
-            submit: function(){
+            submit: function(pageNo){
+                var currentPangNo = 0;
+                if(pageNo === undefined){
+                    currentPangNo = 0;
+                }else{
+                    currentPangNo = pageNo;
+                }
+                fnObj.progress.start();
                 var pars = this.target.getParam();
-                toast.push("콘솔창에 파라미터 정보를 출력하였습니다.");
-                trace(pars);
+                pars = pars +"&PAGE_NUMBER="+currentPangNo;
+                var url = '/console/logSearchList'
+                new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+                        myProgress.close();
+                        mask.close();
+                        if(res.rockfish_result_code == "S"){
+                           fnObj.grid.target.setData(res);
+                           $("#page-grid-box_AX_gridPageCount").html("more...");
+                        }else if(res.rockfish_result_code == "X"){
+                           AXUtil.alert("Session is invalid or Session is time out.");
+                           document.location.href="/index.html";
+                        }else{
+                           AXUtil.alert(res.rockfish_result_msg);
+                        }
+                    },
+                    onerr:function(res){
+                       myProgress.close();
+                       mask.close();
+                       AXUtil.alert("SERVER ERROR");
+                    }
+                });
             }
         },
         grid: {
@@ -293,43 +357,36 @@
                     mediaQuery: {
                         mx:{min:0, max:767}, dx:{min:767}
                     },
-                   fixedColSeq: 3,
+                   fixedColSeq: 2,
                     colGroup : [
-                        {key:"no", label:"", width:"30", align:"center", formatter:"checkbox"},
-                        {key:"ROCKFISH_CLIENT_APP", label:"App", width:"150"},
-                        {key:"ROCKFISH_CLIENT_APP_VERSION", label:"App Version", width:"150"},
+                        {key:"ROCKFISH_CLIENT_APP", label:"App", width:"120"},
+                        {key:"ROCKFISH_CLIENT_APP_VERSION", label:"App Version", width:"100"},
                         {key:"TARGET_SERVICE", label:"Service", width:"250"},
-                        {key:"SEND_TYPE", label:"Type", width:"50", align:"center"},
+                        {key:"SEND_TYPE", label:"Type", width:"100", align:"center"},
+                        {key:"REQUEST_TIME", label:"Request Time", width:"180" , align:"center"},
+                        {key:"RESPONSE_TIME", label:"Response Time", width:"180" , align:"center"},
+                        {key:"ROCKFISH_RESULT", label:"Result", width:"100", align:"center"},
                         {key:"ROCKFISH_ENCRYPT_PARAMETER", label:"Encrypt Use", width:"100", align:"center"},
-                        {key:"REQUEST_TIME", label:"Request Time", width:"120" , align:"center"},
-                        {key:"RESPONSE_TIME", label:"Response Time", width:"120" , align:"center"},
                         {key:"ROCKFISH_ACCESS_ID", label:"Access Id", width:"100"},
+                        {key:"ROCKFISH_DEVICE", label:"Device", width:"120"},
                         {key:"ROCKFISH_OS", label:"Os", width:"100"},
                         {key:"ROCKFISH_OS_VERSION", label:"Os Version", width:"100"},
                         {key:"ROCKFISH_OS_VERSION_DESC", label:"Os Version Desc", width:"200"},
-                        {key:"SERVER", label:"Server", width:"100" , align:"center"},
-                        {key:"REQUEST", label:"Request", width:"100" , align:"center"},
-                        {key:"RESPONSE", label:"Response", width:"100" , align:"center"},
+                        {key:"SERVICE_METHOD", label:"Protocol", width:"70" , align:"center"}
                     ],
                     body : {
                         onclick: function(){
-                            //toast.push(Object.toJSON({index:this.index, item:this.item}));
-                            //alert(this.list);
-                            //alert(this.page);
                             fnObj.modal.open("gridView", this.item);
                         }
                     },
                     page:{
                         paging:true,
                         pageNo:1,
-                        pageSize:100,
-                        status:{formatter: null}
-                    }
-                });
-
-                this.target.setList({
-                    ajaxUrl:"data/loadGrid.json", method:"GET", ajaxPars:"param1=1&param2=2", onLoad:function(){
-                        //trace(this);
+                        pageSize:1,
+                        status:{formatter: null},
+                        onchange: function(pageNo){
+                            fnObj.search.submit(pageNo);
+                        } // {Funtion} -- 페이지 변경 이벤트입니다.
                     }
                 });
             }
@@ -348,16 +405,51 @@
                 });
             },
             open: function(type, item){
+                logOpenId = item._id;
                 this.target.open({
                     method:"GET",
                     url:"log_modal.html",
-                    pars:"a=1&b=2&c=3".queryToObject(),
+                    pars:"arg=null".queryToObject(),
                     top:100, width:600,
                     closeByEscKey:true
                 });
             }
-        }
+        },
+        progress: {
+            start: function(){
+                mask.open();
+                myProgress.start(function(){
+                    if(this.isEnd){                        
+                        myProgress.close();
+                        mask.close();
+                    }else{
+                        myProgress.update();
+                    }   
+                }, 
+                {
+                    totalCount:300,
+                    width:100,
+                    top:200,
+                    title:"Processing ...",
+                    theme:"AXCircleProgress"
+                });
+            }
+        }  
     };
+
+    $(document).keydown(function(e){   
+        if(e.target.nodeName == "INPUT"){       
+            if(e.keyCode === 13){   
+                fnObj.search.submit();
+            }
+        }
+    });
+
+    $(document).change(function(e){   
+        if(e.target.nodeName == "SELECT" && e.target.id !="page-grid-box_AX_gridPageNo"){       
+            fnObj.search.submit();
+        }
+    });
 </script>
 </body>
 </html>
