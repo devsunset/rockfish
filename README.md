@@ -7,14 +7,17 @@
    Easy Simple Scale Out Support
 
 ## Process Flow
-   Client -> (Load balancing) ->
-   Server & Console -> (Load balancing) ->
+   Client <-> (Load balancing) <->
+   Server & Console <-> (Load balancing) <->
    Service
 
 ## ■ rockfish client
    * rockfish client api  - Beta version completed
    * rockfish client (android) - TO-DO
    * rockfish client (etc) - Next TO-DO
+   * rockfish client (iphone) - Next TO-DO
+   * rockfish client (ms) - Next TO-DO
+   * rockfish client (tizen) - Next TO-DO
    * rockfish client (web) - Beta version completed   
 
 ## ■ rockfish console
