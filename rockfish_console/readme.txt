@@ -20,16 +20,3 @@ python manage.py runserver 3000
 rails server
 
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-
--------------------------------------------------------------------------------
-
-db.getCollection('rockfish_service_log').find(
-    {  SEND_TYPE : 'D' }
-)
-
-
-db.getCollection('rockfish_service_log').find(
-    {  'ACCESS.ROCKFISH_SEND_TYPE' : 'D' }
-)
-
---------------------------------------------------------------------------------------
