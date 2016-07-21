@@ -22,3 +22,25 @@ python manage.py runserver 3000
 rails server
 
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+
+db.getCollection('rockfish_service_log').aggregate([
+     {
+         
+         
+          $group : {
+               _id : { $dateToString: { format: "%Y-%m-%d", date: "$REQUEST_TIME" } },  // group의 기준을 path 필드로 한다.
+               count : {
+                    $sum : 1    // $sum 을 통해 1씩 누적한다.
+               }
+          }
+     },
+     {
+          $project : {
+               _id : 0,         // _id는 projection에서 제외.
+               datetime : "$_id",   // _id를 path로 projection 하기 위해 사용.
+               count : 1
+          }
+     },
+     { $sort : {count : -1}}
+]);
