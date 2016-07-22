@@ -20,6 +20,7 @@ var RESULT_SUCCESS_CODE = 'S';
 var RESULT_FAIL_CODE = 'E';
 var RESULT_SETTION_INVALID_CODE = 'X';
 var SERVER_ERROR = 'SERVER PROCESS ERROR';
+var DASHBOARD_PERIOD_DAY = 7; // 1week
 
 //############################################################################################
 // LOGIN ,LOGOUT , SESSION CHECK PROCESS
@@ -95,6 +96,482 @@ router.post('/logout', function(req, res, next) {
 });
 
 //############################################################################################
+// DASHBOARD PROCESS
+//############################################################################################
+
+// dashboard top 5 App Service Call process
+router.post('/dashboardTop5AppInfo', function(req, res, next) {
+	var resData = new Object();
+	if(req.session.user_id !== null && req.session.user_id !== undefined 
+		&& req.session.user_id !== ""){
+		var collection = db.get('rockfish_service_log'); 
+
+		collection.aggregate([
+		     { $match: { REQUEST_TIME: {"$gte": new Date(Date.parse(new Date()) - DASHBOARD_PERIOD_DAY*1000*60*60*24)} } },
+		     {
+		          $group : {
+		               _id : "$ACCESS.ROCKFISH_CLIENT_APP",  
+		               count : {
+		                    $sum : 1    
+		               }
+		          }
+		     },
+		     {
+		          $project : {
+		               _id : 0,             
+		               groupkey : "$_id",  
+		               count : 1
+		          }
+		     },
+		     { $sort : {count : -1}},   
+		     { $limit : 5 }             
+		],function(err, data){
+	        if (err){		 
+	        	console.error(SERVER_ERROR, err.stack);   
+	        	resData.rockfish_result_code = RESULT_FAIL_CODE;
+				resData.rockfish_result_msg = SERVER_ERROR;
+				res.json(resData);
+	        }else{	
+		        resData.rockfish_result_code = RESULT_SUCCESS_CODE;
+		        resData.list = data;
+		      	res.json(resData);
+	        }
+	    });
+	}else{
+		resData.rockfish_result_code = RESULT_SETTION_INVALID_CODE;
+		res.json(resData);
+	}
+});
+
+// dashboard Service Call Summary process
+router.post('/dashboardServiceInfo', function(req, res, next) {
+	var resData = new Object();
+	if(req.session.user_id !== null && req.session.user_id !== undefined 
+		&& req.session.user_id !== ""){
+		var collection = db.get('rockfish_service_log'); 
+
+		collection.aggregate([
+		     { $match: { REQUEST_TIME: {"$gte": new Date(Date.parse(new Date()) - DASHBOARD_PERIOD_DAY*1000*60*60*24)} } },
+		     {
+		          $group : {
+		               _id : { app: "$ACCESS.ROCKFISH_CLIENT_APP", service: "$TARGET_SERVICE" }, 
+		              
+		               count : {
+		                    $sum : 1    
+		               }
+		          }
+		     },
+		     {
+		          $project : {
+		               _id : 0,             
+		               groupkey : "$_id",  
+		               count : 1
+		          }
+		     },
+		     { $sort : {count : -1}}   
+		],function(err, data){
+	        if (err){		 
+	        	console.error(SERVER_ERROR, err.stack);   
+	        	resData.rockfish_result_code = RESULT_FAIL_CODE;
+				resData.rockfish_result_msg = SERVER_ERROR;
+				res.json(resData);
+	        }else{	
+		        resData.rockfish_result_code = RESULT_SUCCESS_CODE;
+		        resData.list = data;
+		      	res.json(resData);
+	        }
+	    });
+	}else{
+		resData.rockfish_result_code = RESULT_SETTION_INVALID_CODE;
+		res.json(resData);
+	}
+});
+
+// dashboard Service Call Result process
+router.post('/dashboardServiceResultInfo', function(req, res, next) {
+	var resData = new Object();
+	if(req.session.user_id !== null && req.session.user_id !== undefined 
+		&& req.session.user_id !== ""){
+		var collection = db.get('rockfish_service_log'); 
+
+		collection.aggregate([
+		     { $match: { REQUEST_TIME: {"$gte": new Date(Date.parse(new Date()) - DASHBOARD_PERIOD_DAY*1000*60*60*24)} } },
+		     {
+		          $group : {
+		               _id : "$RESPONSE.ROCKFISH_RESULT_CODE",  
+		               count : {
+		                    $sum : 1    
+		               }
+		          }
+		     },
+		     {
+		          $project : {
+		               _id : 0,             
+		               groupkey : "$_id",  
+		               count : 1
+		          }
+		     } 
+		],function(err, data){
+	        if (err){		 
+	        	console.error(SERVER_ERROR, err.stack);   
+	        	resData.rockfish_result_code = RESULT_FAIL_CODE;
+				resData.rockfish_result_msg = SERVER_ERROR;
+				res.json(resData);
+	        }else{	
+		        resData.rockfish_result_code = RESULT_SUCCESS_CODE;
+		        resData.list = data;
+		      	res.json(resData);
+	        }
+	    });
+	}else{
+		resData.rockfish_result_code = RESULT_SETTION_INVALID_CODE;
+		res.json(resData);
+	}
+});
+
+// dashboard Service Call History process
+router.post('/dashboardServiceHistoryInfo', function(req, res, next) {
+	var resData = new Object();
+	if(req.session.user_id !== null && req.session.user_id !== undefined 
+		&& req.session.user_id !== ""){
+		var collection = db.get('rockfish_service_log'); 
+
+		collection.aggregate([
+		     { $match: { REQUEST_TIME: {"$gte": new Date(Date.parse(new Date()) - DASHBOARD_PERIOD_DAY*1000*60*60*24)} } },
+		     {
+		          $group : {
+		               _id : { $dateToString: { format: "%Y-%m-%d", date: "$REQUEST_TIME" } },  
+		               count : {
+		                    $sum : 1    
+		               }
+		          }
+		     },
+		     {
+		          $project : {
+		               _id : 0,             
+		               groupkey : "$_id",  
+		               count : 1
+		          }
+		     }
+		],function(err, data){
+	        if (err){		 
+	        	console.error(SERVER_ERROR, err.stack);   
+	        	resData.rockfish_result_code = RESULT_FAIL_CODE;
+				resData.rockfish_result_msg = SERVER_ERROR;
+				res.json(resData);
+	        }else{	
+		        resData.rockfish_result_code = RESULT_SUCCESS_CODE;
+		        resData.list = data;
+		      	res.json(resData);
+	        }
+	    });
+	}else{
+		resData.rockfish_result_code = RESULT_SETTION_INVALID_CODE;
+		res.json(resData);
+	}
+});
+
+
+//############################################################################################
+// MONITORING PROCESS
+//############################################################################################
+
+// monitoring Client OS process
+router.post('/montoringClientOsInfo', function(req, res, next) {
+	var resData = new Object();
+	var params = getParams(req);
+
+	if(req.session.user_id !== null && req.session.user_id !== undefined 
+		&& req.session.user_id !== ""){
+		var collection = db.get('rockfish_service_log'); 
+
+		var sDate = getDateObj(params.START_DATE);
+		var eDate = getDateObj(params.END_DATE);
+
+		collection.aggregate([
+		     { $match: { REQUEST_TIME: {"$gte": new Date(sDate.YYYY, sDate.MM, sDate.DD ,sDate.HH , sDate.MI , 00)
+									   ,"$lte": new Date(eDate.YYYY, eDate.MM, eDate.DD , eDate.HH, eDate.MI , 59)} } },
+		     {
+		          $group : {
+		               _id : "$ACCESS.ROCKFISH_OS",  
+		               count : {
+		                    $sum : 1    
+		               }
+		          }
+		     },
+		     {
+		          $project : {
+		               _id : 0,             
+		               groupkey : "$_id",  
+		               count : 1
+		          }
+		     },
+		     { $sort : {count : -1}}  
+		],function(err, data){
+	        if (err){		 
+	        	console.error(SERVER_ERROR, err.stack);   
+	        	resData.rockfish_result_code = RESULT_FAIL_CODE;
+				resData.rockfish_result_msg = SERVER_ERROR;
+				res.json(resData);
+	        }else{	
+		        resData.rockfish_result_code = RESULT_SUCCESS_CODE;
+		        resData.list = data;
+		      	res.json(resData);
+	        }
+	    });
+	}else{
+		resData.rockfish_result_code = RESULT_SETTION_INVALID_CODE;
+		res.json(resData);
+	}
+});
+
+// monitoring Client OS Version process
+router.post('/montoringClientOsVersionInfo', function(req, res, next) {
+	var resData = new Object();
+	var params = getParams(req);
+
+	if(req.session.user_id !== null && req.session.user_id !== undefined 
+		&& req.session.user_id !== ""){
+		var collection = db.get('rockfish_service_log'); 
+
+		var sDate = getDateObj(params.START_DATE);
+		var eDate = getDateObj(params.END_DATE);
+
+		collection.aggregate([
+		     { $match: { REQUEST_TIME: {"$gte": new Date(sDate.YYYY, sDate.MM, sDate.DD ,sDate.HH , sDate.MI , 00)
+									   ,"$lte": new Date(eDate.YYYY, eDate.MM, eDate.DD , eDate.HH, eDate.MI , 59)} } },
+		     {
+		          $group : {
+		               _id : "$ACCESS.ROCKFISH_OS_VERSION",  
+		               count : {
+		                    $sum : 1    
+		               }
+		          }
+		     },
+		     {
+		          $project : {
+		               _id : 0,             
+		               groupkey : "$_id",  
+		               count : 1
+		          }
+		     },
+		     { $sort : {count : -1}}  
+		],function(err, data){
+	        if (err){		 
+	        	console.error(SERVER_ERROR, err.stack);   
+	        	resData.rockfish_result_code = RESULT_FAIL_CODE;
+				resData.rockfish_result_msg = SERVER_ERROR;
+				res.json(resData);
+	        }else{	
+		        resData.rockfish_result_code = RESULT_SUCCESS_CODE;
+		        resData.list = data;
+		      	res.json(resData);
+	        }
+	    });
+	}else{
+		resData.rockfish_result_code = RESULT_SETTION_INVALID_CODE;
+		res.json(resData);
+	}
+});
+
+
+// monitoring Send Type process
+router.post('/montoringSendTypeInfo', function(req, res, next) {
+	var resData = new Object();
+	var params = getParams(req);
+
+	if(req.session.user_id !== null && req.session.user_id !== undefined 
+		&& req.session.user_id !== ""){
+		var collection = db.get('rockfish_service_log'); 
+
+		var sDate = getDateObj(params.START_DATE);
+		var eDate = getDateObj(params.END_DATE);
+
+		collection.aggregate([
+		     { $match: { REQUEST_TIME: {"$gte": new Date(sDate.YYYY, sDate.MM, sDate.DD ,sDate.HH , sDate.MI , 00)
+									   ,"$lte": new Date(eDate.YYYY, eDate.MM, eDate.DD , eDate.HH, eDate.MI , 59)} } },
+		     {
+		          $group : {
+		               _id : "$SEND_TYPE",  
+		               count : {
+		                    $sum : 1    
+		               }
+		          }
+		     },
+		     {
+		          $project : {
+		               _id : 0,             
+		               groupkey : "$_id",  
+		               count : 1
+		          }
+		     },
+		     { $sort : {count : -1}}  
+		],function(err, data){
+	        if (err){		 
+	        	console.error(SERVER_ERROR, err.stack);   
+	        	resData.rockfish_result_code = RESULT_FAIL_CODE;
+				resData.rockfish_result_msg = SERVER_ERROR;
+				res.json(resData);
+	        }else{	
+		        resData.rockfish_result_code = RESULT_SUCCESS_CODE;
+		        resData.list = data;
+		      	res.json(resData);
+	        }
+	    });
+	}else{
+		resData.rockfish_result_code = RESULT_SETTION_INVALID_CODE;
+		res.json(resData);
+	}
+});
+
+// monitoring Encrypt process
+router.post('/montoringEncryptInfo', function(req, res, next) {
+	var resData = new Object();
+	var params = getParams(req);
+
+	if(req.session.user_id !== null && req.session.user_id !== undefined 
+		&& req.session.user_id !== ""){
+		var collection = db.get('rockfish_service_log'); 
+
+		var sDate = getDateObj(params.START_DATE);
+		var eDate = getDateObj(params.END_DATE);
+
+		collection.aggregate([
+		     { $match: { REQUEST_TIME: {"$gte": new Date(sDate.YYYY, sDate.MM, sDate.DD ,sDate.HH , sDate.MI , 00)
+									   ,"$lte": new Date(eDate.YYYY, eDate.MM, eDate.DD , eDate.HH, eDate.MI , 59)} } },
+		     {
+		          $group : {
+		               _id : "$ACCESS.ROCKFISH_ENCRYPT_YN",  
+		               count : {
+		                    $sum : 1    
+		               }
+		          }
+		     },
+		     {
+		          $project : {
+		               _id : 0,             
+		               groupkey : "$_id",  
+		               count : 1
+		          }
+		     },
+		     { $sort : {count : -1}}  
+		],function(err, data){
+	        if (err){		 
+	        	console.error(SERVER_ERROR, err.stack);   
+	        	resData.rockfish_result_code = RESULT_FAIL_CODE;
+				resData.rockfish_result_msg = SERVER_ERROR;
+				res.json(resData);
+	        }else{	
+		        resData.rockfish_result_code = RESULT_SUCCESS_CODE;
+		        resData.list = data;
+		      	res.json(resData);
+	        }
+	    });
+	}else{
+		resData.rockfish_result_code = RESULT_SETTION_INVALID_CODE;
+		res.json(resData);
+	}
+});
+
+// monitoring Service Response Http Status Code process
+router.post('/montoringServiceResponseHttpStatusCodeInfo', function(req, res, next) {
+	var resData = new Object();
+	var params = getParams(req);
+
+	if(req.session.user_id !== null && req.session.user_id !== undefined 
+		&& req.session.user_id !== ""){
+		var collection = db.get('rockfish_service_log'); 
+
+		var sDate = getDateObj(params.START_DATE);
+		var eDate = getDateObj(params.END_DATE);
+
+		collection.aggregate([
+		     { $match: { REQUEST_TIME: {"$gte": new Date(sDate.YYYY, sDate.MM, sDate.DD ,sDate.HH , sDate.MI , 00)
+									   ,"$lte": new Date(eDate.YYYY, eDate.MM, eDate.DD , eDate.HH, eDate.MI , 59)} } },
+		     {
+		          $group : {
+		               _id : "$RESPONSE.ROCKFISH_HTTP_STATUS_CODE",  
+		               count : {
+		                    $sum : 1    
+		               }
+		          }
+		     },
+		     {
+		          $project : {
+		               _id : 0,             
+		               groupkey : "$_id",  
+		               count : 1
+		          }
+		     },
+		     { $sort : {count : -1}}  
+		],function(err, data){
+	        if (err){		 
+	        	console.error(SERVER_ERROR, err.stack);   
+	        	resData.rockfish_result_code = RESULT_FAIL_CODE;
+				resData.rockfish_result_msg = SERVER_ERROR;
+				res.json(resData);
+	        }else{	
+		        resData.rockfish_result_code = RESULT_SUCCESS_CODE;
+		        resData.list = data;
+		      	res.json(resData);
+	        }
+	    });
+	}else{
+		resData.rockfish_result_code = RESULT_SETTION_INVALID_CODE;
+		res.json(resData);
+	}
+});
+
+// monitoringService Response Http Code Service Protocol process
+router.post('/montoringServiceProtocolInfo', function(req, res, next) {
+	var resData = new Object();
+	var params = getParams(req);
+
+	if(req.session.user_id !== null && req.session.user_id !== undefined 
+		&& req.session.user_id !== ""){
+		var collection = db.get('rockfish_service_log'); 
+
+		var sDate = getDateObj(params.START_DATE);
+		var eDate = getDateObj(params.END_DATE);
+
+		collection.aggregate([
+		     { $match: { REQUEST_TIME: {"$gte": new Date(sDate.YYYY, sDate.MM, sDate.DD ,sDate.HH , sDate.MI , 00)
+									   ,"$lte": new Date(eDate.YYYY, eDate.MM, eDate.DD , eDate.HH, eDate.MI , 59)} } },
+		     {
+		          $group : {
+		               _id : "$SERVICE_METHOD",  
+		               count : {
+		                    $sum : 1    
+		               }
+		          }
+		     },
+		     {
+		          $project : {
+		               _id : 0,             
+		               groupkey : "$_id",  
+		               count : 1
+		          }
+		     },
+		     { $sort : {count : -1}}  
+		],function(err, data){
+	        if (err){		 
+	        	console.error(SERVER_ERROR, err.stack);   
+	        	resData.rockfish_result_code = RESULT_FAIL_CODE;
+				resData.rockfish_result_msg = SERVER_ERROR;
+				res.json(resData);
+	        }else{	
+		        resData.rockfish_result_code = RESULT_SUCCESS_CODE;
+		        resData.list = data;
+		      	res.json(resData);
+	        }
+	    });
+	}else{
+		resData.rockfish_result_code = RESULT_SETTION_INVALID_CODE;
+		res.json(resData);
+	}
+});
+
+//############################################################################################
 // LOG PROCESS
 //############################################################################################
 
@@ -116,11 +593,11 @@ router.post('/logSearchList', function(req, res, next) {
 			paraCondition["RESPONSE.ROCKFISH_RESULT_CODE"]  = params.ROCKFISH_RESULT;
 		}
 		
-		if(params.ROCKFISH_ENCRYPT_PARAMETER !=''){
-			if(params.ROCKFISH_ENCRYPT_PARAMETER =="Y"){
-				paraCondition["ACCESS.ROCKFISH_ENCRYPT_PARAMETER"]  = {$ne : ""};
+		if(params.ROCKFISH_ENCRYPT_YN !=''){
+			if(params.ROCKFISH_ENCRYPT_YN =="Y"){
+				paraCondition["ACCESS.ROCKFISH_ENCRYPT_YN"]  = "Y";
 			}else{
-				paraCondition["ACCESS.ROCKFISH_ENCRYPT_PARAMETER"]  = "";
+				paraCondition["ACCESS.ROCKFISH_ENCRYPT_YN"]  = "N";
 			}			
 		}	
 
@@ -160,8 +637,18 @@ router.post('/logSearchList', function(req, res, next) {
 		if(params.REQUEST_TIME1 !='' && params.REQUEST_TIME2 !=''){
 			var sDate = getDateObj(params.REQUEST_TIME1);
 			var eDate = getDateObj(params.REQUEST_TIME2);
-			paraCondition["REQUEST_TIME"] =  {"$gte": new Date(sDate.YYYY, sDate.MM, sDate.DD)
-									   ,"$lt": new Date(eDate.YYYY, eDate.MM, eDate.DD)};
+			paraCondition["REQUEST_TIME"] =  {"$gte": new Date(sDate.YYYY, sDate.MM, sDate.DD,00 , 00 , 00)
+									   ,"$lte": new Date(eDate.YYYY, eDate.MM, eDate.DD , 23, 59 , 59)};
+		}
+
+		if(params.ROCKFISH_SEARCH_TIME !=null && params.ROCKFISH_SEARCH_TIME !== undefined && params.ROCKFISH_SEARCH_TIME != ""){
+			if(params.REQUEST_TIME1 !=''){
+				var sDate = getDateObj(params.REQUEST_TIME1);
+				paraCondition["REQUEST_TIME"] =  {"$gte": new Date(sDate.YYYY, sDate.MM, sDate.DD)
+										   ,"$lte": new Date(params.ROCKFISH_SEARCH_TIME)};
+			}else{
+				paraCondition["REQUEST_TIME"] =  {"$lte": new Date(params.ROCKFISH_SEARCH_TIME)};	
+			}
 		}
 		
 		var NUMBER_OF_ITEMS = 500;
@@ -192,17 +679,12 @@ router.post('/logSearchList', function(req, res, next) {
                     json.TARGET_SERVICE = data[i].TARGET_SERVICE;
                     if(data[i].SEND_TYPE == "G"){
                     	json.SEND_TYPE = "General";
-                    }else if(data[i].RESPONSE.ROCKFISH_RESULT_CODE == "M"){
+                    }else if(data[i].SEND_TYPE == "M"){
                     	json.SEND_TYPE = "Multipart";
                     }else{
                     	json.SEND_TYPE = "Download";
                     }
-                    
-                    if(data[i].ACCESS.ROCKFISH_ENCRYPT_PARAMETER == "" || data[i].ACCESS.ROCKFISH_ENCRYPT_PARAMETER === undefined ){
-                    	json.ROCKFISH_ENCRYPT_PARAMETER = "N";
-                    }else{
-                    	json.ROCKFISH_ENCRYPT_PARAMETER = "Y";
-                    }
+                    json.ROCKFISH_ENCRYPT_YN = data[i].ACCESS.ROCKFISH_ENCRYPT_YN; 
                     json.REQUEST_TIME = data[i].REQUEST_TIME;
                     json.RESPONSE_TIME = data[i].RESPONSE_TIME;
                     json.ROCKFISH_ACCESS_ID = data[i].ACCESS.ROCKFISH_ACCESS_ID;
@@ -224,7 +706,7 @@ router.post('/logSearchList', function(req, res, next) {
 		        var pageObj = new Object();
 		        if(parseInt(params.PAGE_NUMBER) == 0){
 					pageObj.pageNo = 1;
-					pageObj.pageCount = 2;
+					pageObj.pageCount = 1;
 				}else{
 					pageObj.pageNo = params.PAGE_NUMBER;
 					pageObj.pageCount = parseInt(params.PAGE_NUMBER)+1;
@@ -232,6 +714,16 @@ router.post('/logSearchList', function(req, res, next) {
 		        
 		        pageObj.listCount = dataArray.length;
 		        resData.page = pageObj;
+
+		        if(params.ROCKFISH_SEARCH_TIME !=null && params.ROCKFISH_SEARCH_TIME !== undefined && params.ROCKFISH_SEARCH_TIME != ""){
+					resData.rockfish_search_time = params.ROCKFISH_SEARCH_TIME;
+				}else{
+					if(data !=null && data !== undefined && data.length > 0 ){
+						resData.rockfish_search_time = data[0].REQUEST_TIME;	
+					}else{
+						resData.rockfish_search_time = "";
+					}
+				}
 		      	res.json(resData);
 	        }
 	    });
@@ -687,10 +1179,21 @@ function getDateObj(dateStr){
 	dateObj.YYYY = '';
 	dateObj.MM = '';
 	dateObj.DD = '';
+	dateObj.HH = '';
+	dateObj.MI = '';
+
 	if(dateStr !='' && dateStr.length == 10 ){
 		dateObj.YYYY = dateStr.substring(0,4);
 		dateObj.MM = dateStr.substring(5,7)-1;
 		dateObj.DD = dateStr.substring(8,10);
+	}
+
+	if(dateStr !='' && dateStr.length == 16 ){
+		dateObj.YYYY = dateStr.substring(0,4);
+		dateObj.MM = dateStr.substring(5,7)-1;
+		dateObj.DD = dateStr.substring(8,10);
+		dateObj.HH = dateStr.substring(11,13);
+		dateObj.MI = dateStr.substring(14,16);
 	}
 	return dateObj;
 }

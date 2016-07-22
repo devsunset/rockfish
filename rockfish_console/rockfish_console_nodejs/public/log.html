@@ -98,7 +98,7 @@
                         </div>
 					</div>
 					<!-- e.CXPage -->					
-						
+					<div style="padding-left:20px;padding-top:10px">500 row per page</div>
 				</div>
 				<div class="ax-clear"></div>
 			</div>
@@ -153,6 +153,8 @@
     var page_menu_id = "m03"; // admin.js > topMenu_data 에 정의된 id
 </script>
 <script type="text/javascript">
+    var PAGE_QUERY = null;
+    var ROCKFISH_SEARCH_TIME = null;
     var myProgress = new AXProgress();  
     var logOpenId = "";
 
@@ -200,7 +202,6 @@
             this.modal.bind();
             this.bindEvent();
 
-             
             //$( "input[name*='REQUEST_TIME1']" ).attr("readonly", "readonly");
             //$( "input[name*='REQUEST_TIME2']" ).attr("readonly", "readonly");
 
@@ -265,7 +266,7 @@
                                     }
                                 }
                             }, 
-                            {label:"ENCRYPT USE", labelWidth:"100", type:"selectBox", width:"230", key:"ROCKFISH_ENCRYPT_PARAMETER", addClass:"secondItem", valueBoxStyle:"", value:"",
+                            {label:"ENCRYPT USE", labelWidth:"100", type:"selectBox", width:"230", key:"ROCKFISH_ENCRYPT_YN", addClass:"secondItem", valueBoxStyle:"", value:"",
                                 options:[{optionValue:"", optionText:"ALL"}, {optionValue:"Y", optionText:"Y"}, {optionValue:"N", optionText:"N"}],
                                 AXBind:{
                                     type:"select",  config:{
@@ -315,22 +316,28 @@
                 });
             },
             submit: function(pageNo){
+                fnObj.progress.start();
+                var pars = this.target.getParam();
+                var query  = "";
+
                 var currentPangNo = 0;
                 if(pageNo === undefined){
                     currentPangNo = 0;
+                    PAGE_QUERY = pars;
+                    query  = PAGE_QUERY +"&PAGE_NUMBER="+currentPangNo;
                 }else{
                     currentPangNo = pageNo;
+                    query  = PAGE_QUERY +"&PAGE_NUMBER="+currentPangNo+"&ROCKFISH_SEARCH_TIME="+ROCKFISH_SEARCH_TIME;
                 }
-                fnObj.progress.start();
-                var pars = this.target.getParam();
-                pars = pars +"&PAGE_NUMBER="+currentPangNo;
+               
                 var url = '/console/logSearchList'
-                new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+                new AXReq(url, {debug:false,type: "post", pars:query, onsucc:function(res){
                         myProgress.close();
                         mask.close();
                         if(res.rockfish_result_code == "S"){
                            fnObj.grid.target.setData(res);
-                           $("#page-grid-box_AX_gridPageCount").html("more...");
+                           ROCKFISH_SEARCH_TIME = res.rockfish_search_time;
+                           $("#page-grid-box_AX_gridPageCount").html(" more ...");
                         }else if(res.rockfish_result_code == "X"){
                            AXUtil.alert("Session is invalid or Session is time out.");
                            document.location.href="/index.html";
@@ -366,7 +373,7 @@
                         {key:"REQUEST_TIME", label:"Request Time", width:"180" , align:"center"},
                         {key:"RESPONSE_TIME", label:"Response Time", width:"180" , align:"center"},
                         {key:"ROCKFISH_RESULT", label:"Result", width:"100", align:"center"},
-                        {key:"ROCKFISH_ENCRYPT_PARAMETER", label:"Encrypt Use", width:"100", align:"center"},
+                        {key:"ROCKFISH_ENCRYPT_YN", label:"Encrypt Use", width:"100", align:"center"},
                         {key:"ROCKFISH_ACCESS_ID", label:"Access Id", width:"100"},
                         {key:"ROCKFISH_DEVICE", label:"Device", width:"120"},
                         {key:"ROCKFISH_OS", label:"Os", width:"100"},
@@ -382,7 +389,7 @@
                     page:{
                         paging:true,
                         pageNo:1,
-                        pageSize:1,
+                        pageSize:100,
                         status:{formatter: null},
                         onchange: function(pageNo){
                             fnObj.search.submit(pageNo);

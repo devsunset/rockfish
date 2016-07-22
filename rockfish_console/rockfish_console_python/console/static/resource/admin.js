@@ -5,7 +5,7 @@
 
 var topMenu_data = [
     {_id: "m01", label: '<i class="axi axi-windows"></i> DashBoard', url: "dashboard.html", target: "_self"},
-    {_id: "m02", label: '<i class="axi axi-pie-chart"></i> Monitoring', url: "montoring.html", target: "_self"},
+    {_id: "m02", label: '<i class="axi axi-pie-chart"></i> Monitoring', url: "monitoring.html", target: "_self"},
     {_id: "m03", label: '<i class="axi axi-search3"></i> Log', url: "log.html", target: "_self"},
     {_id: "m04", label: '<i class="axi axi-anchor2"></i> Service', url: "service.html", target: "_self"},
     {_id: "m05", label: '<i class="axi axi-settings-applications"></i> Setting', url: "setting.html", target: "_self"},
@@ -14,7 +14,7 @@ var topMenu_data = [
 
 var sideMenu_data = [
     {_id: "m01", label: '<i class="axi axi-windows"></i> DashBoard', url: "dashboard.html", target: "_self"},
-    {_id: "m02", label: '<i class="axi axi-pie-chart"></i> Monitoring', url: "montoring.html", target: "_self"},
+    {_id: "m02", label: '<i class="axi axi-pie-chart"></i> Monitoring', url: "monitoring.html", target: "_self"},
     {_id: "m03", label: '<i class="axi axi-search3"></i> Log', url: "log.html", target: "_self"},
     {_id: "m04", label: '<i class="axi axi-anchor2"></i> Service', url: "service.html", target: "_self"},
     {_id: "m05", label: '<i class="axi axi-settings-applications"></i> Setting', url: "setting.html", target: "_self"},
@@ -24,7 +24,7 @@ var sideMenu_data = [
 /*
 var topMenu_data = [
     {_id: "m01", label: '<i class="axi axi-windows"></i> DashBoard', url: "dashboard.html", target: "_self"},
-    {_id: "m02", label: '<i class="axi axi-pie-chart"></i> Monitoring', url: "montoring.html", target: "_self"},
+    {_id: "m02", label: '<i class="axi axi-pie-chart"></i> Monitoring', url: "monitoring.html", target: "_self"},
     {_id: "m03", label: '<i class="axi axi-search3"></i> Log', url: "log.html", target: "_self"},
     {_id: "m04", label: '<i class="axi axi-anchor2"></i> Service', url: "service.html", target: "_self"},
     {_id: "m05", label: '<i class="axi axi-settings-applications"></i> Setting', url: "setting.html", target: "_self"},
@@ -34,7 +34,7 @@ var topMenu_data = [
 
 var sideMenu_data = [
     {_id: "m01", label: '<i class="axi axi-windows"></i> DashBoard', url: "dashboard.html", target: "_self"},
-    {_id: "m02", label: '<i class="axi axi-pie-chart"></i> Monitoring', url: "montoring.html", target: "_self"},
+    {_id: "m02", label: '<i class="axi axi-pie-chart"></i> Monitoring', url: "monitoring.html", target: "_self"},
     {_id: "m03", label: '<i class="axi axi-search3"></i> Log', url: "log.html", target: "_self"},
     {_id: "m04", label: '<i class="axi axi-anchor2"></i> Service', url: "service.html", target: "_self"},
     {_id: "m05", label: '<i class="axi axi-settings-applications"></i> Setting', url: "setting.html", target: "_self"},
@@ -217,7 +217,7 @@ var fcObj = {
         },
         change: function (theme) {
             var t = theme.split("/");
-            jQuery("#axu-theme-admin").attr("href", "ui/" + t[0] + "/admin.css");
+            jQuery("#axu-theme-admin").attr("href", "static/ui/" + t[0] + "/admin.css");
             jQuery("#axu-theme-axisj").attr("href", "http://cdno.axisj.com/axisj/ui/" + t[1] + "/AXJ.min.css?v=" + axf.timekey());
             axf.setCookie("axutheme", theme);
         }

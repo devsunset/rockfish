@@ -79,61 +79,64 @@
 							<div class="ax-col-6">
 								<div class="ax-unit">
 									<div class="ax-box sample-01">
-										<div class="ax-box-wrap">
+										<div class="ax-box-wrap" style="text-align:center">
 											<h3>
-												Top 5 - App Call Service Summary (1Week)
+												Top 5 - App Service Call (1Week)
 												<!-- <a href="#" class="more">more <i class="axi axi-external-link-square"></i></a> -->
 											</h3>
 											<table cellpadding="0" cellspacing="0" class="AXGridTable">
 												<colgroup>
-													<col width="250" />
-													<col />
-													<col width="100" />
+													<col width="20%" />
+													<col width="50%" />
+													<col width="30%" />
 												</colgroup>
 												<thead>
 												<tr>
-													<td>
+													<td style="text-align:center">
 														<div class="tdRel">
-															App Name
+															App
 														</div>
 													</td>
-													<td>
+													<td style="text-align:center">
 														<div class="tdRel">
-															Call Service Count
+															Count
 														</div>
 													</td>
-													<td>
+													<td style="text-align:center">
 														<div class="tdRel">
-															Call Service Rate
+															Top 5 Call Rate
 														</div>
 													</td>
 												</tr>
 												</thead>
 												<tbody>
 												<tr class="red">
-													<td>Rockfish1</td>
-													<td>99</td>
-													<td>50%</td>
+													<td style="text-align:left" id="appA0">&nbsp;</td>
+													<td style="text-align:right" id="appB0">&nbsp;</td>
+													<td style="text-align:right" id="appC0">&nbsp;</td>
 												</tr>
 												<tr class="blue">
-													<td>Rockfish2</td>
-													<td>99</td>
-													<td>40%</td>
+													<td style="text-align:left" id="appA1">&nbsp;</td>
+													<td style="text-align:right" id="appB1">&nbsp;</td>
+													<td style="text-align:right" id="appC1">&nbsp;</td>
 												</tr>
 												<tr class="green">
-													<td>Rockfish3</td>
-													<td>99</td>
-													<td>30%</td>
+													<td style="text-align:left" id="appA2">&nbsp;</td>
+													<td style="text-align:right" id="appB2">&nbsp;</td>
+													<td style="text-align:right" id="appC2">&nbsp;</td>
 												</tr>
 												<tr class="gray">
-													<td>Rockfish4</td>
-													<td>99</td>
-													<td>20%</td>
+													<td style="text-align:left" id="appA3">&nbsp;</td>
+													<td style="text-align:right" id="appB3">&nbsp;</td>
+													<td style="text-align:right" id="appC3">&nbsp;</td>
 												</tr>
 												<tr>
-													<td>Rockfish5</td>
-													<td>99</td>
-													<td>10%</td>
+													<td style="text-align:left" id="appA4">&nbsp;</td>
+													<td style="text-align:right" id="appB4">&nbsp;</td>
+													<td style="text-align:right" id="appC4">&nbsp;</td>
+												</tr>
+												<tr>
+													<td style="text-align:left" colspan="3">&nbsp;</td>
 												</tr>
 												</tbody>
 											</table>
@@ -146,9 +149,9 @@
 							<div class="ax-col-6">
 								<div class="ax-unit">
 									<div class="ax-box">
-										<div class="ax-box-wrap">
+										<div class="ax-box-wrap" style="text-align:center">
 											<h3>
-												App Call Service Detail (1Week)
+												Service Call Summary (1Week)
 												<!-- <a href="#" class="more">more <i class="axi axi-external-link-square"></i></a> -->
 											</h3>
 											<div id="page-grid-box"></div>
@@ -165,12 +168,12 @@
 							<div class="ax-col-6">
 								<div class="ax-unit">
 									<div class="ax-box">
-										<div class="ax-box-wrap">
+										<div class="ax-box-wrap" style="text-align:center">
 											<h3>
-												Top 50 - App Call Service Detail Summary (1Week)
+												Service Call Result (1Week)
 												<!-- <a href="#" class="more">more <i class="axi axi-external-link-square"></i></a> -->
 											</h3>
-											<canvas id="chart-canvas-doughnut" height="200" style="min-height: 256px;"></canvas>
+											<canvas id="chart-canvas-doughnut" height="150" style="min-height: 150px;"></canvas>
 										</div>
 									</div>
 									<div class="ax-clear"></div>
@@ -180,12 +183,12 @@
 							<div class="ax-col-6">
 								<div class="ax-unit">
 									<div class="ax-box">
-										<div class="ax-box-wrap">
+										<div class="ax-box-wrap" style="text-align:center">
 											<h3>
 												Service Call History (1Week)
 												<!-- <a href="#" class="more">more <i class="axi axi-external-link-square"></i></a> -->
 											</h3>
-											<canvas id="chart-canvas-line" height="200" style="min-height: 256px;"></canvas>
+											<canvas id="chart-canvas-line" height="150" style="min-height: 150px;"></canvas>
 										</div>
 									</div>
 									<div class="ax-clear"></div>
@@ -252,68 +255,6 @@
 	var page_menu_id = "m01"; // admin.js > topMenu_data 에 정의된 id
 </script>
 <script type="text/javascript">
-	var doughnutData = [
-		{
-			value: 300,
-			color:"#F7464A",
-			highlight: "#FF5A5E",
-			label: "Red"
-		},
-		{
-			value: 50,
-			color: "#46BFBD",
-			highlight: "#5AD3D1",
-			label: "Green"
-		},
-		{
-			value: 100,
-			color: "#FDB45C",
-			highlight: "#FFC870",
-			label: "Yellow"
-		},
-		{
-			value: 40,
-			color: "#949FB1",
-			highlight: "#A8B3C5",
-			label: "Grey"
-		},
-		{
-			value: 120,
-			color: "#4D5360",
-			highlight: "#616774",
-			label: "Dark Grey"
-		}
-	];
-
-	var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
-	var lineChartData = {
-		labels : ["January","February","March","April","May","June","July"],
-		datasets : [
-			{
-				label: "My First dataset",
-				fillColor : "rgba(220,220,220,0.2)",
-				strokeColor : "rgba(220,220,220,1)",
-				pointColor : "rgba(220,220,220,1)",
-				pointStrokeColor : "#fff",
-				pointHighlightFill : "#fff",
-				pointHighlightStroke : "rgba(220,220,220,1)",
-				data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-			},
-			{
-				label: "My Second dataset",
-				fillColor : "rgba(151,187,205,0.2)",
-				strokeColor : "rgba(151,187,205,1)",
-				pointColor : "rgba(151,187,205,1)",
-				pointStrokeColor : "#fff",
-				pointHighlightFill : "#fff",
-				pointHighlightStroke : "rgba(151,187,205,1)",
-				data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-			}
-		]
-
-	};
-
-
 	var fnObj = {
 		pageStart: function(){
 			//Session Check
@@ -346,10 +287,9 @@
                 }
             });     
 
-
 			this.grid.bind();
-			this.chart.Doughnut();
-			this.chart.Line();
+			this.chart.serviceResult();
+			this.chart.serviceHistory();
 		},
 		grid: {
 			target: new AXGrid(),
@@ -364,47 +304,218 @@
 						mx:{min:0, max:767}, dx:{min:767}
 					},
 					colGroup : [
-						{key:"no", label:"No", width:"40", align:"center", formatter:"money"},
-						{key:"column1", label:"App Name", width:"150"},
-						{key:"column2", label:"Service Name", width:"*", align:"left"},
-						{key:"column3", label:"Call Service Count", width:"150", align:"right"}
+						{key:"NO", label:"No", width:"40", align:"center", formatter:"money"},
+						{key:"APP", label:"App", width:"120"},
+						{key:"SERVICE", label:"Service", width:"350", align:"left"},
+						{key:"COUNT", label:"Count", width:"120", align:"right"}
 					],
-					
-					body : {
-						onclick: function(){
-							//toast.push(Object.toJSON({index:this.index, item:this.item}));
-							//alert(this.list);
-							//alert(this.page);
-							fnObj.modal.open("gridView", this.item);
-						}
-					},
 					page:{
-						paging:true,
+						paging:false,
 						pageNo:1,
 						pageSize:100,
 						status:{formatter: null}
 					}
 				});
 
-				this.target.setList({
-					ajaxUrl:"data/loadGrid.json", method:"GET", ajaxPars:"param1=1&param2=2", onLoad:function(){
-						//trace(this);
-					}
-				});
+				var url = '/console/dashboardTop5AppInfo'
+		        var pars = new Object();
+		         new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+		                if(res.rockfish_result_code == "S"){
+		                	if(res !=null && res.list !== undefined && res.list.length > 0){
+		                		var total = 0;
+		                		for(var x=0;x<res.list.length;x++){
+		                			total += parseInt(res.list[x].count);
+		                		}
+
+		                		for(var x=0;x<res.list.length;x++){
+		                			$("#appA"+x).html(res.list[x].groupkey);
+		                			$("#appB"+x).html(res.list[x].count.money());
+		                			$("#appC"+x).html((res.list[x].count/total*100).toFixed(2)+'%');
+		                		}
+		                	}
+		                }else if(res.rockfish_result_code == "X"){
+		                   //skip
+		                }else{
+		                   AXUtil.alert(res.rockfish_result_msg);
+		                }
+		            },
+		            onerr:function(res){
+		                toast.push("Server Error.");
+		            }
+		        });
+
+
+		        var url = '/console/dashboardServiceInfo'
+		        var pars = new Object();
+		         new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+		                if(res.rockfish_result_code == "S"){
+		                	if(res !=null && res.list !== undefined && res.list.length > 0){
+		                		var jdata = new Array();
+		    					for(var x=0;x<res.list.length;x++){
+		    						var obj = new Object();
+		    						obj.NO = x+1;
+		    						obj.APP = res.list[x].groupkey.app; 
+		    						obj.SERVICE = res.list[x].groupkey.service; 
+		    						obj.COUNT = res.list[x].count.money(); 
+		    						jdata.push(obj);
+		                		}
+		                		fnObj.grid.target.setList(jdata);
+		                	}
+		                }else if(res.rockfish_result_code == "X"){
+		                	// skip
+		                }else{
+		                   AXUtil.alert(res.rockfish_result_msg);
+		                }
+		            },
+		            onerr:function(res){
+		                toast.push("Server Error.");
+		            }
+		        });
 			}
 		},
 		chart:{
-			Doughnut: function(){
-				var chart_doughnut = document.getElementById("chart-canvas-doughnut").getContext("2d");
-				window.myChart_doughnut = new Chart(chart_doughnut).Doughnut(doughnutData, {
-					responsive : true
-				});
+			serviceResult: function(){
+				var url = '/console/dashboardServiceResultInfo'
+		        var pars = new Object();
+		         new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+		                if(res.rockfish_result_code == "S"){
+		                	if(res !=null && res.list !== undefined && res.list.length > 0){
+		                		var eCount = 0;
+		                		var sCount = 0;
+
+		                		for(var x=0;x<res.list.length;x++){
+
+		                			if(res.list[x].groupkey == "S"){
+		                				sCount = res.list[x].count;
+		                			}else if(res.list[x].groupkey == "E"){
+		                				eCount = res.list[x].count;
+		                			}
+		                		}
+
+		                		var doughnutData = [
+									{
+										value: eCount,
+										color:"#F7464A",
+										highlight: "#FF5A5E",
+										label: "Fail"
+									},
+									{
+										value: sCount,
+										color: "#46BFBD",
+										highlight: "#5AD3D1",
+										label: "Success"
+									}
+								];
+
+								var chart_doughnut = document.getElementById("chart-canvas-doughnut").getContext("2d");
+								window.myChart_doughnut = new Chart(chart_doughnut).Doughnut(doughnutData, {
+									responsive : true
+								});
+								
+		                	}else{
+		                		var canvas = document.getElementById("chart-canvas-doughnut");
+								var ctx = canvas.getContext("2d");
+								ctx.font = "30px Comic Sans MS";
+								ctx.fillStyle = "gray";
+								ctx.textAlign = "center";
+								ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+		                	}
+		                }else if(res.rockfish_result_code == "X"){
+		                	// skip
+		                }else{
+		                	var canvas = document.getElementById("chart-canvas-doughnut");
+							var ctx = canvas.getContext("2d");
+							ctx.font = "30px Comic Sans MS";
+							ctx.fillStyle = "gray";
+							ctx.textAlign = "center";
+							ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+
+		                   AXUtil.alert(res.rockfish_result_msg);
+		                }
+		            },
+		            onerr:function(res){
+		                toast.push("Server Error.");
+		            }
+		        });
+
 			},
-			Line: function(){
-				var chart_line = document.getElementById("chart-canvas-line").getContext("2d");
-				window.myChart_line = new Chart(chart_line).Line(lineChartData, {
-					responsive : true
-				});
+			serviceHistory: function(){
+				var url = '/console/dashboardServiceHistoryInfo'
+		        var pars = new Object();
+		         new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+		                if(res.rockfish_result_code == "S"){
+		                	if(res !=null && res.list !== undefined && res.list.length > 0){
+
+	                			var xdateArr = new Array();
+	                			for(var x=6;x > 0 ; x--){
+	                				var sDate = new Date();
+    								sDate.setTime(sDate.getTime()-1000*60*60*24*x);
+    								xdateArr.push(sDate.date().print());
+	                			}
+
+	                			var nowDate = new Date();
+    							xdateArr.push(nowDate.date().print());
+
+	                			var dataArray = new Array();
+	                			for(var x=0;x<xdateArr.length;x++){
+	                				var count = 0;
+	                				for(var z=0;z<res.list.length;z++){
+	                					if(xdateArr[x] == res.list[z].groupkey){
+	                						count = res.list[z].count;
+	                						break;
+	                					}
+	                				}
+	                				dataArray.push(count);
+	                			}
+
+								var lineChartData = {
+									labels : xdateArr,
+									datasets : [
+										{
+											label: "My Second dataset",
+											fillColor : "rgba(151,187,205,0.2)",
+											strokeColor : "rgba(151,187,205,1)",
+											pointColor : "rgba(151,187,205,1)",
+											pointStrokeColor : "#fff",
+											pointHighlightFill : "#fff",
+											pointHighlightStroke : "rgba(151,187,205,1)",
+											data : dataArray
+										}
+									]
+
+								};
+
+								var chart_line = document.getElementById("chart-canvas-line").getContext("2d");
+								window.myChart_line = new Chart(chart_line).Line(lineChartData, {
+									responsive : true
+								});
+								
+		                	}else{
+		                		var canvas = document.getElementById("chart-canvas-line");
+								var ctx = canvas.getContext("2d");
+								ctx.font = "30px Comic Sans MS";
+								ctx.fillStyle = "gray";
+								ctx.textAlign = "center";
+								ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+		                	}
+		                }else if(res.rockfish_result_code == "X"){
+		                	// skip
+		                }else{
+		                	var canvas = document.getElementById("chart-canvas-line");
+							var ctx = canvas.getContext("2d");
+							ctx.font = "30px Comic Sans MS";
+							ctx.fillStyle = "gray";
+							ctx.textAlign = "center";
+							ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+
+		                   AXUtil.alert(res.rockfish_result_msg);
+		                }
+		            },
+		            onerr:function(res){
+		                toast.push("Server Error.");
+		            }
+		        });
+				
 			}
 		}
 	}

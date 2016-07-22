@@ -139,6 +139,14 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 			}else{
 
 				if(url_partsCheck.pathname === config.rockfish_http_path){
+					var encryptYn = "N";
+					
+					if(drequest.headers.rockfish_encrypt_parameter !=null 
+						&& drequest.headers.rockfish_encrypt_parameter !== undefined 
+						&& drequest.headers.rockfish_encrypt_parameter !=""){
+						encryptYn = "Y";
+					}
+					
 					var access = {
 						 ROCKFISH_ACCESS_ID : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_access_id)
 						,ROCKFISH_IP : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_ip)
@@ -154,6 +162,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 						,ROCKFISH_CLIENT_APP_VERSION : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_client_app_version)
 						,ROCKFISH_SEND_TYPE : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_send_type)
 						,ROCKFISH_ENCRYPT_PARAMETER : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_encrypt_parameter)
+						,ROCKFISH_ENCRYPT_YN:encryptYn
 					};
 
 					collection.insert({

@@ -28,8 +28,8 @@
 
 ## ■ rockfish console
 ``` 
-   * rockfish console ui (AXU & axijs) - TO-DO   
-   * rockfish console (nodejs & express) - TO-DO   
+   * rockfish console ui (AXU & axijs) - Beta version completed  
+   * rockfish console (nodejs & express) - Beta version completed   
 ``` 
    * rockfish console (python & django) - Next TO-DO   
    * rockfish console (ruby & rails) - Next TO-DO
