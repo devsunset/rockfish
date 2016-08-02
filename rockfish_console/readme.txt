@@ -1,6 +1,6 @@
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 ## ■ rockfish console
-   * rockfish console ui (AXU & axijs) - Beta version completed  
+   * rockfish console ui (AXU & axisj) - Beta version completed  
    * rockfish console (nodejs & express) - Beta version completed   
    * rockfish console (python & django) - Next TO-DO   
    * rockfish console (ruby & rails) - Next TO-DO
