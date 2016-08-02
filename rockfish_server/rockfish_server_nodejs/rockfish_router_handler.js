@@ -781,7 +781,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 		            });
 		            drequest.on('end',function(){
 	            			var POST =  qs.parse(reqbody);
-			                var url_parts = url.parse(drequest.url,true);
+			                var url_parts = url.parse(drequest.url,true);        
 
 			                if(POST ==='' || POST === null){
 			                	POST = {};
@@ -805,7 +805,8 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 								headersDownload['Access-Control-Allow-Headers'] = headers['Access-Control-Allow-Headers'];
 								headersDownload['Access-Contrl-Allow-Methods'] = 'POST,OPTIONS';
 								headersDownload['Access-Control-Max-Age'] = '86400';
-								headersDownload['Content-type'] = 'application/octet-stream';
+								headersDownload['Content-type'] = 'application/force-download;application/octet-stream;application/download';
+								headersDownload['Content-Transfer-Encoding'] = 'binary';
 
 							fs.readFile(config.rockfish_file_upload_temp_path+'/'+POST['ROCKFISH_TEMP_FILE'], function (err, content) {
 					            if (err) {

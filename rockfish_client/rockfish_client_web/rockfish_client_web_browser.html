@@ -12,9 +12,10 @@
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script  src="jsencrypt.js"></script>
 	<script  src="rockfish_client_web.js"></script>
-	
 	<script>
 	$(document).ready(function() {
+		
+		$.support.cors = true;
 
 		/**
 		 * <pre>
@@ -244,7 +245,7 @@
 		});
 
 	   // Use sample Download
-	   $("#sendD").click(function(e) {
+	   $("#sendD").click(function(e) {			
 	   		// Login시 cookie 값에 rockfish_access_id 설정
 	   		rockfishSetCookie("rockfish_access_id",rockfishRsaEncrypt("rockfish"));
 
@@ -376,6 +377,8 @@
 
 		<!-- Static File call -->
 		<img src="http://localhost:8888/rockfishDownloadStaticController?ROCKFISH_SERVICE=ROCKFISH_W_DOWNLOAD_STATIC&a=1&b=2">
+		
+		<iframe name="fileDown" id="fileDown" style='visibility:hidden' src="" width="1" height="1"></iframe>
 
 	</body>
 </html>

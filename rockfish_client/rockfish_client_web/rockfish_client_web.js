@@ -132,8 +132,9 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
     	rockfishSendType = "D";
     }
 
+		
     if(rockfishSendType == "G"){
-    	$.ajax({
+		$.ajax({
 			type : "POST",
 			url : url,
 			async : async,
@@ -229,7 +230,7 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	}
 		    }
 		});
-    }else{
+    }else{				
     	$.ajax({
 			type : "POST",
 			url : url,
@@ -365,31 +366,46 @@ function rockfishGetCookie(cName) {
  * @param data : json object
  *
  */
-function rockfishAjaxDownload(url, data) {
-    var $iframe;
-    var iframe_doc;
-    var iframe_html;
+function rockfishAjaxDownload(url, data) {		
+	var agent = navigator.userAgent.toLowerCase();
 
-    if (($iframe = $('#download_iframe')).length === 0) {
-        $iframe = $("<iframe id='download_iframe'" +
-                    " style='display: none' src='about:blank'></iframe>"
-                   ).appendTo("body");
-    }
+ 	if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {		
+	
+		 var url= url+"?ROCKFISH_TEMP_FILE="+encodeURIComponent(rockfishRsaEncrypt(data.ROCKFISH_TEMP_FILE))+"&ROCKFISH_REAL_FILE="+encodeURIComponent(rockfishRsaEncrypt(data.ROCKFISH_REAL_FILE));
+		
+		 var $form = $('<form></form>');
+		 $form.attr('action', url);
+		 $form.attr('method', 'POST');
+		 $form.attr('target', '_blank');
+		 $form.appendTo('body');   
+		 $form.submit();
+	 
+	}else{
+		var $iframe;
+		var iframe_doc;
+		var iframe_html;
 
-    iframe_doc = $iframe[0].contentWindow || $iframe[0].contentDocument;
-    if (iframe_doc.document) {
-        iframe_doc = iframe_doc.document;
-    }
+		if (($iframe = $('#download_iframe')).length === 0) {
+			$iframe = $("<iframe id='download_iframe'" +
+						" style='display: none' src='about:blank'></iframe>"
+					   ).appendTo("body");
+		}
 
-    iframe_html = "<html><head></head><body><form method='POST' action='" + url +"'>";
+		iframe_doc = $iframe[0].contentWindow || $iframe[0].contentDocument;
+		if (iframe_doc.document) {
+			iframe_doc = iframe_doc.document;
+		}
 
-    Object.keys(data).forEach(function(key){
-        iframe_html += "<input type='hidden' name='"+key+"' value='"+rockfishRsaEncrypt(data[key])+"'>";
-    });
+		iframe_html = "<html><head></head><body><form method='POST' action='" + url +"'>";
 
-    iframe_html +="</form></body></html>";
+		Object.keys(data).forEach(function(key){
+			iframe_html += "<input type='hidden' name='"+key+"' value='"+rockfishRsaEncrypt(data[key])+"'>";
+		});
 
-    iframe_doc.open();
-    iframe_doc.write(iframe_html);
-    $(iframe_doc).find('form').submit();
+		iframe_html +="</form></body></html>";
+
+		iframe_doc.open();
+		iframe_doc.write(iframe_html);
+		$(iframe_doc).find('form').submit();
+	}    
 }

@@ -590,7 +590,11 @@ router.post('/logSearchList', function(req, res, next) {
 		}
 
 		if(params.ROCKFISH_RESULT !=''){
-			paraCondition["RESPONSE.ROCKFISH_RESULT_CODE"]  = params.ROCKFISH_RESULT;
+			if(params.ROCKFISH_RESULT =='S'){
+				paraCondition["RESPONSE.ROCKFISH_RESULT_CODE"]  = params.ROCKFISH_RESULT;
+			}else{
+				paraCondition["RESPONSE.ROCKFISH_RESULT_CODE"]  = { $ne: 'S' };
+			}
 		}
 		
 		if(params.ROCKFISH_ENCRYPT_YN !=''){
