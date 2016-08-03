@@ -252,6 +252,16 @@
                                         }
                                     }
                                 }
+                            },   
+                            {label:"LOGIN CHECK", labelWidth:"100", type:"selectBox", width:"230", key:"SERVICE_LOGIN_CHECK", addClass:"secondItem", valueBoxStyle:"", value:"",
+                                options:[{optionValue:"", optionText:"ALL"}, {optionValue:"Y", optionText:"Y"}, {optionValue:"N", optionText:"N"}],
+                                AXBind:{
+                                    type:"select", config:{
+                                        onChange:function(){
+                                            //toast.push(Object.toJSON(this));
+                                        }
+                                    }
+                                }
                             },                           
                         ]},
                         {display:true, addClass:"gray", style:"", list:[
@@ -354,7 +364,8 @@
                         {key:"SERVICE_TITLE", label:"Title", width:"250"},
                         {key:"SERVICE_URL", label:"Url", width:"450"},
                         {key:"SERVICE_TYPE", label:"Type", width:"50", align:"center"},
-                        {key:"SERVICE_STATUS", label:"Status", width:"60", align:"center"},                        
+                        {key:"SERVICE_STATUS", label:"Status", width:"60", align:"center"},    
+                        {key:"SERVICE_LOGIN_CHECK", label:"Login Check", width:"100", align:"center"},                       
                         {key:"SERVICE_PROTOCOL", label:"Protocol", width:"70", align:"center"},
                         {key:"SERVICE_METHOD", label:"Method", width:"60", align:"center"},
                         {key:"SERVICE_DESC", label:"Desc", width:"200"},

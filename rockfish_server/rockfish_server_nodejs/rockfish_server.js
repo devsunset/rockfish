@@ -67,13 +67,13 @@ function rockfish_https_server_start(rockfish_router_handler) {
 
 //■■■ rockfish service master setting
 function rockfish_service_master_setting() {
-  collection.find({SERVICE_STATUS: 'Y'},"SERVICE_APP SERVICE SERVICE_URL SERVICE_TYPE SERVICE_PROTOCOL SERVICE_METHOD", function(err, servicemaster) {
+  collection.find({SERVICE_STATUS: 'Y'},"SERVICE_APP SERVICE SERVICE_URL SERVICE_TYPE SERVICE_PROTOCOL SERVICE_METHOD SERVICE_LOGIN_CHECK", function(err, servicemaster) {
         SERVICE_MST = servicemaster;
   });
 
   // Lazy change data  15 Secend apply
   setInterval(function() {
-    collection.find({SERVICE_STATUS: 'Y'},"SERVICE_APP SERVICE SERVICE_URL SERVICE_TYPE SERVICE_PROTOCOL SERVICE_METHOD", function(err, servicemaster) {
+    collection.find({SERVICE_STATUS: 'Y'},"SERVICE_APP SERVICE SERVICE_URL SERVICE_TYPE SERVICE_PROTOCOL SERVICE_METHOD SERVICE_LOGIN_CHECK", function(err, servicemaster) {
         SERVICE_MST = servicemaster;
     });
   }, config.rockfish_service_master_change_apply_time);

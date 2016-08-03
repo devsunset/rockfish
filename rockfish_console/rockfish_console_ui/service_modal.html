@@ -100,6 +100,7 @@
                               $("#SERVICE_TITLE").val(data.SERVICE_TITLE);
                               $("#SERVICE_TYPE").val(data.SERVICE_TYPE);
                               $("#SERVICE_STATUS").val(data.SERVICE_STATUS);
+                              $("#SERVICE_LOGIN_CHECK").val(data.SERVICE_LOGIN_CHECK);
                               $("#SERVICE_PROTOCOL").val(data.SERVICE_PROTOCOL);
                               $("#SERVICE_METHOD").val(data.SERVICE_METHOD);
                               $("#SERVICE_URL").val(data.SERVICE_URL);
@@ -140,6 +141,7 @@
                     pars.SERVICE_PROTOCOL = $("#SERVICE_PROTOCOL option:selected").val();
                     pars.SERVICE_METHOD = $("#SERVICE_METHOD option:selected").val();
                     pars.SERVICE_STATUS = $("#SERVICE_STATUS option:selected").val();
+                    pars.SERVICE_LOGIN_CHECK = $("#SERVICE_LOGIN_CHECK option:selected").val();
 
                  new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
                         myProgress.close();
@@ -245,6 +247,21 @@
                                         <span class="th" style="min-width:100px;">STATUS</span>
                                         <span class="td inputText" style="" title="">
                                             <select id="SERVICE_STATUS" name="SERVICE_STATUS" class="AXSelect">
+                                                <option value="Y">Y</option>
+                                                <option value="N">N</option>
+                                            </select>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="item-clear"></div>
+                                <div class="group-clear"></div>
+                            </div>
+                            <div class="item-group" style="">
+                                <div class="item fullWidth">
+                                    <label class="item-lable">
+                                        <span class="th" style="min-width:100px;">LOGIN CHECK</span>
+                                        <span class="td inputText" style="" title="">
+                                            <select id="SERVICE_LOGIN_CHECK" name="SERVICE_LOGIN_CHECK" class="AXSelect">
                                                 <option value="Y">Y</option>
                                                 <option value="N">N</option>
                                             </select>

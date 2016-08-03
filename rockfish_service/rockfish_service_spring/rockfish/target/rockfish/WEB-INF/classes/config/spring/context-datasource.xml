@@ -1,28 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-						http://www.springframework.org/schema/jdbc  http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+						http://www.springframework.org/schema/jdbc  http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+						http://www.springframework.org/schema/tx
+        				http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+        				http://www.jasypt.org/schema/encryption
+    					http://www.jasypt.org/schema/encryption/jasypt-spring31-encryption-1.xsd">
+     
+     <!--  
+	 	jasypt DB 접속 정보 암호화 처리
+	  -->
+    <bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">  
+        <property name="algorithm" value="PBEWithMD5AndDES" />  
+        <property name="password" value="ROCKFISH_PASS" />
+	</bean>  
+	       
+	<bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">  
+	     <property name="config" ref="environmentVariablesConfiguration" />  
+	</bean>  
+	      
+	<bean id="propertyConfigurer" class="org.jasypt.spring3.properties.EncryptablePropertyPlaceholderConfigurer">  
+        <constructor-arg ref="configurationEncryptor" />  
+        <property name="locations">  
+            <list>  
+                <value>classpath:config/db.properties</value>  
+            </list>  
+        </property>  
+	</bean>  
+	
+	  <!--  
+	 	DataSource BoneCP 사용 
+	 	참고 URL : http://www.jolbox.com/
+	  -->
+	 <bean id="dataSourceRockfish" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+	   <property name="driverClass" value="${db.driver}" />
+	   <property name="jdbcUrl" value="${db.url}" />
+	   <property name="username" value="${db.username}"/>
+	   <property name="password" value="${db.password}"/>
+	   <property name="maxConnectionsPerPartition" value="30"/>
+	   <property name="minConnectionsPerPartition" value="10"/>
+	   <property name="partitionCount" value="3"/>
+	   <property name="acquireIncrement" value="5"/>
+	   <property name="statementsCacheSize" value="100"/>
+	</bean>
 						
-	<!-- MariaDB -->
-    <bean id="dataSourceSpied" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-        <property name="driverClass" value="org.mariadb.jdbc.Driver" />
-        <property name="url" value="jdbc:mariadb://localhost:3306/rockfish" />
-        <property name="username" value="rockfish" />
-        <property name="password" value="rockfish" />
-   </bean>
-    
-    <!-- Oracle 
-    <bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
-        <property name="username" value="ID"/>
-        <property name="password" value="PASSWORD"/>
-    </bean> 
-    -->
-    
+	<!-- sql logging  -->
     <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
-		<constructor-arg ref="dataSourceSpied" />
+		<constructor-arg ref="dataSourceRockfish" />
 		<property name="logFormatter">
 			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
 				<property name="loggingType" value="MULTI_LINE" />
@@ -30,5 +56,49 @@
 			</bean>
 		</property>
 	</bean>
+	
+	<!-- PlatformTransactionManager -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 
+		 <tx:method> 속성
+
+		 propagation : 트랜잭션의 전파 규칙 설정
+		 isolation : 트랜잭션의 격리 레벨을 설정 
+		 read-only : 읽기 전용 여부 설정 
+		 no-rollback-for : 트랜잭션을 롤백하지 않을 예외 타입을 설정 
+		 rollback-for : 트랜잭션을 롤백할 예외 타입을 설정
+		 timeout : 트랜잭션의 타임 아웃 시간을 초 단위로 설정 
+
+	 	 [propagation] 	
+		 REQUIRED  메서드를 수행하는데 트랜잭션이 필요함을 의미, 현재 진행중인 트랜잭션이 존재하면 해당 트랜잭션을 사용하고 없다면 새로운 트랜잭션을 생성한다.  
+		 MANDATORY  REQUIRED 와 같지만 트랜잭션이 존재하지 않을 경우 예외를 발생 시킨다. 
+		 REQUIRED_NEW  항상 새로운 트랜잭션을 시작한다. 기존 트랜잭션이 존재 하면 기존 트랜잭션을 중지 시키고 새로운 트랜잭션을 시작한다.  
+		 SUPPORTS  메서드가 트랜잭션이 필요 하지 않지만, 기존 트랜잭션이 존재하면 기존 트랜잭션을 사용한다.  
+		 NOT_SUPPORTS  메서드가 트랜잭션이 필요 없음을 의미한다. 기존 진행중인 트랜잭션이 존재 할 경우 기존 트랜잭션은 일시 중지되고 메서드가 완료된후 기존 트랜잭션을 계속 진행한다. 
+		 NEVER  메서드가 트랜잭션을 필요하지 않으며, 만약 진행 중인 트랜잭션이 있다면 예외를 발생 시킨다.  
+		 NESTED  기존 트랜잭션이 존재하면, 기존 트랜잭션에 중첩된 트랜잭션에서 메서드를 실행한다. 기존 트랜잭션이 존재 하지 않으면 REQUIRED 와 동일하게 동작한다. 
+		 
+		 [isolation]
+		 DEFAULT  기본 설정 
+		 READ_UNCOMMITTED  다른 트랜잭션에서 커밋하지 않은 데이터를 읽을 수 있다. 
+		 READ_COMMITTED  다른 트랜잭션에서 커밋된 데이터를 읽을수 있다. 
+		 REPEATABLE_READ  처음에 읽어온 데이터와 두번째 읽어온 데이터가 동일한 값을 가진다. 
+		 SERIALIZABLE  동일한 데이터에 대해서 동시에 두 개 이상의 트랜잭션이 수행될 수 없다. 
+	 -->
+	<!-- transactional advice -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="select*" read-only="true" />
+			<tx:method name="insert*" rollback-for="Exception,RuntimeException" propagation="REQUIRED"/>
+			<tx:method name="update*" rollback-for="Exception,RuntimeException" propagation="REQUIRED"/>
+			<tx:method name="delete*" rollback-for="Exception,RuntimeException" propagation="REQUIRED"/>
+			<tx:method name="complex*" rollback-for="Exception,RuntimeException" propagation="REQUIRED"/>
+		</tx:attributes>
+	</tx:advice>
+	
 </beans>
  

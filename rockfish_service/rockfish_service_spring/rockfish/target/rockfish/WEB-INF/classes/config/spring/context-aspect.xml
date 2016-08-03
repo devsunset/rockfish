@@ -9,4 +9,18 @@
 	
 	<aop:aspectj-autoproxy/>
 	<bean id="loggerAspect" class="kh.devsunset.rockfish.common.aop.LoggerAspect" />
+	
+	<bean id="performanceMonitor"
+              class="org.springframework.aop.interceptor.PerformanceMonitorInterceptor" />
+
+    <aop:config>
+        <aop:pointcut id="allServiceMethods" expression="execution(* *..service.*Service.*(..))" />
+        <aop:advisor pointcut-ref="allServiceMethods" advice-ref="performanceMonitor" order="2"/>
+    </aop:config>
+	
+ 	<aop:config>
+		<aop:pointcut id="requiredTx" expression="execution(* *..service.*Service.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="requiredTx" />
+	</aop:config>
+    
 </beans>

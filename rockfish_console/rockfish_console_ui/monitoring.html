@@ -17,6 +17,9 @@
     <script type="text/javascript" src="static/resource/admin.js"></script>
     <script type="text/javascript" src="static/resource/Chart.min.js"></script>
     <script type="text/javascript" src="static/resource/jsencrypt.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="static/resource/c3.min.js"></script>
+    <link rel="stylesheet" href="static/resource/c3.min.css" />
     <!-- include head -->
 </head>
 <body>
@@ -104,11 +107,10 @@
 								<div class="ax-unit">
 									<div class="ax-box" style="height:190px;min-height:190px">
 										<div class="ax-box-wrap" style="text-align:center">
-											<h3>
+											<b>
 												Client OS
-												<!-- <a href="#" class="more">more <i class="axi axi-external-link-square"></i></a> -->
-											</h3>
-											<canvas id="chart-canvas-clientos" height="60px" style="min-height: 60px;"></canvas>
+											</b>
+											<div id="chart-canvas-clientos" height="160px" style="min-height: 160px"></div>
 										</div>
 									</div>
 									<div class="ax-clear"></div>
@@ -119,11 +121,10 @@
 								<div class="ax-unit">
 									<div class="ax-box" style="height:190px;min-height:190px">
 										<div class="ax-box-wrap" style="text-align:center">
-											<h3>
+											<b>
 												Client OS Version
-												<!-- <a href="#" class="more">more <i class="axi axi-external-link-square"></i></a> -->
-											</h3>
-											<canvas id="chart-canvas-clientosversion" height="60px" style="min-height: 60px;"></canvas>
+											</b>
+											<div id="chart-canvas-clientosversion" height="160px" style="min-height: 160px;"></div>
 										</div>
 									</div>
 									<div class="ax-clear"></div>
@@ -137,11 +138,10 @@
 								<div class="ax-unit">
 									<div class="ax-box" style="height:190px;min-height:190px">
 										<div class="ax-box-wrap" style="text-align:center">
-											<h3>
+											<b>
 												Send Type
-												<!-- <a href="#" class="more">more <i class="axi axi-external-link-square"></i></a> -->
-											</h3>
-											<canvas id="chart-canvas-sendtype" height="60px" style="min-height: 60px;"></canvas>
+											</b>
+											<div id="chart-canvas-sendtype" height="140px" style="min-height: 140px;"></div>
 										</div>
 									</div>
 									<div class="ax-clear"></div>
@@ -152,11 +152,10 @@
 								<div class="ax-unit">
 									<div class="ax-box" style="height:190px;min-height:190px">
 										<div class="ax-box-wrap" style="text-align:center">
-											<h3>
-												Encrypt 
-												<!-- <a href="#" class="more">more <i class="axi axi-external-link-square"></i></a> -->
-											</h3>
-											<canvas id="chart-canvas-encrypt" height="60px" style="min-height: 60px;"></canvas>
+											<b>
+												Encrypt
+											</b>
+											<div id="chart-canvas-encrypt" height="140px" style="min-height: 140px;"></div>
 										</div>
 									</div>
 									<div class="ax-clear"></div>
@@ -170,11 +169,10 @@
 								<div class="ax-unit">
 									<div class="ax-box" style="height:190px;min-height:190px">
 										<div class="ax-box-wrap" style="text-align:center">
-											<h3>
+											<b>
 												Service Response Http Status Code
-												<!-- <a href="#" class="more">more <i class="axi axi-external-link-square"></i></a> -->
-											</h3>
-											<canvas id="chart-canvas-serviceresponsehttpstatuscode" height="60px" style="min-height: 60px;"></canvas>
+											</b>
+											<div id="chart-canvas-serviceresponsehttpstatuscode" height="160px" style="min-height: 160px;"></div>
 										</div>
 									</div>
 									<div class="ax-clear"></div>
@@ -185,11 +183,10 @@
 								<div class="ax-unit">
 									<div class="ax-box" style="height:190px;min-height:190px">
 										<div class="ax-box-wrap" style="text-align:center">
-											<h3>
+											<b>
 												Service Protocol
-												<!-- <a href="#" class="more">more <i class="axi axi-external-link-square"></i></a> -->
-											</h3>
-											<canvas id="chart-canvas-serviceprotocol" height="60px" style="min-height: 60px;"></canvas>
+											</b>
+											<div id="chart-canvas-serviceprotocol" height="160px" style="min-height: 160px;"></div>
 										</div>
 									</div>
 									<div class="ax-clear"></div>
@@ -352,36 +349,46 @@
 		         new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
 		                if(res.rockfish_result_code == "S"){
 		                	if(res !=null && res.list !== undefined && res.list.length > 0){
-		                		var doughnutData = new Array();
+		                		var dataArray = new Array();
+		                		var colorData = new Array();
 		                		for(var x=0;x<res.list.length;x++){
-		                			var obj = new Object();
-		                			obj.value = res.list[x].count;
-		                			obj.color = randomColor(0.5);
-		                			obj.highlight = randomColor(0.5);
-		                			obj.label = res.list[x].groupkey;
-		               				doughnutData.push(obj);
+		                			var obj = new Array();
+		                			obj.push(res.list[x].groupkey);
+		                			obj.push(res.list[x].count);
+		               				dataArray.push(obj);
+
+		               				colorData.push(randomColor(0.8));
 		                		}
-								var chart_doughnut = document.getElementById("chart-canvas-clientos").getContext("2d");
-								window.myChart_doughnut = new Chart(chart_doughnut).Doughnut(doughnutData, {
-									responsive : true
+
+								var chart = c3.generate({
+									bindto: '#chart-canvas-clientos',
+								    data: {
+								        columns: dataArray,
+								        type : 'bar',
+        								labels: true
+								    },
+								    legend: {
+								        position: 'right'
+								    },
+								    transition: {
+								        duration: 300
+								    },
+								    color: {
+								        pattern: colorData
+								    },
+								    tooltip: {
+								        format: {
+								            title: function (d) { return 'Client OS'; }
+								        }
+								    }
 								});
 		                	}else{
-		                		var canvas = document.getElementById("chart-canvas-clientos");
-								var ctx = canvas.getContext("2d");
-								ctx.font = "30px Comic Sans MS";
-								ctx.fillStyle = "gray";
-								ctx.textAlign = "center";
-								ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+		                		$("#chart-canvas-clientos").html("<p><h1>Client OS</h1> <br>No data not found.");
 		                	}
 		                }else if(res.rockfish_result_code == "X"){
 		                	// skip
 		                }else{
-		                	var canvas = document.getElementById("chart-canvas-clientos");
-							var ctx = canvas.getContext("2d");
-							ctx.font = "30px Comic Sans MS";
-							ctx.fillStyle = "gray";
-							ctx.textAlign = "center";
-							ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+		                	$("#chart-canvas-clientos").html("<p><h1>Client OS</h1> <br>No data not found.");
 
 		                   AXUtil.alert(res.rockfish_result_msg);
 		                }
@@ -400,36 +407,45 @@
 		         new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
 		                if(res.rockfish_result_code == "S"){
 		                	if(res !=null && res.list !== undefined && res.list.length > 0){
-		                		var doughnutData = new Array();
+		                		var dataArray = new Array();
+		                		var colorData = new Array();
 		                		for(var x=0;x<res.list.length;x++){
-		                			var obj = new Object();
-		                			obj.value = res.list[x].count;
-		                			obj.color = randomColor(0.5);
-		                			obj.highlight = randomColor(0.5);
-		                			obj.label = res.list[x].groupkey;
-		               				doughnutData.push(obj);
+		                			var obj = new Array();
+		                			obj.push(res.list[x].groupkey);
+		                			obj.push(res.list[x].count);
+		               				dataArray.push(obj);
+		               				colorData.push(randomColor(0.8));
 		                		}
-								var chart_doughnut = document.getElementById("chart-canvas-clientosversion").getContext("2d");
-								window.myChart_doughnut = new Chart(chart_doughnut).Doughnut(doughnutData, {
-									responsive : true
+								
+								var chart = c3.generate({
+									bindto: '#chart-canvas-clientosversion',
+								    data: {
+								        columns: dataArray,
+								        type : 'bar',
+        								labels: true
+								    },
+								    legend: {
+								        position: 'right'
+								    },
+								    transition: {
+								        duration: 300
+								    },
+								    color: {
+								        pattern: colorData
+								    },
+								    tooltip: {
+								        format: {
+								            title: function (d) { return 'Client OS Version'; }
+								        }
+								    }
 								});
 		                	}else{
-		                		var canvas = document.getElementById("chart-canvas-clientosversion");
-								var ctx = canvas.getContext("2d");
-								ctx.font = "30px Comic Sans MS";
-								ctx.fillStyle = "gray";
-								ctx.textAlign = "center";
-								ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+		                		$("#chart-canvas-clientosversion").html("<p><h1>Client OS Version</h1> <br>No data not found.");
 		                	}
 		                }else if(res.rockfish_result_code == "X"){
 		                	// skip
 		                }else{
-		                	var canvas = document.getElementById("chart-canvas-clientosversion");
-							var ctx = canvas.getContext("2d");
-							ctx.font = "30px Comic Sans MS";
-							ctx.fillStyle = "gray";
-							ctx.textAlign = "center";
-							ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+		                	$("#chart-canvas-clientosversion").html("<p><h1>Client OS Version</h1> <br>No data not found.");
 
 		                   AXUtil.alert(res.rockfish_result_msg);
 		                }
@@ -448,13 +464,11 @@
 		         new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
 		                if(res.rockfish_result_code == "S"){
 		                	if(res !=null && res.list !== undefined && res.list.length > 0){
-
 		                		var GCount = 0;
 		                		var MCount = 0;
 		                		var DCount = 0;
 
 		                		for(var x=0;x<res.list.length;x++){
-
 		                			if(res.list[x].groupkey == "G"){
 		                				GCount = res.list[x].count;
 		                			}else if(res.list[x].groupkey == "M"){
@@ -464,49 +478,39 @@
 		                			}
 		                		}
 
-		                		var doughnutData = [
-									{
-										value: GCount,
-										color:"#FDB45C",
-										highlight: "#FFC870",
-										label: "General"
-									},
-									{
-										value: MCount,
-										color: "#F7464A",
-										highlight: "#FF5A5E",
-										label: "Multipart"
-									},
-									{
-										value: DCount,
-										color:"#46BFBD",
-										highlight: "#5AD3D1",
-										label: "Download"
-									}
-								];
-
-								var chart_doughnut = document.getElementById("chart-canvas-sendtype").getContext("2d");
-								window.myChart_doughnut = new Chart(chart_doughnut).Doughnut(doughnutData, {
-									responsive : true
+								var chart = c3.generate({
+									bindto: '#chart-canvas-sendtype',
+								    data: {
+								        columns: [
+								            ['General', GCount],
+								            ['Multipart', MCount],
+								            ['Download', DCount]
+								        ],
+								        type : 'donut',
+        								labels: true
+								    },
+								    legend: {
+								        position: 'right'
+								    },
+								    transition: {
+								        duration: 300
+								    },
+								    donut: {
+								        title: "Send Type"
+								    },
+								    tooltip: {
+								        format: {
+								            title: function (d) { return 'Send Type'; }
+								        }
+								    }
 								});
-								
 		                	}else{
-		                		var canvas = document.getElementById("chart-canvas-sendtype");
-								var ctx = canvas.getContext("2d");
-								ctx.font = "30px Comic Sans MS";
-								ctx.fillStyle = "gray";
-								ctx.textAlign = "center";
-								ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+			                	$("#chart-canvas-sendtype").html("<p><h1>Send Type</h1> <br>No data not found.");
 		                	}
 		                }else if(res.rockfish_result_code == "X"){
 		                	// skip
 		                }else{
-		                	var canvas = document.getElementById("chart-canvas-sendtype");
-							var ctx = canvas.getContext("2d");
-							ctx.font = "30px Comic Sans MS";
-							ctx.fillStyle = "gray";
-							ctx.textAlign = "center";
-							ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+		                	$("#chart-canvas-sendtype").html("<p><h1>Send Type</h1> <br>No data not found.");
 
 		                   AXUtil.alert(res.rockfish_result_msg);
 		                }
@@ -537,43 +541,42 @@
 		                			}
 		                		}
 
-		                		var doughnutData = [
-									{
-										value: YCount,
-										color:"#46BFBD",
-										highlight: "#5AD3D1",
-										label: "Encrypt Text"
-									},
-									{
-										value: NCount,
-										color: "#F7464A",
-										highlight: "#FF5A5E",
-										label: "Plain Text"
-									}
-								];
-
-								var chart_doughnut = document.getElementById("chart-canvas-encrypt").getContext("2d");
-								window.myChart_doughnut = new Chart(chart_doughnut).Doughnut(doughnutData, {
-									responsive : true
+		                		var chart = c3.generate({
+									bindto: '#chart-canvas-encrypt',
+								    data: {
+								        columns: [
+								            ['Encrypt Text', YCount],
+								            ['Plain Text', NCount]
+								        ],
+								        type : 'donut',
+        								labels: true
+								    },
+								    legend: {
+								        position: 'right'
+								    },
+								    transition: {
+								        duration: 300
+								    },
+								    donut: {
+								        title: "Encrypt"
+								    },
+								    color: {
+								        pattern: ["rgb(255, 127, 14)","rgb(44, 160, 44)"]
+								    },
+								    tooltip: {
+								        format: {
+								            title: function (d) { return 'Encrypt'; }
+								        }
+								    }
 								});
 								
 		                	}else{
-		                		var canvas = document.getElementById("chart-canvas-encrypt");
-								var ctx = canvas.getContext("2d");
-								ctx.font = "30px Comic Sans MS";
-								ctx.fillStyle = "gray";
-								ctx.textAlign = "center";
-								ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+		                		$("#chart-canvas-encrypt").html("<p><h1>Encrypt</h1> <br>No data not found.");
 		                	}
 		                }else if(res.rockfish_result_code == "X"){
 		                	// skip
 		                }else{
-		                	var canvas = document.getElementById("chart-canvas-encrypt");
-							var ctx = canvas.getContext("2d");
-							ctx.font = "30px Comic Sans MS";
-							ctx.fillStyle = "gray";
-							ctx.textAlign = "center";
-							ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+		                	$("#chart-canvas-encrypt").html("<p><h1>Encrypt</h1> <br>No data not found.");
 
 		                   AXUtil.alert(res.rockfish_result_msg);
 		                }
@@ -593,37 +596,51 @@
 		                if(res.rockfish_result_code == "S"){
 		                	if(res !=null && res.list !== undefined && res.list.length > 0){
 
-		                		var doughnutData = new Array();
+		                		var dataArray = new Array();
+		                		var colorData = new Array();
 		                		for(var x=0;x<res.list.length;x++){
-		                			var obj = new Object();
-		                			obj.value = res.list[x].count;
-		                			obj.color = randomColor(0.5);
-		                			obj.highlight = randomColor(0.5);
-		                			obj.label = res.list[x].groupkey;
-		               				doughnutData.push(obj);
+		                			var obj = new Array();
+		                			if(res.list[x].groupkey == "" || res.list[x].groupkey === undefined  || res.list[x].groupkey == null){
+		                				obj.push("ERROR");
+		                				obj.push(res.list[x].count);
+		                			}else{
+		                				obj.push("HTTP Code : ["+res.list[x].groupkey+"] ");
+		                				obj.push(res.list[x].count);
+		                			}
+		               				dataArray.push(obj);
+		               				colorData.push(randomColor(0.8));
 		                		}
-								var chart_doughnut = document.getElementById("chart-canvas-serviceresponsehttpstatuscode").getContext("2d");
-								window.myChart_doughnut = new Chart(chart_doughnut).Doughnut(doughnutData, {
-									responsive : true
+								
+								var chart = c3.generate({
+									bindto: '#chart-canvas-serviceresponsehttpstatuscode',
+								    data: {
+								        columns: dataArray,
+								        type : 'bar',
+        								labels: true
+								    },
+								    legend: {
+								        position: 'right'
+								    },
+								    transition: {
+								        duration: 300
+								    },
+								    color: {
+								        pattern: colorData
+								    },
+								    tooltip: {
+								        format: {
+								            title: function (d) { return 'Service Response Http Status Code'; }
+								        }
+								    }
 								});
 								
 		                	}else{
-		                		var canvas = document.getElementById("chart-canvas-serviceresponsehttpstatuscode");
-								var ctx = canvas.getContext("2d");
-								ctx.font = "30px Comic Sans MS";
-								ctx.fillStyle = "gray";
-								ctx.textAlign = "center";
-								ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+		                		$("#chart-canvas-serviceresponsehttpstatuscode").html("<p><h1>Service Response Http Status Code</h1> <br>No data not found.");
 		                	}
 		                }else if(res.rockfish_result_code == "X"){
 		                	// skip
 		                }else{
-		                	var canvas = document.getElementById("chart-canvas-serviceresponsehttpstatuscode");
-							var ctx = canvas.getContext("2d");
-							ctx.font = "30px Comic Sans MS";
-							ctx.fillStyle = "gray";
-							ctx.textAlign = "center";
-							ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+		                	$("#chart-canvas-serviceresponsehttpstatuscode").html("<p><h1>Service Response Http Status Code</h1> <br>No data not found.");
 
 		                   AXUtil.alert(res.rockfish_result_msg);
 		                }
@@ -642,12 +659,9 @@
 		         new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
 		                if(res.rockfish_result_code == "S"){
 		                	if(res !=null && res.list !== undefined && res.list.length > 0){
-
 		                		var HTTPCount = 0;
 		                		var HTTPSCount = 0;
-
 		                		for(var x=0;x<res.list.length;x++){
-
 		                			if(res.list[x].groupkey == "HTTP"){
 		                				HTTPCount = res.list[x].count;
 		                			}else{
@@ -655,44 +669,36 @@
 		                			}
 		                		}
 
-		                		var doughnutData = [
-									{
-										value: HTTPCount,
-										color:"#F7464A",
-										highlight: "#FF5A5E",
-										label: "HTTP"
-									},
-									{
-										value: HTTPSCount,
-										color: "#46BFBD",
-										highlight: "#5AD3D1",
-										label: "HTTPS"
-									}
-								];
-
-
-								var chart_doughnut = document.getElementById("chart-canvas-serviceprotocol").getContext("2d");
-								window.myChart_doughnut = new Chart(chart_doughnut).Doughnut(doughnutData, {
-									responsive : true
+		                		var chart = c3.generate({
+									bindto: '#chart-canvas-serviceprotocol',
+								    data: {
+								        columns: [
+								            ['HTTP', HTTPCount],
+								            ['HTTPS', HTTPSCount]
+								        ],
+								        type : 'bar',
+        								labels: true
+								    },
+								    legend: {
+								        position: 'right'
+								    },
+								    transition: {
+								        duration: 300
+								    },
+								    tooltip: {
+								        format: {
+								            title: function (d) { return 'Service Protocol'; }
+								        }
+								    }
 								});
 								
 		                	}else{
-		                		var canvas = document.getElementById("chart-canvas-serviceprotocol");
-								var ctx = canvas.getContext("2d");
-								ctx.font = "30px Comic Sans MS";
-								ctx.fillStyle = "gray";
-								ctx.textAlign = "center";
-								ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+		                		$("#chart-canvas-serviceprotocol").html("<p><h1>Service Protocol</h1> <br>No data not found.");
 		                	}
 		                }else if(res.rockfish_result_code == "X"){
 		                	// skip
 		                }else{
-		                	var canvas = document.getElementById("chart-canvas-serviceprotocol");
-							var ctx = canvas.getContext("2d");
-							ctx.font = "30px Comic Sans MS";
-							ctx.fillStyle = "gray";
-							ctx.textAlign = "center";
-							ctx.fillText("No data not found.", canvas.width/2, canvas.height/2); 
+		                	$("#chart-canvas-serviceprotocol").html("<p><h1>Service Protocol</h1> <br>No data not found.");
 
 		                   AXUtil.alert(res.rockfish_result_msg);
 		                }

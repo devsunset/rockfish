@@ -4,22 +4,68 @@
 <mapper namespace="common">
 	<sql id="pagingPre">
 		<![CDATA[
-   			SELECT 
-			    AAA.*
-			FROM(
-			    SELECT 
-			        COUNT(*) OVER() AS TOTAL_COUNT,
-			        AA.*
-			    FROM(  
+ 			SELECT *
+				FROM ( 
+ 		]]>
+ 	</sql>
+		<!--  	
+		Mysql & MariaDB 페이징 쿼리는 Limit를 사용하여 구현하는게 좋을 듯 함
+		해당 쿼리 예시는 Oracle, MSSQL과 비슷하게 처리 하려고  구현한 예제임 - 이 경우라도 전체 TOTAL_COUNT는 별도로 쿼리해야 함
+		
+		SELECT  @rnum :=@rnum +1 AS ROW_NUMBER, 
+		 TB_ROCKFISH.*
+		 FROM (SELECT @rnum :=0) r, TB_ROCKFISH
+		ORDER BY IDX DESC 
+		
+		-->
+ 	<sql id="pagingPost">
+ 		<![CDATA[
+			) AAA
+			WHERE 
+			    AAA.ROW_NUMBER BETWEEN #{ROCKFISH_START_PAGE_NUM} AND #{ROCKFISH_END_PAGE_NUM}
  		]]>
  	</sql>
  	
- 	<sql id="pagingPost">
- 		<![CDATA[
- 			 	) AA
-			) AAA
-			WHERE 
-			    AAA.RNUM BETWEEN #{ROCKFISH_START_PAGE_NUM} AND #{ROCKFISH_END_PAGE_NUM}
+ 	<!--  Oracle
+		<sql id="pagingPre">
+			<![CDATA[
+	   			SELECT 
+				    AAA.*
+				FROM(
+				    SELECT 
+				        COUNT(*) OVER() AS TOTAL_COUNT,
+				        AA.*
+				    FROM(  
+	 		]]>
+	 	</sql>
+	 	
+	 	<sql id="pagingPost">
+	 		<![CDATA[
+	 			 	) AA
+				) AAA
+				WHERE 
+				    AAA.RNUM BETWEEN #{ROCKFISH_START_PAGE_NUM} AND #{ROCKFISH_END_PAGE_NUM}
+	 		]]>
+	 	</sql>
+ 	 -->
+ 	 
+ 	<!-- MSSQL 2005 이상 
+  	<sql id="pagingPre">
+		<![CDATA[
+   			SELECT *
+			FROM ( 
  		]]>
  	</sql>
+
+ 		SELECT ROW_NUMBER () OVER (ORDER BY 정렬컬럼 DESC) AS ROW_NUMBER,
+               COUNT (*) OVER () AS TOTAL_COUNT,A.*
+        FROM TB_ROCFISH A   
+          
+ 	<sql id="pagingPost">
+ 		<![CDATA[
+ 			) AAA
+			WHERE AAA.ROW_NUMBER BETWEEN #{ROCKFISH_START_PAGE_NUM} AND #{ROCKFISH_END_PAGE_NUM}
+ 		]]>
+ 	</sql>
+ 	 -->
 </mapper>

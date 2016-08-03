@@ -793,6 +793,10 @@ router.post('/serviceSearchList', function(req, res, next) {
 			paraCondition.SERVICE_STATUS = params.SERVICE_STATUS;
 		}
 
+		if(params.SERVICE_LOGIN_CHECK !=''){
+			paraCondition.SERVICE_LOGIN_CHECK = params.SERVICE_LOGIN_CHECK;
+		}
+
 		if(params.SERVICE_PROTOCOL !=''){
 			paraCondition.SERVICE_PROTOCOL = params.SERVICE_PROTOCOL;
 		}
@@ -881,6 +885,7 @@ router.post('/serviceSave', function(req, res, next) {
 		    },{$set : { 'SERVICE_TYPE' : params.SERVICE_TYPE
 		    	       ,'SERVICE_TITLE' : params.SERVICE_TITLE
 		    		   ,'SERVICE_STATUS' : params.SERVICE_STATUS
+		    		   ,'SERVICE_LOGIN_CHECK' : params.SERVICE_LOGIN_CHECK
 		    		   ,'SERVICE_PROTOCOL' : params.SERVICE_PROTOCOL
 		    		   ,'SERVICE_METHOD' : params.SERVICE_METHOD
 		    		   ,'SERVICE_URL' : params.SERVICE_URL
@@ -922,6 +927,7 @@ router.post('/serviceSave', function(req, res, next) {
 				    	       ,'SERVICE_TITLE' : params.SERVICE_TITLE
 				    		   ,'SERVICE_TYPE' : params.SERVICE_TYPE
 				    		   ,'SERVICE_STATUS' : params.SERVICE_STATUS
+				    		   ,'SERVICE_LOGIN_CHECK' : params.SERVICE_LOGIN_CHECK
 				    		   ,'SERVICE_PROTOCOL' : params.SERVICE_PROTOCOL
 				    		   ,'SERVICE_METHOD' : params.SERVICE_METHOD
 				    		   ,'SERVICE_URL' : params.SERVICE_URL

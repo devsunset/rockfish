@@ -18,18 +18,17 @@
 	
 	<select id="selectRockfishList" parameterType="hashmap" resultType="hashmap">
 		<!-- <include refid="common.pagingPre"/>  -->
-		<![CDATA[
-			SELECT
-				ROW_NUMBER() OVER (ORDER BY IDX DESC) RNUM
-			    ,IDX
-			    ,TEMP1
-			    ,TEMP2
-			    ,TEMP3
-			FROM
-			    TB_BOARD
-			WHERE
-				IDX > #{IDX}
+		<![CDATA[		  
+		  SELECT *
+		  FROM  TB_ROCKFISH
+		  WHERE	IDX > #{IDX}	
 		]]>
+		
+		<!-- SELECT  @rnum :=@rnum +1 AS ROW_NUMBER, 
+			 TB_ROCKFISH.*
+			 FROM (SELECT @rnum :=0) r, TB_ROCKFISH
+			ORDER BY IDX DESC -->
+			
 		<!-- <include refid="common.pagingPost"/>  -->
 	</select>
 	
@@ -37,15 +36,13 @@
 		<![CDATA[
 			INSERT INTO TB_ROCKFISH
 			(
-				 IDX
-			    ,TEMP1
+			     TEMP1
 			    ,TEMP2
 			    ,TEMP3
 			)
 			VALUES
 			(
-				 #{IDX} 
-				,#{TEMP1}
+				 #{TEMP1}
 				,#{TEMP2}
 				,#{TEMP3}
 			)

@@ -147,7 +147,8 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    },
 		    beforeSend: function(xhr) {
 		    	/* ROCKFISH CUSTMOMER HEADER*/
-		    	xhr.setRequestHeader("rockfish_access_id", rockfishGetCookie("rockfish_access_id"));
+		    	xhr.setRequestHeader("rockfish_session_key", rockfishGetStorge("rockfish_session_key"));
+		    	xhr.setRequestHeader("rockfish_access_id", rockfishGetStorge("rockfish_access_id"));
 		    	xhr.setRequestHeader("rockfish_ip", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_mac", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_phone", rockfishRsaEncrypt("-"));					// Ignore Web Client
@@ -196,7 +197,8 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    },
 		    beforeSend: function(xhr) {
 		    	/* ROCKFISH CUSTMOMER HEADER*/
-		    	xhr.setRequestHeader("rockfish_access_id", rockfishGetCookie("rockfish_access_id"));
+		    	xhr.setRequestHeader("rockfish_session_key", rockfishGetStorge("rockfish_session_key"));
+		    	xhr.setRequestHeader("rockfish_access_id", rockfishGetStorge("rockfish_access_id"));
 		    	xhr.setRequestHeader("rockfish_ip", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_mac", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_phone", rockfishRsaEncrypt("-"));					// Ignore Web Client
@@ -254,7 +256,8 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    },
 		    beforeSend: function(xhr) {
 		    	/* ROCKFISH CUSTMOMER HEADER*/
-		    	xhr.setRequestHeader("rockfish_access_id", rockfishGetCookie("rockfish_access_id"));
+		    	xhr.setRequestHeader("rockfish_session_key", rockfishGetStorge("rockfish_session_key"));
+		    	xhr.setRequestHeader("rockfish_access_id", rockfishGetStorge("rockfish_access_id"));
 		    	xhr.setRequestHeader("rockfish_ip", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_mac", rockfishRsaEncrypt("-"));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_phone", rockfishRsaEncrypt("-"));					// Ignore Web Client
@@ -308,54 +311,53 @@ function rockfishRsaEncrypt(toEncrypt){
 
 /**
  * <pre>
- * set cookie
+ * set localStorge
  * </pre>
- * @param cName : cookie name
- * @param cValue : cookie value
- * @param cDay : expires day
+ * @param cName : storge key 
+ * @param cValue : storge value
  *
  */
-function rockfishSetCookie(cName, cValue){
-    cookies = cName + '=' + escape(cValue) + '; path=/ ';
-    document.cookie = cookies;
+function rockfishSetStorge(cName, cValue){
+    if( ('localStorage' in window) && window['localStorage'] !== null) {
+	    localStorage.setItem(cName, rockfishRsaEncrypt(cValue));
+	}else{
+	    alert("현재 브라우저는 WebStorage를 지원하지 않습니다")
+	}
+}
+
+
+/**
+ * <pre>
+ * localStorge clear
+ * </pre>
+ *
+ */
+function rockfishClearStorge(){
+    if( ('localStorage' in window) && window['localStorage'] !== null) {
+	    localStorage.clear();
+	}else{
+	    alert("현재 브라우저는 WebStorage를 지원하지 않습니다")
+	}
 }
 
 /**
  * <pre>
- * set cookie
+ * get localStorge
  * </pre>
- * @param cName : cookie name
- * @param cValue : cookie value
- * @param cDay : expires day
+ * @param cName : storge key 
  *
  */
-function rockfishSetCookieExpires(cName, cValue, cDay){
-    var expire = new Date();
-    expire.setDate(expire.getDate() + cDay);
-    cookies = cName + '=' + escape(cValue) + '; path=/ ';
-    if(typeof cDay != 'undefined') cookies += ';expires=' + expire.toGMTString() + ';';
-    document.cookie = cookies;
-}
-
-/**
- * <pre>
- * get cookie
- * </pre>
- * @param cName : cookie name
- *
- */
-function rockfishGetCookie(cName) {
-    cName = cName + '=';
-    var cookieData = document.cookie;
-    var start = cookieData.indexOf(cName);
-    var cValue = '';
-    if(start != -1){
-        start += cName.length;
-        var end = cookieData.indexOf(';', start);
-        if(end == -1)end = cookieData.length;
-        cValue = cookieData.substring(start, end);
-    }
-    return unescape(cValue);
+function rockfishGetStorge(cName) {
+	if( ('localStorage' in window) && window['localStorage'] !== null) {
+		if(localStorage.getItem(cName) == null){
+			return "";
+		}else{
+			return localStorage.getItem(cName);	
+		}
+	}else{
+	    alert("현재 브라우저는 WebStorage를 지원하지 않습니다")
+	    return "";
+	}
 }
 
 /**

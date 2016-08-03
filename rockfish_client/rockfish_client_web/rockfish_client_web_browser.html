@@ -41,9 +41,6 @@
 
 		// Use sample General Send
 	   $("#sendWG").click(function(e) {
-	   		// Login시 cookie 값에 rockfish_access_id 설정
-	   		rockfishSetCookie("rockfish_access_id",rockfishRsaEncrypt("rockfish"));
-
 			// Form value
 			var formData = $("#sendForm").serializeArray();
 
@@ -75,9 +72,6 @@
 
 	   // Use sample Multipart
 	   $("#sendWM").click(function(e) {
-	   		// Login시 cookie 값에 rockfish_access_id 설정
-	   		rockfishSetCookie("rockfish_access_id",rockfishRsaEncrypt("rockfish"));
-
 			// Form value
 			var formData = $("#sendForm").serializeArray();
 
@@ -125,9 +119,6 @@
 
 	   // Use sample Download
 	   $("#sendWD").click(function(e) {
-	   		// Login시 cookie 값에 rockfish_access_id 설정
-	   		rockfishSetCookie("rockfish_access_id",rockfishRsaEncrypt("rockfish"));
-
 			// Form value
 			var formData = $("#sendForm").serializeArray();
 
@@ -160,9 +151,6 @@
 
 	   // Use sample General Send
 	   $("#sendG").click(function(e) {
-	   		// Login시 cookie 값에 rockfish_access_id 설정
-	   		rockfishSetCookie("rockfish_access_id",rockfishRsaEncrypt("rockfish"));
-
 			// Form value
 			var formData = $("#sendForm").serializeArray();
 
@@ -179,8 +167,35 @@
 
 			var sendType = $("#ROCKFISH_GENERAL_SEND_TYPE option:selected").val();
 
+			if("ROCKFISH_LOGIN" == $("#ROCKFISH_GENERAL_SEND_TYPE").val()){
+				rockfishClearStorge();
+			}
+
 			rockfishAjax(sendType, formData, encArray, function(response){
 			      // [정상 - 로직 구현]
+			      if("ROCKFISH_LOGIN" == $("#ROCKFISH_GENERAL_SEND_TYPE").val()){
+			      		if(response !=null && response !== undefined 
+			      			&& response.ROCKFISH_RESULT_JSON !=null && response.ROCKFISH_RESULT_JSON !=undefined
+			      			&& response.ROCKFISH_RESULT_JSON !=""){
+			      			var jobj = JSON.parse(response.ROCKFISH_RESULT_JSON);
+			      			if(jobj !=null && jobj !== undefined && jobj.DATA !== null && jobj.DATA !== undefined){
+			      				rockfishSetStorge("rockfish_session_key",jobj.DATA.ROCKFISH_SESSION_KEY);
+			      				rockfishSetStorge("rockfish_access_id",jobj.DATA.ROCKFISH_ACCESS_ID);
+			      			}
+			      		}
+			      }
+
+			      if("ROCKFISH_LOGOUT" == $("#ROCKFISH_GENERAL_SEND_TYPE").val()){
+			      		if(response !=null && response !== undefined 
+			      			&& response.ROCKFISH_RESULT_JSON !=null && response.ROCKFISH_RESULT_JSON !=undefined
+			      			&& response.ROCKFISH_RESULT_JSON !=""){
+			      			var jobj = JSON.parse(response.ROCKFISH_RESULT_JSON);
+			      			if(jobj !=null && jobj !== undefined && jobj.DATA !== null && jobj.DATA !== undefined){
+			      				rockfishClearStorge();
+			      			}
+			      		}
+			      }
+
 			      alert("success");
 			      //alert(JSON.stringify(response));
 			      $("#result").val(JSON.stringify(response));
@@ -196,9 +211,6 @@
 
 	   // Use sample Multipart
 	   $("#sendM").click(function(e) {
-	   		// Login시 cookie 값에 rockfish_access_id 설정
-	   		rockfishSetCookie("rockfish_access_id",rockfishRsaEncrypt("rockfish"));
-
 			// Form value
 			var formData = $("#sendForm").serializeArray();
 
@@ -246,9 +258,6 @@
 
 	   // Use sample Download
 	   $("#sendD").click(function(e) {			
-	   		// Login시 cookie 값에 rockfish_access_id 설정
-	   		rockfishSetCookie("rockfish_access_id",rockfishRsaEncrypt("rockfish"));
-
 			// Form value
 			var formData = $("#sendForm").serializeArray();
 
@@ -337,6 +346,8 @@
 					    <option VALUE="ROCKFISH_GENERAL_INSERT">ROCKFISH_GENERAL_INSERT</option>
 					    <option VALUE="ROCKFISH_GENERAL_UPDATE">ROCKFISH_GENERAL_UPDATE</option>
 					    <option VALUE="ROCKFISH_GENERAL_DELETE">ROCKFISH_GENERAL_DELETE</option>
+					    <option VALUE="ROCKFISH_LOGIN">ROCKFISH_LOGIN</option>
+						<option VALUE="ROCKFISH_LOGOUT">ROCKFISH_LOGOUT</option>
 					 </select>
 				</td>
 			</tr>

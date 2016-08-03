@@ -7,7 +7,9 @@ package kh.devsunset.rockfish.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
@@ -20,9 +22,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+
 import kh.devsunset.rockfish.common.parameter.ParamMap;
 import kh.devsunset.rockfish.common.util.LangMessage;
 import kh.devsunset.rockfish.service.CommonService;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.exceptions.JedisException;
 
 /**
  * <PRE>
@@ -39,8 +47,97 @@ public class CommonController {
 	@Value("#{config['file_save_path']}")
 	private String FILE_SAVE_PATH;
 	
+	@Value("#{config['session_time_out']}")
+	private String SESSION_TIME_OUT;
+	
+	@Value("#{config['session_check']}")
+	private String SESSION_CHECK;
+	
 	@Resource(name="commonService")
 	private CommonService commonService;
+	
+	@RequestMapping(value="/common/loginRockfish.do")
+    public ModelAndView login(ParamMap paramMap, HttpServletRequest request) throws Exception{
+		log.debug("=============================");
+		log.debug("Login Process");
+		log.debug("=============================");
+		
+		HashMap<String,String> sessionInfo = null;
+		Jedis jedis = null;
+		JedisPool pool = null;
+		
+		try{
+			JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+			// pool = new JedisPool(jedisPoolConfig, "localhost", 6379, 1000, "password");
+			pool = new JedisPool(jedisPoolConfig, "localhost", 6379);
+
+			jedis = pool.getResource();
+
+			//save to redis login Session Key
+        	String sessionKey = "ROCKFISH_SESSION_KEY-"+UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
+        	
+        	// Temp Session information
+        	sessionInfo = new HashMap<String,String>();
+        	sessionInfo.put("ROCKFISH_SESSION_KEY", sessionKey);
+        	sessionInfo.put("ROCKFISH_ACCESS_ID", "rockfish");
+        	sessionInfo.put("ID", "rockfish");
+        	sessionInfo.put("INFO_1", "rockfish_1");
+        	sessionInfo.put("INFO_2", "rockfish_2");
+        	sessionInfo.put("INFO_3", "rockfish_3");
+        	sessionInfo.put("INFO_4", "rockfish_4");
+        	sessionInfo.put("INFO_5", "rockfish_5");
+			jedis.set(sessionKey, new Gson().toJson(sessionInfo)); 
+			jedis.expire(sessionKey, Integer.parseInt(SESSION_TIME_OUT));
+			
+		}catch(JedisException e){
+			if (null != jedis) {  
+				jedis.close();
+            }  
+		}finally{
+			if( jedis != null ){
+				jedis.close();
+			}
+		}
+		
+    	ModelAndView mv = new ModelAndView("jsonView");
+    	mv.addObject(ROCKFISH_RESULT_JSON, sessionInfo);
+    	return mv;
+    }
+	
+	@RequestMapping(value="/common/logoutRockfish.do")
+    public ModelAndView logout(ParamMap paramMap, HttpServletRequest request) throws Exception{
+		log.debug("=============================");
+		log.debug("Log out Process");
+		log.debug("=============================");
+		
+		Jedis jedis = null;
+		JedisPool pool = null;
+		try{
+			JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+			// pool = new JedisPool(jedisPoolConfig, "localhost", 6379, 1000, "password");
+			pool = new JedisPool(jedisPoolConfig, "localhost", 6379);
+
+			jedis = pool.getResource();
+			
+			if(request.getHeader("rockfish_session_key") !=null && !"".equals(request.getHeader("rockfish_session_key"))){
+				jedis.del("session_key");
+			}
+		}catch(JedisException e){
+			if (null != jedis) {  
+				jedis.close();
+            }  
+		}finally{
+			if( jedis != null ){
+				jedis.close();
+			}
+		}
+		
+		paramMap.put("LOGOUT", "SUCCESS");
+		
+    	ModelAndView mv = new ModelAndView("jsonView");
+    	mv.addObject(ROCKFISH_RESULT_JSON, paramMap);
+    	return mv;
+    }
 	
 	@RequestMapping(value="/common/echoRockfish.do")
     public ModelAndView echoRockfish(ParamMap paramMap, HttpServletRequest request) throws Exception{

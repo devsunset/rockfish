@@ -1,41 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
-<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
-
-	<!-- Appenders -->
-	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+ 
+<log4j:configuration
+    xmlns:log4j="http://jakarta.apache.org/log4j/">
+     
+    <!-- 콘솔 로그 -->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+         <layout class="org.apache.log4j.PatternLayout">
+              <param name="ConversionPattern" value="%d %p [%c{5}] %m [%X{userId}]%n" />
+         </layout>   
+    </appender>
+     
+    <!-- 날짜별 로그 파일 생성 -->
+    <appender name="rollingFile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/home/devsunset/devrepo/rockfish/logs/rockfish-service-spring-all.log"/>
+        <param name="Append" value="true"/>
+        <!-- param name="MaxFileSize" value="100MB"/ -->
+        <!-- param name="MaxBackupIndex" value="2"></param -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/> 
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d %5p [%c] %m%n" />
+            <param name="ConversionPattern" value="%d %p [%C{10}] %m [%X{userId}]%n" />
         </layout>   
     </appender>
-    
-    <appender name="console-infolog" class="org.apache.log4j.ConsoleAppender">
+     
+    <!-- 날짜별 로그 파일 생성 -->
+    <appender name="rockfishLog" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/home/devsunset/devrepo/rockfish/logs/rockfish-service-spring.log"/>
+        <param name="Append" value="true"/>
+        <!-- param name="MaxFileSize" value="100MB"/ -->
+        <!-- param name="MaxBackupIndex" value="2"></param -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/> 
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d %5p %m%n" />
+            <param name="ConversionPattern" value="%d %p [%C{10}] %m [%X{userId}]%n" />
         </layout>   
     </appender>
+     
+    <!-- 날짜별 로그 파일 생성(에러만) -->
+    <appender name="errFile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Threshold" value="ERROR"/>
+        <param name="File" value="/home/devsunset/devrepo/rockfish/logs/rockfish-service-spring-error.log"/>
+        <param name="Append" value="true"/>
+        <!-- param name="MaxFileSize" value="100MB"/ -->
+        <!-- param name="MaxBackupIndex" value="2"></param -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/> 
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %5p [%C{1}] %m [%X{userId}]%n" />
+        </layout>   
+    </appender>
+     
+    <!-- Application Loggers -->
+    <logger name="kh.devsunset.rockfish"  additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="rockfishLog" />
+    </logger>
 	
-	<!-- Application Loggers -->
-	<logger name="rockfish" additivity="false">
-		<level value="debug" />
-		<appender-ref ref="console"/>
-	</logger>
+	 <logger name="org.springframework.aop.interceptor.PerformanceMonitorInterceptor"  additivity="false">
+        <level value="TRACE"/>
+        <appender-ref ref="rockfishLog" />
+    </logger>
 	
 	<!-- Query Loggers -->
 	<logger name="jdbc.sqlonly" additivity="false">  
     	<level value="INFO"/>  
-        <appender-ref ref="console-infolog"/>  
+        <appender-ref ref="rockfishLog"/>  
     </logger>
     
     <logger name="jdbc.resultsettable" additivity="false">  
     	<level value="INFO"/>  
-        <appender-ref ref="console"/>  
+        <appender-ref ref="rockfishLog"/>  
     </logger>  
-
-	<!-- Root Logger -->
-	<root>
-		<priority value="on"/>
-		<appender-ref ref="console" />
-	</root>
-	
+    
+    <!-- 기본 출력 설정 -->
+    <root>
+        <level value="INFO" />
+        <appender-ref ref="console" />
+        <appender-ref ref="errFile"/>
+        <!-- <appender-ref ref="rollingFile"/> -->
+    </root> 
+     
 </log4j:configuration>
+
+<!-- 
+	fatal 
+	아주 심각한 에러가 발생한 상태 
+	error 
+	요청을 처리하는 중 문제가 발생한 상태 
+	warn 
+	처리 가능한 문제, 향후 에러의 원인이 될 수 있는 경고 메세지 
+	info 	
+	로그인, 상태 변경과 같은 정보 메세지 
+	debug 
+	개발 시 디버그 용도로 사용한 메세지 
+	trace 
+	신규 추가된 레벨로 디버그 레벨이 넘 ㅜ광범위한 것을 해결하기 위해서 좀 더 상세한 상태를 나타냄 
+	
+	
+	'.'yyyy-MM
+	매달 시작 일에 로그 파일 변경 
+	'.'yyyy-ww
+	매주 시작 일에 로그 파일 변경 
+	 '.'yyyy-MM-dd
+	매일 자정에 로그 파일 변경 
+	 '.'yyyy-MM-dd-a
+	자정과 정오에 로그 파일 변경 
+	 '.'yyyy-MM-dd-HH 
+	매 시간마다 로그 파일 변경 
+	 '.'yyyy-MM-dd-HH-mm
+	매 분마다 로그 파일 변경 
+	
+	
+	%P
+	 debug, info, warn, error, fatal 등 priority 출력
+	%m 	
+	 로그 내용 출력 
+	%d 
+	 발생 시간 출력  
+	%t 
+	 발생 쓰레드의 이름 출력 
+	%n 
+	 개행 문자 출력 
+	%c 
+	 패키지 출력 / {숫자} 를 이용하여 단계별 출력, ex) %x{5} 
+	%C 
+	 클래스 명 출력 / {숫자} 를 이용하여 단계별 출력, ex) %x{5}   
+	%F 
+	 프로그램 파일 명 출력 
+	%I 
+	 로깅이 발생한 caller 의 정보 출력 
+	%L 
+	 로깅이 발생한 caller 의 라인 수 출력 
+	%M 
+	 로깅이 발생한 method 명 출력 
+	%r 	
+	 애플리케이션 시작 이후 로깅이 발생한 시점의 시간 출력(millisecond) 
+	%x 
+	 NDC 에 저장된 내용 출력 
+	%X 
+	 MDC 에 저장된 내용 출력 
+-->

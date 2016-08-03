@@ -9,6 +9,9 @@
   "rockfish_mongodb_port": 27017,
   "rockfish_mongodb_username": "rockfish",
   "rockfish_mongodb_password": "rockfish",
+  "rockfish_redis_host": "127.0.0.1",
+  "rockfish_redis_port": 6379,
+  "rockfish_redis_password": "rockfish",
   "rockfish_service_master_change_apply_time" : 15000,
   "rockfish_request_logging_use" : "Y",
   "rockfish_response_logging_use" : "Y",
@@ -19,5 +22,5 @@
   "rockfish_file_upload_temp_path" : "/home/devsunset/devrepo/rockfish/attach_temp/",
   "rockfish_file_upload_limit_total_files_size" : 10,
   "rockfish_file_upload_allow_file_type" : "jpg,png,bmp,txt,xls,xlsx,zip",
-  "rockfish_file_upload_max_field_size" : 2
+  "rockfish_file_upload_max_field_size" : 2 
 }
