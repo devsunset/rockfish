@@ -130,9 +130,7 @@ public class CommonController {
 		JedisPool pool = null;
 		try{
 			JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-			// pool = new JedisPool(jedisPoolConfig, REDIS_HOST, Integer.parseInt(REDIS_PORT), 1000, REDIS_PASSWORD);
-			pool = new JedisPool(jedisPoolConfig, "localhost", 6379);
-
+			pool = new JedisPool(jedisPoolConfig, REDIS_HOST, Integer.parseInt(REDIS_PORT), 1000, REDIS_PASSWORD);
 			jedis = pool.getResource();
 			
 			if(request.getHeader("rockfish_session_key") !=null && !"".equals(request.getHeader("rockfish_session_key"))){
