@@ -1,0 +1,37 @@
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+■■■ 우분투 redis 설치 및 비빌번호 설정 ■■■
+
+1. apt 저장소 추가
+$ sudo apt-get install -y python-software-properties
+$ sudo add-apt-repository -y ppa:rwky/redis
+$ sudo apt-get update
+
+2. redis 설치
+$ sudo apt-get install -y redis-server
+
+3. password 설정
+vi /etc/redis/redis.conf 파일 내용 수정 
+
+# requirepass foobared  주석 부분 하단에 requirepass 비밀번호
+
+requirepass rockfish 
+
+4. redis start
+sudo /usr/bin/redis-server /etc/redis/redis.conf
+
+■■■ windows redis 설치 및 비빌번호 설정 ■■■
+
+1. windows redis file download
+https://github.com/MSOpenTech/redis/releases
+
+  msi 파일 다운 로드 하여 설치 하거니 zip 파일 다운로드 후 설치 디렉토리에  압축 해제 
+
+2. password 설정
+redis.conf 파일 내용 수정 
+
+# requirepass foobared  주석 부분 하단에 requirepass 비밀번호
+
+requirepass rockfish 
+
+3. redis start
+redis-server.exe 
