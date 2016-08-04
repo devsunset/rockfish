@@ -1,4 +1,4 @@
-# rockfish
+# rockfish ( readme - rockfish_소개.pdf )
 
 ``` 
    Easy Simple Mobile Middleware
@@ -51,13 +51,16 @@
    
 ## ■ rockfish setting   
 ``` 
-   * rockfish_control  (redis or couchbase) - TO-DO  
+   * rockfish_control  (redis) - Beta version completed  
      (Authentication), (Authorization), (Access Control) 
 ``` 
+   * rockfish_control  (couchbase) - TO-DO  
+     (Authentication), (Authorization), (Access Control) 
    * rockfish_docker - Next TO-DO  
 ``` 
-   * rockfish_loadbalancing (HAProxy or Nginx) - TO-DO 
+   * rockfish_loadbalancing (Nginx) - TO-DO 
 ``` 
+   * rockfish_loadbalancing (HAProxy) - TO-DO 
      
 ## ■ License
 GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
