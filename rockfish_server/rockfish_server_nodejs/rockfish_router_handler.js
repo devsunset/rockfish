@@ -21,6 +21,7 @@ var privateKey = fs.readFileSync('./cert/privkey.pem', 'utf8');
 var publicKey  = fs.readFileSync('./cert/pubkey.pem', 'utf8');
 var redis = require('redis');
 var client = redis.createClient(config.rockfish_redis_port,config.rockfish_redis_host);
+	client.auth(config.rockfish_redis_password, function (err) { if (err) throw err; });
 
 //■■■ https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
 /*
@@ -148,6 +149,11 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 					if(SERVICE_TARGET !=null && SERVICE_TARGET.SERVICE_LOGIN_CHECK == 'Y' && reply != 1){
 						SESSION_CHECK_CONTINUE = false;
 					}
+
+					if(SERVICE_TARGET !=null && SERVICE_TARGET.SERVICE_LOGIN_CHECK == 'Y' && reply === 1){
+						// session time init setting
+						client.expire(decryptStringWithRsaPrivateKey(drequest.headers.rockfish_session_key), config.rockfish_redis_session_expire_time);	
+					}
 				
 					if(url_partsCheck.pathname === config.rockfish_http_path && SESSION_CHECK_CONTINUE){
 						var encryptYn = "N";
@@ -242,6 +248,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 													headers: {
 														 'ROCKFISH_SERVER': 'ROCKFISH-NODEJS'
 														,'ROCKFISH_ACCESS_INFO' : JSON.stringify(access)
+														,'ROCKFISH_SESSION_KEY' : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_session_key)
 														,'ROCKFISH_ACCESS_IP': access_ip
 														,'Content-Type': 'application/json; charset=utf-8'
 														,'Content-Length': POST.length
@@ -446,6 +453,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 														headers: {
 															 'ROCKFISH_SERVER': 'ROCKFISH-NODEJS'
 															,'ROCKFISH_ACCESS_INFO' : JSON.stringify(access)
+															,'ROCKFISH_SESSION_KEY' : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_session_key)
 															,'ROCKFISH_ACCESS_IP': access_ip
 															,'Content-Type': false
 															,'Cache-Control' : 'max-age=0'
@@ -608,6 +616,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 													headers: {
 														 'ROCKFISH_SERVER': 'ROCKFISH-NODEJS'
 														,'ROCKFISH_ACCESS_INFO' : JSON.stringify(access)
+														,'ROCKFISH_SESSION_KEY' : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_session_key)
 														,'ROCKFISH_ACCESS_IP': access_ip
 														,'Content-Type': 'application/json; charset=utf-8'
 														,'Content-Length': POST.length
@@ -878,6 +887,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 												headers: {
 													 'ROCKFISH_SERVER': 'ROCKFISH-NODEJS'
 													,'ROCKFISH_ACCESS_INFO' : JSON.stringify(access)
+													,'ROCKFISH_SESSION_KEY' : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_session_key)
 													,'ROCKFISH_ACCESS_IP': access_ip
 													,'Content-Type': 'application/json; charset=utf-8'
 													,'Content-Length': POST.length

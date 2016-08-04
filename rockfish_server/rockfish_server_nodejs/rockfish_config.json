@@ -11,6 +11,7 @@
   "rockfish_mongodb_password": "rockfish",
   "rockfish_redis_host": "127.0.0.1",
   "rockfish_redis_port": 6379,
+  "rockfish_redis_session_expire_time" : 1800,
   "rockfish_redis_password": "rockfish",
   "rockfish_service_master_change_apply_time" : 15000,
   "rockfish_request_logging_use" : "Y",

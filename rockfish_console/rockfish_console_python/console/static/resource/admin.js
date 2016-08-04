@@ -21,28 +21,6 @@ var sideMenu_data = [
     {_id: "m06", label: '<i class="axi axi-contacts"></i> Admin', url: "admin.html", target: "_self"}
 ];
 
-/*
-var topMenu_data = [
-    {_id: "m01", label: '<i class="axi axi-windows"></i> DashBoard', url: "dashboard.html", target: "_self"},
-    {_id: "m02", label: '<i class="axi axi-pie-chart"></i> Monitoring', url: "monitoring.html", target: "_self"},
-    {_id: "m03", label: '<i class="axi axi-search3"></i> Log', url: "log.html", target: "_self"},
-    {_id: "m04", label: '<i class="axi axi-anchor2"></i> Service', url: "service.html", target: "_self"},
-    {_id: "m05", label: '<i class="axi axi-settings-applications"></i> Setting', url: "setting.html", target: "_self"},
-    {_id: "m06", label: '<i class="axi axi-contacts"></i> Admin', url: "admin.html", target: "_self"},
-    {_id: "m07", label: '<i class="axi axi-keyboard-alt"></i> User', url: "user.html", target: "_self"}
-];
-
-var sideMenu_data = [
-    {_id: "m01", label: '<i class="axi axi-windows"></i> DashBoard', url: "dashboard.html", target: "_self"},
-    {_id: "m02", label: '<i class="axi axi-pie-chart"></i> Monitoring', url: "monitoring.html", target: "_self"},
-    {_id: "m03", label: '<i class="axi axi-search3"></i> Log', url: "log.html", target: "_self"},
-    {_id: "m04", label: '<i class="axi axi-anchor2"></i> Service', url: "service.html", target: "_self"},
-    {_id: "m05", label: '<i class="axi axi-settings-applications"></i> Setting', url: "setting.html", target: "_self"},
-    {_id: "m06", label: '<i class="axi axi-contacts"></i> Admin', url: "admin.html", target: "_self"},
-    {_id: "m07", label: '<i class="axi axi-keyboard-alt"></i> User', url: "user.html", target: "_self"}
-];
-*/
-
 var topMenu = new AXTopDownMenu();
 var mobileMenu = new AXMobileMenu();
 var loginInfoModal = new AXMobileModal();

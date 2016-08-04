@@ -324,6 +324,24 @@
                                             <tr>
                                                 <th>
                                                     <div class="tdRel">
+                                                        Redis Session Time out
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="tdRel">
+                                                        <label class="AXInputLabel fullWidth">
+                                                            <span>
+                                                                ◎k: rockfish_redis_session_expire_time<br>
+                                                                ◎v: 1800<br>
+                                                                ◎d: Redis session time out (unit : seconds)
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <div class="tdRel">
                                                         SERVICE INFO
                                                         APPLY TIME
                                                     </div>
@@ -551,6 +569,7 @@
                                                                   "rockfish_mongodb_password": "rockfish",<br>
                                                                   "rockfish_redis_host": "127.0.0.1",<br>
                                                                   "rockfish_redis_port": 6379,<br>
+                                                                  "rockfish_redis_session_expire_time" : 1800,<br>
                                                                   "rockfish_redis_password": "rockfish",<br>
                                                                   "rockfish_service_master_change_apply_time" : 15000,<br>
                                                                   "rockfish_request_logging_use" : "Y",<br>

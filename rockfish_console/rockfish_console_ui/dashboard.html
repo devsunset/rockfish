@@ -382,13 +382,11 @@
 		                	if(res !=null && res.list !== undefined && res.list.length > 0){
 		                		var eCount = 0;
 		                		var sCount = 0;
-
 		                		for(var x=0;x<res.list.length;x++){
-
-		                			if(res.list[x].groupkey == "S"){
-		                				sCount = res.list[x].count;
+		                			if(!isNaN(res.list[x].groupkey) && (parseInt(res.list[x].groupkey) < 400) ){
+		                				sCount += res.list[x].count;
 		                			}else{
-		                				eCount = res.list[x].count;
+		                				eCount += res.list[x].count;
 		                			}
 		                		}
 

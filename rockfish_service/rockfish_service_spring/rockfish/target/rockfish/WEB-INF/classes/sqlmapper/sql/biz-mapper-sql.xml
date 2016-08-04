@@ -22,6 +22,8 @@
 		  SELECT *
 		  FROM  TB_ROCKFISH
 		  WHERE	IDX > #{IDX}	
+		  ORDER BY IDX DESC
+		  LIMIT 10
 		]]>
 		
 		<!-- SELECT  @rnum :=@rnum +1 AS ROW_NUMBER, 

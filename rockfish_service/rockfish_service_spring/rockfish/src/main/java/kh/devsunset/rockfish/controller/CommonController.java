@@ -24,8 +24,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import kh.devsunset.rockfish.common.annotation.NoSessionCheck;
 import kh.devsunset.rockfish.common.parameter.ParamMap;
 import kh.devsunset.rockfish.common.util.LangMessage;
+import kh.devsunset.rockfish.common.util.RockfishSessionInfo;
 import kh.devsunset.rockfish.service.CommonService;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -44,19 +46,30 @@ public class CommonController {
 	
 	private static final String ROCKFISH_RESULT_JSON = "DATA";
 	
-	@Value("#{config['file_save_path']}")
+	@Value("#{config['rockfish_file_save_path']}")
 	private String FILE_SAVE_PATH;
 	
-	@Value("#{config['session_time_out']}")
+	@Value("#{config['rockfish_session_time_out']}")
 	private String SESSION_TIME_OUT;
 	
-	@Value("#{config['session_check']}")
-	private String SESSION_CHECK;
+	@Value("#{config['rockfish_redis_host']}")
+	private String REDIS_HOST;
 	
+	@Value("#{config['rockfish_redis_port']}")
+	private String REDIS_PORT;
+	
+	@Value("#{config['rockfish_redis_password']}")
+	private String REDIS_PASSWORD;
+	
+
 	@Resource(name="commonService")
 	private CommonService commonService;
 	
+	@Resource(name="rockfishSessionInfo")
+	private RockfishSessionInfo rockfishSessionInfo;
+	
 	@RequestMapping(value="/common/loginRockfish.do")
+	@NoSessionCheck
     public ModelAndView login(ParamMap paramMap, HttpServletRequest request) throws Exception{
 		log.debug("=============================");
 		log.debug("Login Process");
@@ -68,8 +81,7 @@ public class CommonController {
 		
 		try{
 			JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-			// pool = new JedisPool(jedisPoolConfig, "localhost", 6379, 1000, "password");
-			pool = new JedisPool(jedisPoolConfig, "localhost", 6379);
+			pool = new JedisPool(jedisPoolConfig, REDIS_HOST, Integer.parseInt(REDIS_PORT), 1000, REDIS_PASSWORD);
 
 			jedis = pool.getResource();
 
@@ -107,6 +119,10 @@ public class CommonController {
 	@RequestMapping(value="/common/logoutRockfish.do")
     public ModelAndView logout(ParamMap paramMap, HttpServletRequest request) throws Exception{
 		log.debug("=============================");
+		log.debug("SESSION INFO : "+rockfishSessionInfo.getSession(request));
+		log.debug("=============================");
+		
+		log.debug("=============================");
 		log.debug("Log out Process");
 		log.debug("=============================");
 		
@@ -114,7 +130,7 @@ public class CommonController {
 		JedisPool pool = null;
 		try{
 			JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-			// pool = new JedisPool(jedisPoolConfig, "localhost", 6379, 1000, "password");
+			// pool = new JedisPool(jedisPoolConfig, REDIS_HOST, Integer.parseInt(REDIS_PORT), 1000, REDIS_PASSWORD);
 			pool = new JedisPool(jedisPoolConfig, "localhost", 6379);
 
 			jedis = pool.getResource();
@@ -142,6 +158,10 @@ public class CommonController {
 	@RequestMapping(value="/common/echoRockfish.do")
     public ModelAndView echoRockfish(ParamMap paramMap, HttpServletRequest request) throws Exception{
 		
+		log.debug("=============================");
+		log.debug("SESSION INFO : "+rockfishSessionInfo.getSession(request));
+		log.debug("=============================");
+		
 		Object[] args = new String[] { "ROCKFISH" };
 		
 		log.debug("=============================");
@@ -167,6 +187,10 @@ public class CommonController {
 	
 	@RequestMapping(value="/common/selectListRockfish.do")
 	public ModelAndView selectListRockfish(ParamMap paramMap, HttpServletRequest request) throws Exception{
+		log.debug("=============================");
+		log.debug("SESSION INFO : "+rockfishSessionInfo.getSession(request));
+		log.debug("=============================");
+				
 		ModelAndView mv = new ModelAndView("jsonView");
 		mv.addObject(ROCKFISH_RESULT_JSON, commonService.selectListService(paramMap.getMap(),request));
 		return mv;
@@ -174,6 +198,10 @@ public class CommonController {
 	
 	@RequestMapping(value="/common/insertRockfish.do")
 	public ModelAndView insertRockfish(ParamMap paramMap, HttpServletRequest request) throws Exception{
+		log.debug("=============================");
+		log.debug("SESSION INFO : "+rockfishSessionInfo.getSession(request));
+		log.debug("=============================");
+		
 		ModelAndView mv = new ModelAndView("jsonView");
 		mv.addObject(ROCKFISH_RESULT_JSON, commonService.insertService(paramMap.getMap(), request));
 		return mv;
@@ -181,6 +209,10 @@ public class CommonController {
 	
 	@RequestMapping(value="/common/updateRockfish.do")
 	public ModelAndView updateBoard(ParamMap paramMap, HttpServletRequest request) throws Exception{
+		log.debug("=============================");
+		log.debug("SESSION INFO : "+rockfishSessionInfo.getSession(request));
+		log.debug("=============================");
+		
 		ModelAndView mv = new ModelAndView("jsonView");
 		mv.addObject(ROCKFISH_RESULT_JSON, commonService.updateService(paramMap.getMap(), request));
 		return mv;
@@ -188,6 +220,10 @@ public class CommonController {
 	
 	@RequestMapping(value="/common/deleteRockfish.do")
 	public ModelAndView deleteRockfish(ParamMap paramMap, HttpServletRequest request) throws Exception{
+		log.debug("=============================");
+		log.debug("SESSION INFO : "+rockfishSessionInfo.getSession(request));
+		log.debug("=============================");
+		
 		ModelAndView mv = new ModelAndView("jsonView");
 		mv.addObject(ROCKFISH_RESULT_JSON, commonService.deleteService(paramMap.getMap(), request));
 		return mv;
@@ -195,6 +231,10 @@ public class CommonController {
 	
 	@RequestMapping(value="/common/uploadRockfish.do")
 	public ModelAndView uploadRockfish(ParamMap paramMap, HttpServletRequest request) throws Exception{
+		log.debug("=============================");
+		log.debug("SESSION INFO : "+rockfishSessionInfo.getSession(request));
+		log.debug("=============================");
+		
 		ModelAndView mv = new ModelAndView("jsonView");
 		mv.addObject(ROCKFISH_RESULT_JSON, commonService.complexUploadService(paramMap.getMap(), request));
 		return mv;
@@ -202,6 +242,10 @@ public class CommonController {
 	
 	@RequestMapping(value="/common/downloadRockfish.do")
 	public void downloadRockfish(ParamMap paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		log.debug("=============================");
+		log.debug("SESSION INFO : "+rockfishSessionInfo.getSession(request));
+		log.debug("=============================");
+		
 		String saveFileName = "download.txt";
 		String originalFileName = "download.txt";
 		

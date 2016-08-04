@@ -198,7 +198,7 @@ router.post('/dashboardServiceResultInfo', function(req, res, next) {
 		     { $match: { REQUEST_TIME: {"$gte": new Date(Date.parse(new Date()) - DASHBOARD_PERIOD_DAY*1000*60*60*24)} } },
 		     {
 		          $group : {
-		               _id : "$RESPONSE.ROCKFISH_RESULT_CODE",  
+		               _id : "$RESPONSE.ROCKFISH_HTTP_STATUS_CODE",  
 		               count : {
 		                    $sum : 1    
 		               }
