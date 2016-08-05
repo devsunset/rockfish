@@ -58,7 +58,7 @@ http {
      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
      proxy_set_header X-Queue-Start "t=${msec}000";
 	 
-	 # client 에서 custom Header 값 추가 시 해당 값 전달 하기 위한 옵션 (중요)
+	 # client 에서 custom Header 값 추가 한 내용 전달 하기 위한 옵션 (중요)
 	 underscores_in_headers on;	 
 	
     location / {
