@@ -1,4 +1,4 @@
-# rockfish ( readme - rockfish_소개.pdf )
+# Rockfish ( readme - rockfish_소개.pdf )
 
 ``` 
    Easy Simple Mobile Middleware
@@ -14,7 +14,7 @@
 ####`    Client <-> (Load balancing) <->   Server & Console <-> (Load balancing) <->   Service` 
 
 
-# ■ rockfish client
+# ■ Rockfish client
 ###   * rockfish client api  - Beta version completed
 ###   * rockfish client (android) - TO-DO
 ```java
@@ -26,7 +26,7 @@
 ###   * rockfish client (web) - Beta version completed   
 
 
-# ■ rockfish console
+# ■ Rockfish console
 ###   * rockfish console ui (AXU & axisj) - Beta version completed  
 ###   * rockfish console (nodejs & express) - Beta version completed   
 ```java 
@@ -35,7 +35,7 @@
 ```
 
 
-# ■ rockfish server
+# ■ Rockfish server
 ```java
    * rockfish server (erlang) - Next TO-DO
    * rockfish server (go) - Next TO-DO
@@ -43,7 +43,7 @@
 ###   * rockfish server (nodejs) - Beta version completed
 
    
-# ■ rockfish service
+# ■ Rockfish service
 ```java
    * rockfish service (play) - Next TO-DO
 ``` 
@@ -53,7 +53,7 @@
    * rockfish service (vert.x) - Next TO-DO
 ```    
    
-# ■ rockfish setting
+# ■ Rockfish setting
 ```java
    * rockfish_control_couchbase - TO-DO  
      (Authentication), (Authorization), (Access Control) 
