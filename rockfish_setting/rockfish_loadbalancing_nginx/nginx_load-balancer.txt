@@ -1,4 +1,6 @@
-
+# ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+# HTTP SERVER
+# ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 # ■ nginx load-balancer guide ■
 # ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 # https://www.nginx.com/resources/admin-guide/load-balancer/
@@ -97,12 +99,7 @@ http {
 	# 최후의 서버를 설정한다. 모든 서버가 작동하지 않으면 backup 서버로 연결이 된다. 
 	# 반대로 하나라도 작동하는 서버가 있으면 backup은 사용되지 않는다.
 	############################################################################################
-	
-	# proxy guide
-	# ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-	# http://www.joinc.co.kr/w/man/12/proxy
-	# ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-  
+	  
     # HTTPS server
     #
     #server {
@@ -123,4 +120,119 @@ http {
     #        index  index.html index.htm;
     #    }
     #}
+}
+
+
+# ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+# HTTPS SERVER
+# ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+# ■ nginx load-balancer guide ■
+# ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+# https://www.nginx.com/resources/admin-guide/load-balancer/
+# http://nginx.org/en/docs/http/ngx_http_upstream_module.html
+# ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+#user  nginx;
+#CPU 코어 개수만큼 설정
+worker_processes  1;
+# worker_cpu_affinity 0001 0010 0100 1000;
+
+# Error Log 설정
+error_log /home/devsunset/devrepo/rockfish/logs/nginx_error.log;
+
+# pid 설정
+pid /home/devsunset/devrepo/rockfish/logs/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+	# log 포맷과 access_log 설정	
+	log_format upstreamlog '[$time_local] $remote_addr - $remote_user - $server_name  '
+                         'to: $upstream_addr: $request upstream_response_time $upstream_response_time msec '
+                         '$msec request_time $request_time';
+						 
+    access_log  /home/devsunset/devrepo/rockfish/logs/nginx_access.log  upstreamlog;		
+    
+  upstream rockfish#1 {
+    ############################################################################################
+	# 설정안함   : 라운드로빈(Round-robin)은 기본으로 사용하는 메서드로 모든 서버에 동등하게 요청을 분산한다.
+	# least_conn : 연결이 가장 작은 서버로 요청을 보낸다. 
+	# ip_hash    : 클라이언트 IP주소를 기준으로 요청을 분배한다. IP주소가 같다면, 동일한 서버로 요청을 전송한다.
+	# hash       : 유저가 정의한 key나 변수 혹은 이들의 조합을 해시해서 분산한다. key로 소스 IP나 포트 URI 등을 사용 할 수 있다. 
+	# 			   hash는 consistent파라메터를 사용 할 수 있다. consistent를 사용하면 Ketama 컨시스턴시 해시 알고리즘을 이용해서 
+	# 		 	   upstream 그룹에 서버가 추가 되거나 삭제 될 때, 키의 분배를 최소화 함으로써 캐시 실패를 줄일 수 있다. ex)  hash $request_uri consistent;
+	# least_time : 메서드는 NginX Plus에서 지원한다. 평균 레이턴시와 연결을 기준으로 검사해서 로드가 적은 서버로 요청을 보낸다. ex) least_time header; 
+	############################################################################################
+	
+	ip_hash;
+    server  127.0.0.1:9999 weight=5 max_fails=5 fail_timeout=15s;
+    #server 127.0.0.1:10000 weight=5 max_fails=5 fail_timeout=15s;
+	#server 127.0.0.1:10001 weight=5 max_fails=5 fail_timeout=15s;
+	#server 127.0.0.1:10002 down;
+	#server 127.0.0.1:10003 backup;
+	
+	keepalive 1000;
+  }
+
+	# HTTPS server
+	server {
+		listen       7777 ssl;
+		server_name  www.rockfish.com;
+
+		ssl_certificate      cert.pem;
+		ssl_certificate_key  key.pem;
+		
+		 proxy_set_header Host $host;
+		 proxy_set_header X-Real-IP $remote_addr;
+		 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		 proxy_set_header X-Queue-Start "t=${msec}000";
+		  
+		 # client 에서 custom Header 값 추가 한 내용 전달 하기 위한 옵션 (중요)
+		 underscores_in_headers on;
+
+	##    ssl_session_cache    shared:SSL:1m;
+	##    ssl_session_timeout  5m;
+
+	##    ssl_ciphers  HIGH:!aNULL:!MD5;
+	##    ssl_prefer_server_ciphers  on;
+
+		location / {
+
+			# add_header 'Access-Control-Allow-Origin' '*';
+			# add_header 'Access-Control-Allow-Credentials' 'true';
+			# add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+			# add_header 'Access-Control-Allow-Headers' 'DNT,Content-Length,Authorization,Accept,X-Forwarded-For,rockfish_session_key,rockfish_access_id,rockfish_ip,rockfish_mac,rockfish_phone,rockfish_device,rockfish_imei,rockfish_os,rockfish_os_version,rockfish_os_version_desc,rockfish_target_service,rockfish_client_app,rockfish_client_app_version,rockfish_send_type,rockfish_encrypt_parameter,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
+
+						
+			proxy_pass https://rockfish#1;
+		}
+	}
+  
+	############################################################################################
+	# ip_hash    
+	# 동일 client 에 대하여 같은 업스트림 서버로 연결 되도록 한다.
+	# 클라이언트의 ip를 해싱하여 특정 포트로만 접근하게 만든다. 그러나 항상 똑같은 backend로의 접속을 보장하지 않는다.
+	# 유저의 IP가 고정 IP가 아닐경우 당연히 다른 backend로 접근할 수 있다.
+
+	# weight=n
+	# 가중치. 가중치의 값이 커질 수록 접다른 서버에 비해 더 많이 접속하게 된다. 기본 값은 1이다.
+
+	# max_fails
+	# 이 옵션에 정의한 횟수만큼 통신이 실패하면 엔진엑스는 해당 서버가 작동하지 않는 것로 간주한다.
+	# fail_timeout으로 시간 설정이 가능하며 이 시간을 넘기면 fail처리가 된다. 기본값은 1이다.
+
+	# fail_timeout=n
+	# max_fails 가 설정된 상태에서 n 시간만큼 응답하지 않으면 죽은 것으로 간주한다.
+	# 초단위 설정이다. request의 처리가 fail_timeout을 넘기면 요청 실패 처리가 된다. 기본값은 10초이다.
+
+	# down
+	# 해당 서버를 사용하지 않는다. ip_hash 옵션이 설정된 경우에만 유효.
+
+	# backup
+	# 최후의 서버를 설정한다. 모든 서버가 작동하지 않으면 backup 서버로 연결이 된다. 
+	# 반대로 하나라도 작동하는 서버가 있으면 backup은 사용되지 않는다.
+	############################################################################################
 }
