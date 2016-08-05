@@ -370,7 +370,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 												        if (err) rockfish_logger.error(err);
 												    });
 
-													dresponse.writeHead(500, headers);
+													dresponse.writeHead(200, headers);
 													dresponse.write(JSON.stringify(resultObj));
 													dresponse.end();
 
@@ -394,7 +394,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 											        if (err) rockfish_logger.error(err);
 											    });
 
-												dresponse.writeHead(500, headers);
+												dresponse.writeHead(200, headers);
 												dresponse.write(JSON.stringify(resultObj));
 												dresponse.end();
 
