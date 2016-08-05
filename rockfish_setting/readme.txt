@@ -6,4 +6,4 @@
      (Authentication), (Authorization), (Access Control) 
    * rockfish_docker - Next TO-DO   
    * rockfish_loadbalancing_haproxy - TO-DO 
-   * rockfish_loadbalancing_nginx - TO-DO 
+   * rockfish_loadbalancing_nginx - Beta version completed  
