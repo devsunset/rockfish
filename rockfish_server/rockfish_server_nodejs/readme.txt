@@ -8,7 +8,7 @@ npm install
 
 >> mongo
 
-use rockfish
+use rockfish 
 
 # CREATE ROCKFISH_SERVICE_LOG TABLE
 db.rockfish_service_log.insert({"ACCESS" : "SETUP", "REQUEST" : "SETUP", "RESPONSE" : "SETUP", "SERVICE_METHOD" : "SETUP", "SEND_TYPE" : "SETUP", "TARGET_SERVICE" : "SETUP", "REQUEST_TIME" : new Date(),  "RESPONSE_TIME" : new Date()})
