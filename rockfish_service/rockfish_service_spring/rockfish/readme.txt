@@ -6,7 +6,7 @@
                connectionTimeout="20000"
                redirectPort="8443" maxPostSize="-1" URIEncoding="UTF-8"/>
 
-■■■ MariaDB Setting ■■■
+■■■ MariaDB Setting ■■■ 
 
 -- rockfish 사용자 생성
 -- ID : rockfish
