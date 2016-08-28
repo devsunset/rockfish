@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- include head -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+     <title>Rockfish Console</title>
+    <link rel="shortcut icon" href="static/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="static/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="http://cdno.axisj.com/axicon/axicon.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdno.axisj.com/axisj/ui/kakao/AXJ.min.css" id="axu-theme-axisj" />
+    <script type="text/javascript" src="http://cdno.axisj.com/axisj/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdno.axisj.com/axisj/dist/AXJ.min.js"></script>
+    <link rel="stylesheet" href="static/ui/cacao-dark/admin.css" id="axu-theme-admin" />
+    <link rel="stylesheet" href="static/ui/custom.css" />
+    <script type="text/javascript" src="static/resource/admin.js"></script>
+    <script type="text/javascript" src="static/resource/Chart.min.js"></script>
+    <script type="text/javascript" src="static/resource/jsencrypt.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="static/resource/c3.min.js"></script>
+    <link rel="stylesheet" href="static/resource/c3.min.css" />
+    <!-- include head -->
+</head>
+<body>
+<div id="AXPage">
+	<!-- ax-header : include -->
+    <div class="ax-header">
+        <div class="ax-wrap">
+            <div class="ax-layer">
+                <div class="ax-col-12">
+                    <div class="ax-unit">
+                        <div class="ax-logo">
+                             <a href="dashboard.html"><span class="logo-img"><i><img src="static/images/logo_32x32.png" style="margin-top:7px"></i></span><span class="logo-txt">Rockfish Console</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ax-layer">
+                <div class="ax-col-8">
+                    <div class="ax-unit">
+                        <!-- 상단 top-down-menu 표시 영역 : s-->
+                        <div id="ax-top-menu" class="ax-top-menu AXMenuBox"></div>
+                        <!-- e : 상단 top-down-menu 표시 영역 -->
+                        <div class="mx-top-menu"><a id="mx-top-menu-handle" class="mx-menu-button"><i class="axi axi-th"></i></a></div>
+                    </div>
+                </div>
+                <div class="ax-col-4">
+                    <div class="ax-unit">
+                        <ul class="ax-loginfo" id="ax-loginfo">
+                            <li class="profile"><div class="photo"></div></li>
+                            <li class="account"><a href="#ax" id="rockfish_session_user_id">&nbsp;</a></li>
+                            <li class="btns"><a href="#ax" class="AXButton" id="logoutButton"><i class="axi axi-power-off"></i> Logout</a></li>
+                        </ul>
+                        <div class="mx-loginfo"><a id="mx-loginfo-handle" class="mx-menu-button"><i class="axi axi-bars"></i></a></div>
+                    </div>
+                </div>
+                <div class="ax-clear"></div>
+            </div>
+        </div>
+    </div>
+    <div class="H60"></div>
+    <!-- ax-header : include -->
+
+	<div class="ax-body">
+		<div class="ax-wrap">
+
+			<div class="ax-layer ax-title">
+				<div class="ax-col-12 ax-content">
+					<h1>Rockfish Monitoring</h1>
+					<!-- <p class="desc">Rockfish Monitoring</p> -->
+				</div>
+				<div class="ax-clear"></div>
+			</div>
+
+			<div class="ax-layer">
+				<div class="ax-col-12 ax-content">
+
+					<!-- s.CXPage -->
+					<div id="CXPage">
+						<div class="ax-layer">
+							<div style="padding:15px;height:50px">
+                                 <div>
+					                <table cellpadding="0" cellspacing="0" class="AXSearchTable">
+					                    <colgroup>
+					                        <col width="150" />
+					                        <col />
+					                    </colgroup>
+					                    <tbody>
+					                        <tr class="gray">
+					                            <th>
+					                                <div class="tdRel">SEARCH PERIOD</div>
+					                            </th>
+					                            <td class="last">
+					                                <div class="tdRel">
+					                                    <input type="text" id="START_DATE" name="START_DATE"  class="AXInput W110" /> ~ <input type="text" id="END_DATE" name="END_DATE" class="AXInput W120" />
+					                                    <input type="button" class="AXButton" value="Search" id="searchBtn"  style="margin-left:10px"/>
+					                                </div>
+					                            </td>
+					                        </tr>
+					                    </tbody>
+					                </table>
+					            </div>
+							</div>
+						<div class="ax-layer">
+							<div class="ax-col-6">
+								<div class="ax-unit">
+									<div class="ax-box" style="height:190px;min-height:190px">
+										<div class="ax-box-wrap" style="text-align:center">
+											<b>
+												Client OS
+											</b>
+											<div id="chart-canvas-clientos" height="160px" style="min-height: 160px"></div>
+										</div>
+									</div>
+									<div class="ax-clear"></div>
+									<div class="H20"></div>
+								</div>
+							</div>
+							<div class="ax-col-6">
+								<div class="ax-unit">
+									<div class="ax-box" style="height:190px;min-height:190px">
+										<div class="ax-box-wrap" style="text-align:center">
+											<b>
+												Client OS Version
+											</b>
+											<div id="chart-canvas-clientosversion" height="160px" style="min-height: 160px;"></div>
+										</div>
+									</div>
+									<div class="ax-clear"></div>
+									<div class="H20"></div>
+								</div>
+							</div>
+							<div class="ax-clear"></div>
+						</div>
+						<div class="ax-layer">
+							<div class="ax-col-6">
+								<div class="ax-unit">
+									<div class="ax-box" style="height:190px;min-height:190px">
+										<div class="ax-box-wrap" style="text-align:center">
+											<b>
+												Send Type
+											</b>
+											<div id="chart-canvas-sendtype" height="140px" style="min-height: 140px;"></div>
+										</div>
+									</div>
+									<div class="ax-clear"></div>
+									<div class="H20"></div>
+								</div>
+							</div>
+							<div class="ax-col-6">
+								<div class="ax-unit">
+									<div class="ax-box" style="height:190px;min-height:190px">
+										<div class="ax-box-wrap" style="text-align:center">
+											<b>
+												Encrypt
+											</b>
+											<div id="chart-canvas-encrypt" height="140px" style="min-height: 140px;"></div>
+										</div>
+									</div>
+									<div class="ax-clear"></div>
+									<div class="H20"></div>
+								</div>
+							</div>
+							<div class="ax-clear"></div>
+						</div>
+						<div class="ax-layer">
+							<div class="ax-col-6">
+								<div class="ax-unit">
+									<div class="ax-box" style="height:190px;min-height:190px">
+										<div class="ax-box-wrap" style="text-align:center">
+											<b>
+												Service Response Http Status Code
+											</b>
+											<div id="chart-canvas-serviceresponsehttpstatuscode" height="160px" style="min-height: 160px;"></div>
+										</div>
+									</div>
+									<div class="ax-clear"></div>
+									<div class="H20"></div>
+								</div>
+							</div>
+							<div class="ax-col-6">
+								<div class="ax-unit">
+									<div class="ax-box" style="height:190px;min-height:190px">
+										<div class="ax-box-wrap" style="text-align:center">
+											<b>
+												Service Protocol
+											</b>
+											<div id="chart-canvas-serviceprotocol" height="160px" style="min-height: 160px;"></div>
+										</div>
+									</div>
+									<div class="ax-clear"></div>
+									<div class="H20"></div>
+								</div>
+							</div>
+							<div class="ax-clear"></div>
+						</div>
+					</div>
+					<!-- e.CXPage -->
+
+				</div>
+				<div class="ax-clear"></div>
+			</div>
+
+		</div>
+	</div>
+    <!-- e ax-body -->
+
+    <!-- ax-left : include -->
+    <div class="ax-aside">
+        <div class="ax-layer ax-aside-menu-box">
+            <a class="ax-aside-menu"><i class="axi axi-angle-double-right fa-lg"></i><i class="axi axi-angle-double-left fa-lg"></i></a>
+        </div>
+        <div class="ax-layer ax-aside-box">
+            <div class="ax-unit">
+                <div class="ax-box">
+                    <h3>MENU</h3>
+                    <ul class="ax-aside-ul" id="ax-aside-ul"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ax-left : include -->
+
+    <!-- ax-footer : include -->
+    <div class="ax-footer">
+        <div class="ax-wrap">
+            <div class="ax-col-6">
+                <div class="ax-unit">
+                    <ul class="ax-version">
+                        <li><a href="https://github.com/devsunset/rockfish" target="_blank"><i class="axi axi-github-square"></i>Rockfish Console</a></li>
+                        <li><i class="axi axi-check-circle-o"></i> ver. 0.1</li>
+                        <li><select id="theme-select"></select></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="ax-col-6">
+                <div class="ax-unit">
+                    <ul class="ax-funcs">
+                    	<li>logo Icons made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></li>
+                        <li><a href="https://www.axisj.com" target="_blank"><i class="axi axi-axisj"></i> AXISJ.com</a></li>
+                        <li><a href="https://github.com/axisj" target="_blank"><i class="axi axi-github-square"></i> AXISJ gitHub</a></li>
+                        <li><a href="https://www.facebook.com/axisj" target="_blank"><i class="axi axi-facebook-square"></i> Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="ax-clear"></div>
+        </div>
+    </div>   
+    <!-- ax-footer : include -->
+</div>
+<script type="text/javascript">
+	var page_menu_id = "m02"; // admin.js > topMenu_data 에 정의된 id
+</script>
+<script type="text/javascript">
+	var randomScalingFactor = function() {
+        return Math.round(Math.random() * 100);
+    };
+    var randomColorFactor = function() {
+        return Math.round(Math.random() * 255);
+    };
+    var randomColor = function(opacity) {
+        return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
+    };
+
+ 	var sDate = new Date();
+    sDate.setTime(sDate.getTime()-1000*60*60*24*7);
+    var startDate = sDate.date().print();
+    $("#START_DATE").val(startDate+" 00:00");
+
+    var eDate = new Date();
+    var endDate = eDate.date().print();
+    var hour = "00";
+    var minute = "00";
+    if(eDate.getHours() < 10){
+    	hour = "0"+eDate.getHours();
+    }else{
+    	hour = eDate.getHours();
+    }
+
+    if(eDate.getMinutes() < 10){
+    	minute = "0"+eDate.getMinutes();
+    }else{
+    	minute = eDate.getMinutes();
+    }
+    $("#END_DATE").val(endDate+" "+hour+":"+minute);
+
+
+     $('#searchBtn').click(function(){
+		fnObj.chart.clientOs();
+		fnObj.chart.clientOsVersion();
+		fnObj.chart.sendType();
+		fnObj.chart.encrypt();
+		fnObj.chart.serviceResponseHttpStatusCode();
+		fnObj.chart.serviceProtocol();
+	 });   
+
+
+	var fnObj = {
+		pageStart: function(){
+			//Session Check
+            var url = '/console/sessionCheck'
+            var pars = new Object();
+             new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+                    if(res.rockfish_result_code == "S"){
+                    	$("#rockfish_session_user_id").html(res.rockfish_result_data.user_name);
+                    }else{
+                       AXUtil.alert("Session is invalid or Session is time out.");
+                       document.location.href="/index.html";
+                    }
+                },
+                onerr:function(res){
+                    toast.push("Session Check Error.");
+                }
+            });
+
+            $('#logoutButton').click(function(){
+                if(AXUtil.confirm('Do you want log out ?')){
+                    var url = "/console/logout";
+                    var pars = new Object();
+                    new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+                           document.location.href="index.html";
+                        },
+                        onerr:function(res){
+                            AXUtil.alert("Log out process error");
+                        }
+                    });
+                }
+            });     
+
+
+            $("#END_DATE").bindTwinDateTime({align:"right", valign:"top", separator:"-", startTargetID:"START_DATE", onChange:function(){
+                //toast.push(Object.toJSON(this));
+            }});
+
+			this.chart.clientOs();
+			this.chart.clientOsVersion();
+			this.chart.sendType();
+			this.chart.encrypt();
+			this.chart.serviceResponseHttpStatusCode();
+			this.chart.serviceProtocol();
+		},
+		chart:{
+			clientOs: function(){
+				var url = '/console/montoringClientOsInfo'
+		        var pars = new Object();
+		        	pars.START_DATE = $("#START_DATE").val();
+		        	pars.END_DATE = $("#END_DATE").val();
+		         new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+		                if(res.rockfish_result_code == "S"){
+		                	if(res !=null && res.list !== undefined && res.list.length > 0){
+		                		var dataArray = new Array();
+		                		var colorData = new Array();
+		                		for(var x=0;x<res.list.length;x++){
+		                			var obj = new Array();
+		                			obj.push(res.list[x].groupkey);
+		                			obj.push(res.list[x].count);
+		               				dataArray.push(obj);
+
+		               				colorData.push(randomColor(0.8));
+		                		}
+
+								var chart = c3.generate({
+									bindto: '#chart-canvas-clientos',
+								    data: {
+								        columns: dataArray,
+								        type : 'bar',
+        								labels: true
+								    },
+								    legend: {
+								        position: 'right'
+								    },
+								    transition: {
+								        duration: 300
+								    },
+								    color: {
+								        pattern: colorData
+								    },
+								    tooltip: {
+								        format: {
+								            title: function (d) { return 'Client OS'; }
+								        }
+								    }
+								});
+		                	}else{
+		                		$("#chart-canvas-clientos").html("<p><h1>Client OS</h1> <br>No data not found.");
+		                	}
+		                }else if(res.rockfish_result_code == "X"){
+		                	// skip
+		                }else{
+		                	$("#chart-canvas-clientos").html("<p><h1>Client OS</h1> <br>No data not found.");
+
+		                   AXUtil.alert(res.rockfish_result_msg);
+		                }
+		            },
+		            onerr:function(res){
+		                toast.push("Server Error.");
+		            }
+		        });
+
+			},
+			clientOsVersion: function(){
+				var url = '/console/montoringClientOsVersionInfo'
+		        var pars = new Object();
+		        	pars.START_DATE = $("#START_DATE").val();
+		        	pars.END_DATE = $("#END_DATE").val();
+		         new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+		                if(res.rockfish_result_code == "S"){
+		                	if(res !=null && res.list !== undefined && res.list.length > 0){
+		                		var dataArray = new Array();
+		                		var colorData = new Array();
+		                		for(var x=0;x<res.list.length;x++){
+		                			var obj = new Array();
+		                			obj.push(res.list[x].groupkey);
+		                			obj.push(res.list[x].count);
+		               				dataArray.push(obj);
+		               				colorData.push(randomColor(0.8));
+		                		}
+								
+								var chart = c3.generate({
+									bindto: '#chart-canvas-clientosversion',
+								    data: {
+								        columns: dataArray,
+								        type : 'bar',
+        								labels: true
+								    },
+								    legend: {
+								        position: 'right'
+								    },
+								    transition: {
+								        duration: 300
+								    },
+								    color: {
+								        pattern: colorData
+								    },
+								    tooltip: {
+								        format: {
+								            title: function (d) { return 'Client OS Version'; }
+								        }
+								    }
+								});
+		                	}else{
+		                		$("#chart-canvas-clientosversion").html("<p><h1>Client OS Version</h1> <br>No data not found.");
+		                	}
+		                }else if(res.rockfish_result_code == "X"){
+		                	// skip
+		                }else{
+		                	$("#chart-canvas-clientosversion").html("<p><h1>Client OS Version</h1> <br>No data not found.");
+
+		                   AXUtil.alert(res.rockfish_result_msg);
+		                }
+		            },
+		            onerr:function(res){
+		                toast.push("Server Error.");
+		            }
+		        });
+
+			},
+			sendType: function(){
+				var url = '/console/montoringSendTypeInfo'
+		        var pars = new Object();
+		        	pars.START_DATE = $("#START_DATE").val();
+		        	pars.END_DATE = $("#END_DATE").val();
+		         new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+		                if(res.rockfish_result_code == "S"){
+		                	if(res !=null && res.list !== undefined && res.list.length > 0){
+		                		var GCount = 0;
+		                		var MCount = 0;
+		                		var DCount = 0;
+
+		                		for(var x=0;x<res.list.length;x++){
+		                			if(res.list[x].groupkey == "G"){
+		                				GCount = res.list[x].count;
+		                			}else if(res.list[x].groupkey == "M"){
+		                				MCount = res.list[x].count;
+		                			}else{
+		                				DCount = res.list[x].count;
+		                			}
+		                		}
+
+								var chart = c3.generate({
+									bindto: '#chart-canvas-sendtype',
+								    data: {
+								        columns: [
+								            ['General', GCount],
+								            ['Multipart', MCount],
+								            ['Download', DCount]
+								        ],
+								        type : 'donut',
+        								labels: true
+								    },
+								    legend: {
+								        position: 'right'
+								    },
+								    transition: {
+								        duration: 300
+								    },
+								    donut: {
+								        title: "Send Type"
+								    },
+								    tooltip: {
+								        format: {
+								            title: function (d) { return 'Send Type'; }
+								        }
+								    }
+								});
+		                	}else{
+			                	$("#chart-canvas-sendtype").html("<p><h1>Send Type</h1> <br>No data not found.");
+		                	}
+		                }else if(res.rockfish_result_code == "X"){
+		                	// skip
+		                }else{
+		                	$("#chart-canvas-sendtype").html("<p><h1>Send Type</h1> <br>No data not found.");
+
+		                   AXUtil.alert(res.rockfish_result_msg);
+		                }
+		            },
+		            onerr:function(res){
+		                toast.push("Server Error.");
+		            }
+		        });
+
+			},
+			encrypt: function(){
+				var url = '/console/montoringEncryptInfo'
+		        var pars = new Object();
+		        	pars.START_DATE = $("#START_DATE").val();
+		        	pars.END_DATE = $("#END_DATE").val();
+		         new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+		                if(res.rockfish_result_code == "S"){
+		                	if(res !=null && res.list !== undefined && res.list.length > 0){
+
+		                		var YCount = 0;
+		                		var NCount = 0;
+
+		                		for(var x=0;x<res.list.length;x++){
+		                			if(res.list[x].groupkey == "Y"){
+		                				YCount = res.list[x].count;
+		                			}else{
+		                				NCount = res.list[x].count;
+		                			}
+		                		}
+
+		                		var chart = c3.generate({
+									bindto: '#chart-canvas-encrypt',
+								    data: {
+								        columns: [
+								            ['Encrypt Text', YCount],
+								            ['Plain Text', NCount]
+								        ],
+								        type : 'donut',
+        								labels: true
+								    },
+								    legend: {
+								        position: 'right'
+								    },
+								    transition: {
+								        duration: 300
+								    },
+								    donut: {
+								        title: "Encrypt"
+								    },
+								    color: {
+								        pattern: ["rgb(255, 127, 14)","rgb(44, 160, 44)"]
+								    },
+								    tooltip: {
+								        format: {
+								            title: function (d) { return 'Encrypt'; }
+								        }
+								    }
+								});
+								
+		                	}else{
+		                		$("#chart-canvas-encrypt").html("<p><h1>Encrypt</h1> <br>No data not found.");
+		                	}
+		                }else if(res.rockfish_result_code == "X"){
+		                	// skip
+		                }else{
+		                	$("#chart-canvas-encrypt").html("<p><h1>Encrypt</h1> <br>No data not found.");
+
+		                   AXUtil.alert(res.rockfish_result_msg);
+		                }
+		            },
+		            onerr:function(res){
+		                toast.push("Server Error.");
+		            }
+		        });
+
+			},
+			serviceResponseHttpStatusCode: function(){
+				var url = '/console/montoringServiceResponseHttpStatusCodeInfo'
+		        var pars = new Object();
+		        	pars.START_DATE = $("#START_DATE").val();
+		        	pars.END_DATE = $("#END_DATE").val();
+		         new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+		                if(res.rockfish_result_code == "S"){
+		                	if(res !=null && res.list !== undefined && res.list.length > 0){
+
+		                		var dataArray = new Array();
+		                		var colorData = new Array();
+		                		for(var x=0;x<res.list.length;x++){
+		                			var obj = new Array();
+		                			if(res.list[x].groupkey == "" || res.list[x].groupkey === undefined  || res.list[x].groupkey == null){
+		                				obj.push("ERROR");
+		                				obj.push(res.list[x].count);
+		                			}else{
+		                				obj.push("HTTP Code : ["+res.list[x].groupkey+"] ");
+		                				obj.push(res.list[x].count);
+		                			}
+		               				dataArray.push(obj);
+		               				colorData.push(randomColor(0.8));
+		                		}
+								
+								var chart = c3.generate({
+									bindto: '#chart-canvas-serviceresponsehttpstatuscode',
+								    data: {
+								        columns: dataArray,
+								        type : 'bar',
+        								labels: true
+								    },
+								    legend: {
+								        position: 'right'
+								    },
+								    transition: {
+								        duration: 300
+								    },
+								    color: {
+								        pattern: colorData
+								    },
+								    tooltip: {
+								        format: {
+								            title: function (d) { return 'Service Response Http Status Code'; }
+								        }
+								    }
+								});
+								
+		                	}else{
+		                		$("#chart-canvas-serviceresponsehttpstatuscode").html("<p><h1>Service Response Http Status Code</h1> <br>No data not found.");
+		                	}
+		                }else if(res.rockfish_result_code == "X"){
+		                	// skip
+		                }else{
+		                	$("#chart-canvas-serviceresponsehttpstatuscode").html("<p><h1>Service Response Http Status Code</h1> <br>No data not found.");
+
+		                   AXUtil.alert(res.rockfish_result_msg);
+		                }
+		            },
+		            onerr:function(res){
+		                toast.push("Server Error.");
+		            }
+		        });
+
+			},
+			serviceProtocol: function(){
+				var url = '/console/montoringServiceProtocolInfo'
+		        var pars = new Object();
+		        	pars.START_DATE = $("#START_DATE").val();
+		        	pars.END_DATE = $("#END_DATE").val();
+		         new AXReq(url, {debug:false,type: "post", pars:pars, onsucc:function(res){
+		                if(res.rockfish_result_code == "S"){
+		                	if(res !=null && res.list !== undefined && res.list.length > 0){
+		                		var HTTPCount = 0;
+		                		var HTTPSCount = 0;
+		                		for(var x=0;x<res.list.length;x++){
+		                			if(res.list[x].groupkey == "HTTP"){
+		                				HTTPCount = res.list[x].count;
+		                			}else{
+		                				HTTPSCount = res.list[x].count;
+		                			}
+		                		}
+
+		                		var chart = c3.generate({
+									bindto: '#chart-canvas-serviceprotocol',
+								    data: {
+								        columns: [
+								            ['HTTP', HTTPCount],
+								            ['HTTPS', HTTPSCount]
+								        ],
+								        type : 'bar',
+        								labels: true
+								    },
+								    legend: {
+								        position: 'right'
+								    },
+								    transition: {
+								        duration: 300
+								    },
+								    tooltip: {
+								        format: {
+								            title: function (d) { return 'Service Protocol'; }
+								        }
+								    }
+								});
+								
+		                	}else{
+		                		$("#chart-canvas-serviceprotocol").html("<p><h1>Service Protocol</h1> <br>No data not found.");
+		                	}
+		                }else if(res.rockfish_result_code == "X"){
+		                	// skip
+		                }else{
+		                	$("#chart-canvas-serviceprotocol").html("<p><h1>Service Protocol</h1> <br>No data not found.");
+
+		                   AXUtil.alert(res.rockfish_result_msg);
+		                }
+		            },
+		            onerr:function(res){
+		                toast.push("Server Error.");
+		            }
+		        });
+
+			}
+		}
+	}
+</script>
+
+</body>
+</html>

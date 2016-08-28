@@ -22,7 +22,10 @@ rockfish_logger = new winston.Logger({
             json: true,
             maxsize: config.rockfish_server_log_maxsize,
             maxFiles: config.rockfish_server_log_maxfiles,
-            colorize: false
+            colorize: false,
+            timestamp: function(){
+              return moment().format("YYYY-MM-DD HH:mm:ss.SSS");
+            }
         })
     ]
 });

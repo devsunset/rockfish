@@ -10,6 +10,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
@@ -17,7 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,10 +33,6 @@ import kh.devsunset.rockfish.common.parameter.ParamMap;
 import kh.devsunset.rockfish.common.util.LangMessage;
 import kh.devsunset.rockfish.common.util.RockfishSessionInfo;
 import kh.devsunset.rockfish.service.CommonService;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.exceptions.JedisException;
 
 /**
  * <PRE>
@@ -51,22 +51,18 @@ public class CommonController {
 	
 	@Value("#{config['rockfish_session_time_out']}")
 	private String SESSION_TIME_OUT;
-	
-	@Value("#{config['rockfish_redis_host']}")
-	private String REDIS_HOST;
-	
-	@Value("#{config['rockfish_redis_port']}")
-	private String REDIS_PORT;
-	
-	@Value("#{config['rockfish_redis_password']}")
-	private String REDIS_PASSWORD;
-	
 
 	@Resource(name="commonService")
 	private CommonService commonService;
 	
 	@Resource(name="rockfishSessionInfo")
 	private RockfishSessionInfo rockfishSessionInfo;
+	
+	@Autowired
+    RedisTemplate<String, String> redisTemplate;
+     
+    @Resource(name="redisTemplate")
+    private ValueOperations<String, String> valueOps;
 	
 	@RequestMapping(value="/common/loginRockfish.do")
 	@NoSessionCheck
@@ -76,41 +72,23 @@ public class CommonController {
 		log.debug("=============================");
 		
 		HashMap<String,String> sessionInfo = null;
-		Jedis jedis = null;
-		JedisPool pool = null;
-		
-		try{
-			JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-			pool = new JedisPool(jedisPoolConfig, REDIS_HOST, Integer.parseInt(REDIS_PORT), 1000, REDIS_PASSWORD);
 
-			jedis = pool.getResource();
-
-			//save to redis login Session Key
-        	String sessionKey = "ROCKFISH_SESSION_KEY-"+UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
-        	
-        	// Temp Session information
-        	sessionInfo = new HashMap<String,String>();
-        	sessionInfo.put("ROCKFISH_SESSION_KEY", sessionKey);
-        	sessionInfo.put("ROCKFISH_ACCESS_ID", "rockfish");
-        	sessionInfo.put("ID", "rockfish");
-        	sessionInfo.put("INFO_1", "rockfish_1");
-        	sessionInfo.put("INFO_2", "rockfish_2");
-        	sessionInfo.put("INFO_3", "rockfish_3");
-        	sessionInfo.put("INFO_4", "rockfish_4");
-        	sessionInfo.put("INFO_5", "rockfish_5");
-			jedis.set(sessionKey, new Gson().toJson(sessionInfo)); 
-			jedis.expire(sessionKey, Integer.parseInt(SESSION_TIME_OUT));
+		//save to redis login Session Key
+    	String sessionKey = "ROCKFISH_SESSION_KEY-"+UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
+    	
+    	// Temp Session information
+    	sessionInfo = new HashMap<String,String>();
+    	sessionInfo.put("ROCKFISH_SESSION_KEY", sessionKey);
+    	sessionInfo.put("ROCKFISH_ACCESS_ID", "rockfish");
+    	sessionInfo.put("ID", "rockfish");
+    	sessionInfo.put("INFO_1", "rockfish_1");
+    	sessionInfo.put("INFO_2", "rockfish_2");
+    	sessionInfo.put("INFO_3", "rockfish_3");
+    	sessionInfo.put("INFO_4", "rockfish_4");
+    	sessionInfo.put("INFO_5", "rockfish_5");
+    	valueOps.set(sessionKey, new Gson().toJson(sessionInfo),Integer.parseInt(SESSION_TIME_OUT),TimeUnit.SECONDS); 
+    	 
 			
-		}catch(JedisException e){
-			if (null != jedis) {  
-				jedis.close();
-            }  
-		}finally{
-			if( jedis != null ){
-				jedis.close();
-			}
-		}
-		
     	ModelAndView mv = new ModelAndView("jsonView");
     	mv.addObject(ROCKFISH_RESULT_JSON, sessionInfo);
     	return mv;
@@ -126,24 +104,8 @@ public class CommonController {
 		log.debug("Log out Process");
 		log.debug("=============================");
 		
-		Jedis jedis = null;
-		JedisPool pool = null;
-		try{
-			JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-			pool = new JedisPool(jedisPoolConfig, REDIS_HOST, Integer.parseInt(REDIS_PORT), 1000, REDIS_PASSWORD);
-			jedis = pool.getResource();
-			
-			if(request.getHeader("rockfish_session_key") !=null && !"".equals(request.getHeader("rockfish_session_key"))){
-				jedis.del("session_key");
-			}
-		}catch(JedisException e){
-			if (null != jedis) {  
-				jedis.close();
-            }  
-		}finally{
-			if( jedis != null ){
-				jedis.close();
-			}
+		if(request.getHeader("rockfish_session_key") !=null && !"".equals(request.getHeader("rockfish_session_key"))){
+			valueOps.set(request.getHeader("rockfish_session_key"), "",1,TimeUnit.SECONDS);
 		}
 		
 		paramMap.put("LOGOUT", "SUCCESS");
@@ -186,7 +148,7 @@ public class CommonController {
 	@RequestMapping(value="/common/selectListRockfish.do")
 	public ModelAndView selectListRockfish(ParamMap paramMap, HttpServletRequest request) throws Exception{
 		log.debug("=============================");
-		log.debug("SESSION INFO : "+rockfishSessionInfo.getSession(request));
+		//log.debug("SESSION INFO : "+rockfishSessionInfo.getSession(request));
 		log.debug("=============================");
 				
 		ModelAndView mv = new ModelAndView("jsonView");

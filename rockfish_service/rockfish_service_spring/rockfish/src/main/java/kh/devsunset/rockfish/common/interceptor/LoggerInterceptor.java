@@ -6,20 +6,20 @@ package kh.devsunset.rockfish.common.interceptor;
 
 import java.util.Enumeration;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import kh.devsunset.rockfish.common.annotation.NoSessionCheck;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.exceptions.JedisException;
 
 /**
  * <PRE>
@@ -33,14 +33,11 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter {
 	@Value("#{config['rockfish_session_check']}")
 	private String SESSION_CHECK;
 	
-	@Value("#{config['rockfish_redis_host']}")
-	private String REDIS_HOST;
-	
-	@Value("#{config['rockfish_redis_port']}")
-	private String REDIS_PORT;
-	
-	@Value("#{config['rockfish_redis_password']}")
-	private String REDIS_PASSWORD;
+	@Autowired
+    RedisTemplate<String, String> redisTemplate;
+     
+    @Resource(name="redisTemplate")
+    private ValueOperations<String, String> valueOps;
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
@@ -103,25 +100,14 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter {
 		 	if(sessionKey == null || "".equals(sessionKey)){
 		 		result =  false;
 		 	}else{
-		 		Jedis jedis = null;
-				JedisPool pool = null;
-				try{
-					JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-					pool = new JedisPool(jedisPoolConfig, REDIS_HOST, Integer.parseInt(REDIS_PORT), 1000, REDIS_PASSWORD);
-					jedis = pool.getResource();
-					result = jedis.exists(sessionKey);
-				}catch(JedisException e){
-					if (null != jedis) {  
-						jedis.close();
-						result =  false;
-		            }  
-				}finally{
-					if( jedis != null ){
-						jedis.close();
-					}
+		 		String sessionValue = valueOps.get(sessionKey);
+				
+				if("".equals(sessionValue) || sessionValue == null){
+					return false;
+				}else{
+					return true;
 				}
 		 	}
-			
 	    	return result;
 	  }
 }

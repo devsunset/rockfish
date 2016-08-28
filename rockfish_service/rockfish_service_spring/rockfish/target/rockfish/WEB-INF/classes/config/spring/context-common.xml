@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:p="http://www.springframework.org/schema/p"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://www.springframework.org/schema/beans"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:cache="http://www.springframework.org/schema/cache"
-    xmlns:aop="http://www.springframework.org/schema/aop"
-    xmlns:util="http://www.springframework.org/schema/util"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 						http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
        					http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
        					http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
-    
-    <context:component-scan base-package="kh.devsunset.rockfish">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+
+	<context:component-scan base-package="kh.devsunset.rockfish">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	
+	<!-- config properties 설정 -->
+	<util:properties id="config"
+		location="classpath:config/config.properties" />
+		
 	<!-- MultipartResolver 설정 -->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-    	<property name="maxUploadSize" value="10000000" />
-        <property name="maxInMemorySize" value="100000000" />
-    </bean>
-    
-    <!-- config properties 설정 -->
- 	<util:properties id="config" location="classpath:config/config.properties" />
- 	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10000000" />
+		<property name="maxInMemorySize" value="100000000" />
+	</bean>
+
 	<!-- message properties 설정 -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
@@ -38,13 +38,14 @@
 			<value>60</value>
 		</property>
 	</bean>
-	
-	<bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
-		<constructor-arg ref="messageSource"/>
+
+	<bean id="messageSourceAccessor"
+		class="org.springframework.context.support.MessageSourceAccessor">
+		<constructor-arg ref="messageSource" />
 	</bean>
-	
+
 	<bean id="message" class="kh.devsunset.rockfish.common.util.LangMessage">
-		<property name="messageSourceAccessor" ref="messageSourceAccessor"/>
+		<property name="messageSourceAccessor" ref="messageSourceAccessor" />
 	</bean>
 
 </beans>

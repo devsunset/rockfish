@@ -180,7 +180,7 @@
 			      			var jobj = JSON.parse(response.ROCKFISH_RESULT_JSON);
 			      			if(jobj !=null && jobj !== undefined && jobj.DATA !== null && jobj.DATA !== undefined){
 			      				rockfishSetStorge("rockfish_session_key",jobj.DATA.ROCKFISH_SESSION_KEY);
-			      				rockfishSetStorge("rockfish_access_id",jobj.DATA.ROCKFISH_ACCESS_ID);
+			      				rockfishSetEncryptStorge("rockfish_access_id",jobj.DATA.ROCKFISH_ACCESS_ID);
 			      			}
 			      		}
 			      }

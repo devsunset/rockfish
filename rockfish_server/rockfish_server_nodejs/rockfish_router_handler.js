@@ -107,9 +107,6 @@ headers['Content-Type'] = 'application/json; charset=utf8';
 function rockfish_router_handler(request, response, serviceMethod, servicemaster) {
   // Non-blocking Dynamic Process
   dynamicExecute(function(drequest, dresponse, dserviceMethod, dservicemaster){
-	// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-	// TO-DO : session create  & auth check
-	// ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 	try{
 		if(drequest.method == 'OPTIONS') {
 				var resultObj = {
@@ -125,7 +122,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 		}else{
 			var url_partsCheck = url.parse(drequest.url,true);
 
-			var SERVICE_TARGET = jsonSearch(dservicemaster,"SERVICE",decryptStringWithRsaPrivateKey(drequest.headers.rockfish_target_service));
+			var SERVICE_TARGET = jsonSearch(dservicemaster,"SERVICE",drequest.headers.rockfish_target_service);
 
 			if(SERVICE_TARGET == null
 				&& url_partsCheck.pathname != config.rockfish_http_path_download
@@ -141,8 +138,13 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 					dresponse.end();
 			}else{
 
+				var SESSION_KEY_VALUE = drequest.headers.rockfish_session_key;
+
+				if(SESSION_KEY_VALUE == '' || SESSION_KEY_VALUE == null){
+					SESSION_KEY_VALUE = "ROCKFISH_LOGIN_SESSION_TEMP_KEY";
+				}
 				// redis session check
-				client.exists(decryptStringWithRsaPrivateKey(drequest.headers.rockfish_session_key), function(err, reply) {
+				client.exists(SESSION_KEY_VALUE, function(err, reply) {
 
 					var SESSION_CHECK_CONTINUE = true;
 
@@ -152,7 +154,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 
 					if(SERVICE_TARGET !=null && SERVICE_TARGET.SERVICE_LOGIN_CHECK == 'Y' && reply === 1){
 						// session time init setting
-						client.expire(decryptStringWithRsaPrivateKey(drequest.headers.rockfish_session_key), config.rockfish_redis_session_expire_time);	
+						client.expire(SESSION_KEY_VALUE, config.rockfish_redis_session_expire_time);	
 					}
 				
 					if(url_partsCheck.pathname === config.rockfish_http_path && SESSION_CHECK_CONTINUE){
@@ -165,21 +167,21 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 						}
 						
 						var access = {
-							 ROCKFISH_SESSION_KEY : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_session_key)
+							 ROCKFISH_SESSION_KEY : SESSION_KEY_VALUE
 							,ROCKFISH_ACCESS_ID : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_access_id)
 							,ROCKFISH_IP : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_ip)
 							,ROCKFISH_MAC : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_mac)
 							,ROCKFISH_PHONE : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_phone)
 							,ROCKFISH_DEVICE : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_device)
 							,ROCKFISH_IMEI : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_imei)
-							,ROCKFISH_OS : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_os)
-							,ROCKFISH_OS_VERSION : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_os_version)
-							,ROCKFISH_OS_VERSION_DESC : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_os_version_desc)
-							,ROCKFISH_TARGET_SERVICE : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_target_service)
-							,ROCKFISH_CLIENT_APP : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_client_app)
-							,ROCKFISH_CLIENT_APP_VERSION : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_client_app_version)
-							,ROCKFISH_SEND_TYPE : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_send_type)
-							,ROCKFISH_ENCRYPT_PARAMETER : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_encrypt_parameter)
+							,ROCKFISH_OS : drequest.headers.rockfish_os
+							,ROCKFISH_OS_VERSION : drequest.headers.rockfish_os_version
+							,ROCKFISH_OS_VERSION_DESC : drequest.headers.rockfish_os_version_desc
+							,ROCKFISH_TARGET_SERVICE : drequest.headers.rockfish_target_service
+							,ROCKFISH_CLIENT_APP : drequest.headers.rockfish_client_app
+							,ROCKFISH_CLIENT_APP_VERSION : drequest.headers.rockfish_client_app_version
+							,ROCKFISH_SEND_TYPE : drequest.headers.rockfish_send_type
+							,ROCKFISH_ENCRYPT_PARAMETER : drequest.headers.rockfish_encrypt_parameter
 							,ROCKFISH_ENCRYPT_YN:encryptYn
 						};
 
@@ -188,8 +190,8 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 					    	,'REQUEST' : ''
 					    	,'RESPONSE' : ''
 					    	,'SERVICE_METHOD' : dserviceMethod
-					    	,'SEND_TYPE' : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_send_type)
-					    	,'TARGET_SERVICE' : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_target_service)
+					    	,'SEND_TYPE' : drequest.headers.rockfish_send_type
+					    	,'TARGET_SERVICE' : drequest.headers.rockfish_target_service
 					    	,'REQUEST_TIME' : new Date()
 					    	,'RESPONSE_TIME' : ''
 					   	}, function(err, rockfishLog){
@@ -197,9 +199,9 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 
 					   		// REQUEST METHOD
 							if(drequest.method == 'POST') {
-
+								
 								// General Send
-								if("G" == decryptStringWithRsaPrivateKey(drequest.headers.rockfish_send_type) && SERVICE_TARGET.SERVICE_TYPE == 'G'){
+								if("G" == drequest.headers.rockfish_send_type && SERVICE_TARGET.SERVICE_TYPE == 'G'){
 									var reqbody='';
 						            drequest.on('data', function (data) {
 						                reqbody += data;
@@ -215,7 +217,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 							                	POST = jsonConcat(POST, url_parts.query);
 							                }
 
-							                var encryptParameterArray = decryptStringWithRsaPrivateKey(drequest.headers.rockfish_encrypt_parameter).split('|^|');
+							                var encryptParameterArray = drequest.headers.rockfish_encrypt_parameter.split('|^|');
 
 											if(encryptParameterArray !==null && encryptParameterArray !=='' && encryptParameterArray.length > 0){
 							                	for(key in POST) {
@@ -248,7 +250,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 													headers: {
 														 'ROCKFISH_SERVER': 'ROCKFISH-NODEJS'
 														,'ROCKFISH_ACCESS_INFO' : JSON.stringify(access)
-														,'ROCKFISH_SESSION_KEY' : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_session_key)
+														,'ROCKFISH_SESSION_KEY' : SESSION_KEY_VALUE
 														,'ROCKFISH_ACCESS_IP': access_ip
 														,'Content-Type': 'application/json; charset=utf-8'
 														,'Content-Length': POST.length
@@ -325,7 +327,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 												}
 											});
 						            });
-								}else if("M" == decryptStringWithRsaPrivateKey(drequest.headers.rockfish_send_type) && SERVICE_TARGET.SERVICE_TYPE == 'M'){
+								}else if("M" == drequest.headers.rockfish_send_type && SERVICE_TARGET.SERVICE_TYPE == 'M'){
 									var form = new formidable.IncomingForm();
 									var fields = [];
 								    var files = [];
@@ -402,7 +404,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 								      	   }
 									  })
 								      .on('end', function() {
-								      	var encryptParameterArray = decryptStringWithRsaPrivateKey(drequest.headers.rockfish_encrypt_parameter).split('|^|');
+								      	var encryptParameterArray = drequest.headers.rockfish_encrypt_parameter.split('|^|');
 
 										if(encryptParameterArray !==null && encryptParameterArray !=='' && encryptParameterArray.length > 0){
 											if(fields !=null && fields != undefined && fields.length > 0){
@@ -453,7 +455,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 														headers: {
 															 'ROCKFISH_SERVER': 'ROCKFISH-NODEJS'
 															,'ROCKFISH_ACCESS_INFO' : JSON.stringify(access)
-															,'ROCKFISH_SESSION_KEY' : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_session_key)
+															,'ROCKFISH_SESSION_KEY' : SESSION_KEY_VALUE
 															,'ROCKFISH_ACCESS_IP': access_ip
 															,'Content-Type': false
 															,'Cache-Control' : 'max-age=0'
@@ -567,7 +569,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 											}
 									    });
 								    form.parse(drequest);
-								}else if("D" == decryptStringWithRsaPrivateKey(drequest.headers.rockfish_send_type) && SERVICE_TARGET.SERVICE_TYPE == 'D'){
+								}else if("D" == drequest.headers.rockfish_send_type && SERVICE_TARGET.SERVICE_TYPE == 'D'){
 									var reqbody='';
 						            drequest.on('data', function (data) {
 						                reqbody += data;
@@ -583,7 +585,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 							                	POST = jsonConcat(POST, url_parts.query);
 							                }
 
-							                var encryptParameterArray = decryptStringWithRsaPrivateKey(drequest.headers.rockfish_encrypt_parameter).split('|^|');
+							                var encryptParameterArray = drequest.headers.rockfish_encrypt_parameter.split('|^|');
 
 											if(encryptParameterArray !==null && encryptParameterArray !=='' && encryptParameterArray.length > 0){
 							                	for(key in POST) {
@@ -616,7 +618,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 													headers: {
 														 'ROCKFISH_SERVER': 'ROCKFISH-NODEJS'
 														,'ROCKFISH_ACCESS_INFO' : JSON.stringify(access)
-														,'ROCKFISH_SESSION_KEY' : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_session_key)
+														,'ROCKFISH_SESSION_KEY' : SESSION_KEY_VALUE
 														,'ROCKFISH_ACCESS_IP': access_ip
 														,'Content-Type': 'application/json; charset=utf-8'
 														,'Content-Length': POST.length
@@ -637,7 +639,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 														headersDownload['Access-Control-Max-Age'] = '86400';
 														headersDownload['Content-Transfer-Encoding'] = 'binary';
 
-														if(decryptStringWithRsaPrivateKey(drequest.headers.rockfish_os) != "BROWSER"){
+														if(drequest.headers.rockfish_os != "BROWSER"){
 
 															var resultObj = {
 																 ROCKFISH_RESULT_CODE : 'S'
@@ -887,7 +889,7 @@ function rockfish_router_handler(request, response, serviceMethod, servicemaster
 												headers: {
 													 'ROCKFISH_SERVER': 'ROCKFISH-NODEJS'
 													,'ROCKFISH_ACCESS_INFO' : JSON.stringify(access)
-													,'ROCKFISH_SESSION_KEY' : decryptStringWithRsaPrivateKey(drequest.headers.rockfish_session_key)
+													,'ROCKFISH_SESSION_KEY' : SESSION_KEY_VALUE
 													,'ROCKFISH_ACCESS_IP': access_ip
 													,'Content-Type': 'application/json; charset=utf-8'
 													,'Content-Length': POST.length
@@ -1022,7 +1024,7 @@ function inArray(needle, haystack) {
 	return false;
 }
 
-//■■■ rsa encrypt
+//■■■ rsa encrypt (not use)
 function encryptStringWithRsaPublicKey(toEncrypt) {
    try{
 	 if(toEncrypt != null && toEncrypt != '' && toEncryptc !== undefined){
@@ -1037,10 +1039,10 @@ function encryptStringWithRsaPublicKey(toEncrypt) {
   }
 };
 
-//■■■ rsa decrypt
+//■■■ rsa decrypt  (bottle neck cause)
 function decryptStringWithRsaPrivateKey(toDecrypt) {
   try{
-	 if(toDecrypt != 'null' && toDecrypt != null && toDecrypt != '' && toDecrypt !== undefined){
+	 if(toDecrypt != 'null' && toDecrypt != null && toDecrypt != '' && toDecrypt !== undefined){	 	
 	  	 var buffer = new Buffer(toDecrypt, 'base64');
 	  	 var decrypted = crypto.privateDecrypt({'key':privateKey,padding:constants.RSA_PKCS1_PADDING}, buffer);
 	  	 return decrypted.toString('utf8');

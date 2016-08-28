@@ -50,29 +50,29 @@
      
     <!-- Application Loggers -->
     <logger name="kh.devsunset.rockfish"  additivity="false">
-        <level value="DEBUG"/>
+        <level value="ERROR"/>
         <appender-ref ref="rockfishLog" />
     </logger>
 	
 	 <logger name="org.springframework.aop.interceptor.PerformanceMonitorInterceptor"  additivity="false">
-        <level value="TRACE"/>
+        <level value="ERROR"/>
         <appender-ref ref="rockfishLog" />
     </logger>
 	
 	<!-- Query Loggers -->
 	<logger name="jdbc.sqlonly" additivity="false">  
-    	<level value="INFO"/>  
+    	<level value="ERROR"/>  
         <appender-ref ref="rockfishLog"/>  
     </logger>
     
     <logger name="jdbc.resultsettable" additivity="false">  
-    	<level value="INFO"/>  
+    	<level value="ERROR"/>  
         <appender-ref ref="rockfishLog"/>  
     </logger>  
     
     <!-- 기본 출력 설정 -->
     <root>
-        <level value="INFO" />
+        <level value="ERROR" />
         <appender-ref ref="console" />
         <appender-ref ref="errFile"/>
         <!-- <appender-ref ref="rollingFile"/> -->
