@@ -1,5 +1,5 @@
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-■■■ Beta version completed ■■■
+■■■ Completed ■■■
 
 ■■■ tomcat setting ■■■
 
