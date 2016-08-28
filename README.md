@@ -15,27 +15,36 @@
 # ========== Completed ==========
 
 # ■ Rockfish client
-###   * rockfish client api  -Completed
-###   * rockfish client (android) - TO-DO
-###   * rockfish client (web) - Completed  
+```java
+   * rockfish client api  -Completed
+   * rockfish client (android) - TO-DO
+   * rockfish client (web) - Completed  
+``` 
 
 # ■ Rockfish console
-###   * rockfish console ui (AXU & axisj) - Completed  
-###   * rockfish console (nodejs & express) - Completed
+```java
+   * rockfish console ui (AXU & axisj) - Completed  
+   * rockfish console (nodejs & express) - Completed
+``` 
 
 # ■ Rockfish server
-###   * rockfish server (nodejs) - Completed
+```java
+   * rockfish server (nodejs) - Completed
+``` 
    
 # ■ Rockfish service
-###   * rockfish service (spring) - Completed
-###   * rockfish service (web) - prototype version completed
-   
-# ■ Rockfish setting
-###   (Authentication), (Authorization), (Access Control), (Load balancing), (Stress Test) 
-###   * rockfish_control_redis - Completed 
-###   * rockfish_loadbalancing_nginx - Completed  
-###   * rockfish_stress_test_jmeter - Completed
+```java
+   * rockfish service (spring) - Completed
+   * rockfish service (web) - prototype version completed
+``` 
 
+# ■ Rockfish setting
+```java
+   (Authentication), (Authorization), (Access Control), (Load balancing), (Stress Test) 
+   * rockfish_control_redis - Completed 
+   * rockfish_loadbalancing_nginx - Completed  
+   * rockfish_stress_test_jmeter - Completed
+``` 
 
 # ========== Next To-Do ==========
 
