@@ -1,4 +1,6 @@
-# Rockfish ( readme - rockfish_소개.pdf )
+# ========== Introduce ==========
+
+# ■ Rockfish ( readme - rockfish_소개.pdf )
 
 ``` 
    Easy Simple Mobile Middleware
@@ -8,9 +10,13 @@
    Easy Simple Scale Out Support
 ``` 
 
-# Process Flow
+# ■ Process Flow
 
 ####`    Client <-> (Load balancing) <->   Server & Console <-> (Load balancing) <->   Service` 
+
+# ■ License
+GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
+
 
 # ========== Completed ==========
 
@@ -46,6 +52,8 @@
    * rockfish_stress_test_jmeter - Completed
 ``` 
 
+
+
 # ========== Next To-Do ==========
 
 # ■ Rockfish client
@@ -80,7 +88,3 @@
    * z_rockfish_docker - Next TO-DO   
    * z_rockfish_loadbalancing_haproxy - Next TO-DO 
 ```  
-
-     
-# ■ License
-GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
