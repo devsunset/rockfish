@@ -2,7 +2,7 @@
 ## ■ rockfish server   
    * rockfish server (erlang) - Next TO-DO
    * rockfish server (go) - Next TO-DO
-   * rockfish server (nodejs) - Beta version completed
+   * rockfish server (nodejs) - Completed
 
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 ■■■ mongodb setting ■■■
