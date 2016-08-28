@@ -8,7 +8,7 @@
                connectionTimeout="20000"
                redirectPort="8443" maxPostSize="-1" URIEncoding="UTF-8"/>
 
-	#특정 ip만 접속 허용
+	#특정 ip만 접속 허용 
 
 	<!-- 
 	<Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127.0.0.1" />
