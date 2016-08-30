@@ -31,7 +31,7 @@ import kh.devsunset.rockfish.dao.CommonDao;
 public class CommonServiceImpl implements CommonService{
 	//private static final Logger log = Logger.getLogger(CommonServiceImpl.class);
 	
-	@Value("#{config['file_save_path']}")
+	@Value("#{config['rockfish_file_save_path']}")
 	private String FILE_SAVE_PATH;
 	
 	@Resource(name="commonDao")
