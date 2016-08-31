@@ -17,6 +17,8 @@
     <script type="text/javascript" src="static/resource/admin.js"></script>
     <script type="text/javascript" src="static/resource/Chart.min.js"></script>
     <script type="text/javascript" src="static/resource/jsencrypt.js"></script>
+    <script type="text/javascript" src="static/resource/moment.js"></script>
+    <script type="text/javascript" src="static/resource/moment-timezone.js"></script>
     <!-- include head -->
     <style>
         .AXprogressLoadedText {
@@ -335,6 +337,15 @@
                         myProgress.close();
                         mask.close();
                         if(res.rockfish_result_code == "S"){
+                             // To-Do ISODate Convert GMT+9 
+                            $.each(res.list,function(key,value) {         
+                                if(value.REQUEST_TIME !=null && value.REQUEST_TIME !== undefined && value.REQUEST_TIME != ""){
+                                    value.REQUEST_TIME = moment(value.REQUEST_TIME).tz('Asia/Seoul').format("YYYY-MM-DD HH:mm:ss.SSS");     
+                                }   
+                                if(value.RESPONSE_TIME !=null && value.RESPONSE_TIME !== undefined && value.RESPONSE_TIME != ""){
+                                    value.RESPONSE_TIME = moment(value.RESPONSE_TIME).tz('Asia/Seoul').format("YYYY-MM-DD HH:mm:ss.SSS");     
+                                }  
+                            });
                            fnObj.grid.target.setData(res);
                            ROCKFISH_SEARCH_TIME = res.rockfish_search_time;
                            $("#page-grid-box_AX_gridPageCount").html(" more ...");

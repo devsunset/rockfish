@@ -17,6 +17,8 @@
     <script type="text/javascript" src="static/resource/admin.js"></script>
     <script type="text/javascript" src="static/resource/Chart.min.js"></script>
     <script type="text/javascript" src="static/resource/jsencrypt.js"></script>
+    <script type="text/javascript" src="static/resource/moment.js"></script>
+    <script type="text/javascript" src="static/resource/moment-timezone.js"></script>
     <!-- include head -->
     <style>
         .AXprogressLoadedText {
@@ -329,6 +331,11 @@
                         myProgress.close();
                         mask.close();
                         if(res.rockfish_result_code == "S"){
+                             // To-Do ISODate Convert GMT+9 
+                            $.each(res.list,function(key,value) {             
+                                value.REG_DATE = moment(value.REG_DATE).tz('Asia/Seoul').format("YYYY-MM-DD HH:mm:ss.SSS");                   
+                                value.MOD_DATE = moment(value.MOD_DATE).tz('Asia/Seoul').format("YYYY-MM-DD HH:mm:ss.SSS");
+                            });
                            fnObj.grid.target.setList(res.list);
                         }else if(res.rockfish_result_code == "X"){
                            AXUtil.alert("Session is invalid or Session is time out.");

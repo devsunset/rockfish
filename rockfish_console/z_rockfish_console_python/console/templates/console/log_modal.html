@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="static/ui/cacao-dark/admin.css" id="axu-theme-admin" />
     <link rel="stylesheet" href="static/ui/custom.css" />
     <script type="text/javascript" src="static/resource/jsencrypt.js"></script>
+    <script type="text/javascript" src="static/resource/moment.js"></script>
+    <script type="text/javascript" src="static/resource/moment-timezone.js"></script>
     <!-- include head -->
 	<script type="text/javascript">
 	var fnObj = {
@@ -57,8 +59,15 @@
                           $("#SERVICE_METHOD").val(data.SERVICE_METHOD);
                           $("#SEND_TYPE").val(data.SEND_TYPE);
                           $("#TARGET_SERVICE").val(data.TARGET_SERVICE);
-                          $("#REQUEST_TIME").val(data.REQUEST_TIME);
-                          $("#RESPONSE_TIME").val(data.RESPONSE_TIME);
+
+                           // To-Do ISODate Convert GMT+9 
+                           if(data.REQUEST_TIME !=null && data.REQUEST_TIME !== undefined && data.REQUEST_TIME != ""){
+                                $("#REQUEST_TIME").val(moment(data.REQUEST_TIME).tz('Asia/Seoul').format("YYYY-MM-DD HH:mm:ss.SSS"));
+                            }   
+                            if(data.RESPONSE_TIME !=null && data.RESPONSE_TIME !== undefined && data.RESPONSE_TIME != ""){
+                                $("#RESPONSE_TIME").val(moment(data.RESPONSE_TIME).tz('Asia/Seoul').format("YYYY-MM-DD HH:mm:ss.SSS"));  
+                            }  
+                          
                 }else if(res.rockfish_result_code == "X"){
                    AXUtil.alert("Session is invalid or Session is time out.");
                    parent.document.location.href="/index.html";

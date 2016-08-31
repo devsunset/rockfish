@@ -21,6 +21,7 @@ var RESULT_FAIL_CODE = 'E';
 var RESULT_SETTION_INVALID_CODE = 'X';
 var SERVER_ERROR = 'SERVER PROCESS ERROR';
 var DASHBOARD_PERIOD_DAY = 7; // 1week
+var TIME_ZONE_TIME = 9; //GMT+9
 
 //############################################################################################
 // LOGIN ,LOGOUT , SESSION CHECK PROCESS
@@ -240,7 +241,7 @@ router.post('/dashboardServiceHistoryInfo', function(req, res, next) {
 		     { $match: { REQUEST_TIME: {"$gte": new Date(Date.parse(new Date()) - DASHBOARD_PERIOD_DAY*1000*60*60*24)} } },
 		     {
 		          $group : {
-		               _id : { $dateToString: { format: "%Y-%m-%d", date: "$REQUEST_TIME" } },  
+		               _id : { $dateToString: { format: "%Y-%m-%d", date: {$add:["$REQUEST_TIME" , 3600*TIME_ZONE_TIME*1000]}} },  // GMT+9 
 		               count : {
 		                    $sum : 1    
 		               }
