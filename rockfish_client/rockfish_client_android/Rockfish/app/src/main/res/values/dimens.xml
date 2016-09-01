@@ -1,0 +1,32 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Common  contents -->
+    <dimen name="contents_top_margin">5dp</dimen>
+    <dimen name="contents_top_sub_margin">10dp</dimen>
+    <dimen name="contents_horizontal_margin">10dp</dimen>
+    <dimen name="contents_vertical_margin">6dp</dimen>
+    <dimen name="table_row_height">50dp</dimen>
+    <dimen name="table_row_sub_height">40dp</dimen>
+    <dimen name="table_header_width">200dp</dimen>
+    <dimen name="table_header_padding">10dp</dimen>
+    <dimen name="table_text_view_padding">10dp</dimen>
+    <dimen name="table_text_view_margin_right">10dp</dimen>
+    <dimen name="tab_image_view_margin_right">3dp</dimen>
+    <dimen name="tab_margin_left">10dp</dimen>
+    <dimen name="tab_margin_right">10dp</dimen>
+    <dimen name="tab_margin_top">5dp</dimen>
+    <dimen name="tab_margin_bottom">10dp</dimen>
+    <dimen name="tab_height">55dp</dimen>
+    <dimen name="tab_line_height">3.5dp</dimen>
+    <dimen name="detail_height">30dp</dimen>
+
+    <!-- Default textbox -->
+    <dimen name="textbox_height">42dp</dimen>
+    <dimen name="textbox_horizontal_margin">6dp</dimen>
+    <dimen name="textbox_vertical_margin">4dp</dimen>
+    <dimen name="textbox_horizontal_padding">6dp</dimen>
+
+</resources>

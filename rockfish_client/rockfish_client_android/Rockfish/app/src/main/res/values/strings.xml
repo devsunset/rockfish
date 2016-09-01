@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Rockfish</string>
+
+    <!-- ========================================== -->
+    <!-- MAIN -->
+    <!-- ========================================== -->
+    <string name="navtiveapp">Native App</string>
+    <string name="webapp">Web App</string>
+    <string name="help">Help</string>
+    <string name="main_back_finish">\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다 </string>
+
+    <!-- ========================================== -->
+    <!-- Native App-->
+    <!-- ========================================== -->
+    <string name="nativetitle">ROCKFISH NATIVE TEST</string>
+    <string name="generalreq">General</string>
+    <string name="filechoose">File Choose</string>
+    <string name="multipartreq">Multipart</string>
+    <string name="downloadreq">Download</string>
+
+    <string name="ipoort">IP:PORT</string>
+    <string name="service">SERVICE</string>
+    <string name="idx">IDX</string>
+    <string name="temp1">TEMP1</string>
+    <string name="temp2">TEMP2</string>
+    <string name="temp3">TEMP3</string>
+    <string name="hinttxt0">ex)10.0.2.2:9999</string>
+    <string name="hinttxt1">ex) 1 </string>
+
+
+</resources>

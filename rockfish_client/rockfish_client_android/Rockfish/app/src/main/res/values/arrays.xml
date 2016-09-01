@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- ========================================== -->
+    <!-- Native App -->
+    <!-- ========================================== -->
+    <string-array name="menus_service_array">
+        <item>ROCKFISH_LOGIN</item>
+        <item>ROCKFISH_LOGOUT</item>
+        <item>ROCKFISH_GENERAL_SELECT</item>
+        <item>ROCKFISH_GENERAL_INSERT</item>
+        <item>ROCKFISH_GENERAL_UPDATE</item>
+        <item>ROCKFISH_GENERAL_DELETE</item>
+    </string-array>
+</resources>
