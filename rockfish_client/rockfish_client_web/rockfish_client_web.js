@@ -153,13 +153,13 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	xhr.setRequestHeader("rockfish_mac", rockfishRsaEncrypt(""));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_phone", rockfishRsaEncrypt(""));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_device", rockfishRsaEncrypt(""));					// Ignore Web Client
-				xhr.setRequestHeader("rockfish_imei", rockfishRsaEncrypt(""));						// Ignore Web Client
+			xhr.setRequestHeader("rockfish_imei", rockfishRsaEncrypt(""));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_os", "BROWSER");
 		    	xhr.setRequestHeader("rockfish_os_version", navigator.appName);
 		    	xhr.setRequestHeader("rockfish_os_version_desc", navigator.userAgent);
 		    	xhr.setRequestHeader("rockfish_target_service", service);
-		    	xhr.setRequestHeader("rockfish_client_app", "rockfish"); 		 // TO-DO	Client App
-		    	xhr.setRequestHeader("rockfish_client_app_version", "v.0.0.1");  // TO-DO	Client App Version
+		    	xhr.setRequestHeader("rockfish_client_app", "Rockfish"); 		 // TO-DO	Client App
+		    	xhr.setRequestHeader("rockfish_client_app_version", "1.0");  // TO-DO	Client App Version
 		    	xhr.setRequestHeader("rockfish_send_type", "G");
 		    	xhr.setRequestHeader("rockfish_encrypt_parameter", encryptParameter);
 
@@ -203,13 +203,13 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	xhr.setRequestHeader("rockfish_mac", rockfishRsaEncrypt(""));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_phone", rockfishRsaEncrypt(""));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_device", rockfishRsaEncrypt(""));					// Ignore Web Client
-				xhr.setRequestHeader("rockfish_imei", rockfishRsaEncrypt(""));						// Ignore Web Client
+			xhr.setRequestHeader("rockfish_imei", rockfishRsaEncrypt(""));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_os", "BROWSER");
 		    	xhr.setRequestHeader("rockfish_os_version", navigator.appName);
 		    	xhr.setRequestHeader("rockfish_os_version_desc", navigator.userAgent);
 		    	xhr.setRequestHeader("rockfish_target_service", service);
-		    	xhr.setRequestHeader("rockfish_client_app", "rockfish"); 		 // TO-DO	Client App
-		    	xhr.setRequestHeader("rockfish_client_app_version", "v.0.0.1");  // TO-DO	Client App Version
+		    	xhr.setRequestHeader("rockfish_client_app", "Rockfish"); 		 // TO-DO	Client App
+		    	xhr.setRequestHeader("rockfish_client_app_version", "1.0");  // TO-DO	Client App Version
 		    	xhr.setRequestHeader("rockfish_send_type", "M");
 		    	xhr.setRequestHeader("rockfish_encrypt_parameter", encryptParameter);
 
@@ -262,13 +262,13 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	xhr.setRequestHeader("rockfish_mac", rockfishRsaEncrypt(""));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_phone", rockfishRsaEncrypt(""));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_device", rockfishRsaEncrypt(""));					// Ignore Web Client
-				xhr.setRequestHeader("rockfish_imei", rockfishRsaEncrypt(""));						// Ignore Web Client
+			xhr.setRequestHeader("rockfish_imei", rockfishRsaEncrypt(""));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_os", "BROWSER");
 		    	xhr.setRequestHeader("rockfish_os_version", navigator.appName);
 		    	xhr.setRequestHeader("rockfish_os_version_desc", navigator.userAgent);
 		    	xhr.setRequestHeader("rockfish_target_service", service);
-		    	xhr.setRequestHeader("rockfish_client_app", "rockfish"); 		 // TO-DO	Client App
-		    	xhr.setRequestHeader("rockfish_client_app_version", "v.0.0.1");  // TO-DO	Client App Version
+		    	xhr.setRequestHeader("rockfish_client_app", "Rockfish"); 		 // TO-DO	Client App
+		    	xhr.setRequestHeader("rockfish_client_app_version", "1.0");  // TO-DO	Client App Version
 		    	xhr.setRequestHeader("rockfish_send_type", "D");
 		    	xhr.setRequestHeader("rockfish_encrypt_parameter", encryptParameter);
 

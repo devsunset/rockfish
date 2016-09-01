@@ -206,8 +206,8 @@ public class CommonController {
 		log.debug("SESSION INFO : "+rockfishSessionInfo.getSession(request));
 		log.debug("=============================");
 		
-		String saveFileName = "download.txt";
-		String originalFileName = "download.txt";
+		String saveFileName = "download.jpg";
+		String originalFileName = "download.jpg";
 		
 		File file = null;
 		FileInputStream is = null;

@@ -222,3 +222,6 @@ jQuery(window).bind("scroll", function () {
         window.scroll_top_handle.removeClass("on");
     }
 });
+
+// GMT+9 setting
+var GLOBAL_TIME_ZONE_VALUE = "Asia/Seoul"; 

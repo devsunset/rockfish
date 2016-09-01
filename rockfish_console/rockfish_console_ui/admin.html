@@ -288,8 +288,8 @@
                         if(res.rockfish_result_code == "S"){
                             // To-Do ISODate Convert GMT+9 
                             $.each(res.list,function(key,value) {             
-                                value.REG_DATE = moment(value.REG_DATE).tz('Asia/Seoul').format("YYYY-MM-DD HH:mm:ss.SSS");                   
-                                value.MOD_DATE = moment(value.MOD_DATE).tz('Asia/Seoul').format("YYYY-MM-DD HH:mm:ss.SSS");
+                                value.REG_DATE = moment(value.REG_DATE).tz(GLOBAL_TIME_ZONE_VALUE).format("YYYY-MM-DD HH:mm:ss.SSS");                   
+                                value.MOD_DATE = moment(value.MOD_DATE).tz(GLOBAL_TIME_ZONE_VALUE).format("YYYY-MM-DD HH:mm:ss.SSS");
                             });
 
                            fnObj.grid.target.setList(res.list);

@@ -340,11 +340,16 @@
                              // To-Do ISODate Convert GMT+9 
                             $.each(res.list,function(key,value) {         
                                 if(value.REQUEST_TIME !=null && value.REQUEST_TIME !== undefined && value.REQUEST_TIME != ""){
-                                    value.REQUEST_TIME = moment(value.REQUEST_TIME).tz('Asia/Seoul').format("YYYY-MM-DD HH:mm:ss.SSS");     
+                                    value.REQUEST_TIME = moment(value.REQUEST_TIME).tz(GLOBAL_TIME_ZONE_VALUE).format("YYYY-MM-DD HH:mm:ss.SSS");     
                                 }   
                                 if(value.RESPONSE_TIME !=null && value.RESPONSE_TIME !== undefined && value.RESPONSE_TIME != ""){
-                                    value.RESPONSE_TIME = moment(value.RESPONSE_TIME).tz('Asia/Seoul').format("YYYY-MM-DD HH:mm:ss.SSS");     
+                                    value.RESPONSE_TIME = moment(value.RESPONSE_TIME).tz(GLOBAL_TIME_ZONE_VALUE).format("YYYY-MM-DD HH:mm:ss.SSS");     
                                 }  
+
+                                if(value.REQUEST_TIME !=null && value.REQUEST_TIME !== undefined && value.REQUEST_TIME != ""
+                                    && value.RESPONSE_TIME !=null && value.RESPONSE_TIME !== undefined && value.RESPONSE_TIME != ""){
+                                    value.EXECUTE_TIME = moment.utc(moment(value.RESPONSE_TIME,"YYYY-MM-DD HH:mm:ss.SSS").diff(moment(value.REQUEST_TIME,"YYYY-MM-DD HH:mm:ss.SSS"))).format("HH:mm:ss,SSS");
+                                }
                             });
                            fnObj.grid.target.setData(res);
                            ROCKFISH_SEARCH_TIME = res.rockfish_search_time;
@@ -383,6 +388,7 @@
                         {key:"SEND_TYPE", label:"Type", width:"100", align:"center"},
                         {key:"REQUEST_TIME", label:"Request Time", width:"180" , align:"center"},
                         {key:"RESPONSE_TIME", label:"Response Time", width:"180" , align:"center"},
+                        {key:"EXECUTE_TIME", label:"Execute Time(HH:mm:ss,SSS)", width:"200" , align:"center"},
                         {key:"ROCKFISH_RESULT", label:"Result", width:"100", align:"center"},
                         {key:"ROCKFISH_ENCRYPT_YN", label:"Encrypt Use", width:"100", align:"center"},
                         {key:"ROCKFISH_ACCESS_ID", label:"Access Id", width:"100"},

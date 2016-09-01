@@ -62,10 +62,15 @@
 
                            // To-Do ISODate Convert GMT+9 
                            if(data.REQUEST_TIME !=null && data.REQUEST_TIME !== undefined && data.REQUEST_TIME != ""){
-                                $("#REQUEST_TIME").val(moment(data.REQUEST_TIME).tz('Asia/Seoul').format("YYYY-MM-DD HH:mm:ss.SSS"));
+                                $("#REQUEST_TIME").val(moment(data.REQUEST_TIME).tz(parent.GLOBAL_TIME_ZONE_VALUE).format("YYYY-MM-DD HH:mm:ss.SSS"));
                             }   
                             if(data.RESPONSE_TIME !=null && data.RESPONSE_TIME !== undefined && data.RESPONSE_TIME != ""){
-                                $("#RESPONSE_TIME").val(moment(data.RESPONSE_TIME).tz('Asia/Seoul').format("YYYY-MM-DD HH:mm:ss.SSS"));  
+                                $("#RESPONSE_TIME").val(moment(data.RESPONSE_TIME).tz(parent.GLOBAL_TIME_ZONE_VALUE).format("YYYY-MM-DD HH:mm:ss.SSS"));  
+                            }  
+
+                            if(data.REQUEST_TIME !=null && data.REQUEST_TIME !== undefined && data.REQUEST_TIME != ""
+                                && data.RESPONSE_TIME !=null && data.RESPONSE_TIME !== undefined && data.RESPONSE_TIME != ""){
+                                $("#EXECUTE_TIME").val(moment.utc(moment(data.RESPONSE_TIME,"YYYY-MM-DD HH:mm:ss.SSS").diff(moment(data.REQUEST_TIME,"YYYY-MM-DD HH:mm:ss.SSS"))).format("HH:mm:ss,SSS")+" (HH:mm:ss,SSS)");
                             }  
                           
                 }else if(res.rockfish_result_code == "X"){
@@ -193,6 +198,18 @@
                                         <span class="th" style="min-width:100px;">RESPONSE TIME</span>
                                         <span class="td inputText" style="" title="">
                                             <input type="text" id="RESPONSE_TIME" name="RESPONSE_TIME" title="" placeholder="" value="" class="AXInput" readonly="readonly" />
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="item-clear"></div>
+                                <div class="group-clear"></div>
+                            </div>
+                            <div class="item-group" style="">
+                                <div class="item fullWidth">
+                                    <label class="item-lable">
+                                        <span class="th" style="min-width:100px;">EXECUTE TIME</span>
+                                        <span class="td inputText" style="" title="">
+                                            <input type="text" id="EXECUTE_TIME" name="EXECUTE_TIME" title="" placeholder="" value="" class="AXInput" readonly="readonly" />
                                         </span>
                                     </label>
                                 </div>
