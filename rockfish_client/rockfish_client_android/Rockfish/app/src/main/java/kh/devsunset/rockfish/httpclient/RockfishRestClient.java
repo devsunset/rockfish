@@ -157,11 +157,17 @@ public class RockfishRestClient extends Activity{
         client.addHeader("rockfish_session_key",getRockfishSaveData("rockfish_session_key"));
         client.addHeader("rockfish_access_id",getRockfishSaveData("rockfish_access_id"));
         // 개인 정보 여부 판단 하여 값 설정 필요 /////////////////
-        client.addHeader("rockfish_ip",rockfishEncrypted(ROCKFISH_IP));
-        client.addHeader("rockfish_mac",rockfishEncrypted(ROCKFISH_MAC));
-        client.addHeader("rockfish_phone",rockfishEncrypted(ROCKFISH_PHONE));
-        client.addHeader("rockfish_device",rockfishEncrypted(Build.MODEL));
-        client.addHeader("rockfish_imei",rockfishEncrypted(Build.SERIAL));
+        //client.addHeader("rockfish_ip",rockfishEncrypted(ROCKFISH_IP));
+        //client.addHeader("rockfish_mac",rockfishEncrypted(ROCKFISH_MAC));
+        //client.addHeader("rockfish_phone",rockfishEncrypted(ROCKFISH_PHONE));
+        //client.addHeader("rockfish_device",rockfishEncrypted(Build.MODEL));
+        //client.addHeader("rockfish_imei",rockfishEncrypted(Build.SERIAL));
+        // 개인 정보 보호 관계로 소스상에서는 Temp 데이타 값 설정
+        client.addHeader("rockfish_ip",rockfishEncrypted("-"));
+        client.addHeader("rockfish_mac",rockfishEncrypted("-"));
+        client.addHeader("rockfish_phone",rockfishEncrypted("-"));
+        client.addHeader("rockfish_device",rockfishEncrypted("-"));
+        client.addHeader("rockfish_imei",rockfishEncrypted("-"));
         ///////////////////////////////////////////////////////////
         client.addHeader("rockfish_os_version", String.valueOf(Build.VERSION.SDK_INT));
         client.addHeader("rockfish_os_version_desc",Build.VERSION.RELEASE);
@@ -233,11 +239,17 @@ public class RockfishRestClient extends Activity{
         client.addHeader("rockfish_session_key",getRockfishSaveData("rockfish_session_key"));
         client.addHeader("rockfish_access_id",getRockfishSaveData("rockfish_access_id"));
         // 개인 정보 여부 판단 하여 값 설정 필요 /////////////////
-        client.addHeader("rockfish_ip",rockfishEncrypted(ROCKFISH_IP));
-        client.addHeader("rockfish_mac",rockfishEncrypted(ROCKFISH_MAC));
-        client.addHeader("rockfish_phone",rockfishEncrypted(ROCKFISH_PHONE));
-        client.addHeader("rockfish_device",rockfishEncrypted(Build.MODEL));
-        client.addHeader("rockfish_imei",rockfishEncrypted(Build.SERIAL));
+        //client.addHeader("rockfish_ip",rockfishEncrypted(ROCKFISH_IP));
+        //client.addHeader("rockfish_mac",rockfishEncrypted(ROCKFISH_MAC));
+        //client.addHeader("rockfish_phone",rockfishEncrypted(ROCKFISH_PHONE));
+        //client.addHeader("rockfish_device",rockfishEncrypted(Build.MODEL));
+        //client.addHeader("rockfish_imei",rockfishEncrypted(Build.SERIAL));
+        // 개인 정보 보호 관계로 소스상에서는 Temp 데이타 값 설정
+        client.addHeader("rockfish_ip",rockfishEncrypted("-"));
+        client.addHeader("rockfish_mac",rockfishEncrypted("-"));
+        client.addHeader("rockfish_phone",rockfishEncrypted("-"));
+        client.addHeader("rockfish_device",rockfishEncrypted("-"));
+        client.addHeader("rockfish_imei",rockfishEncrypted("-"));
         ///////////////////////////////////////////////////////////
         client.addHeader("rockfish_os_version", String.valueOf(Build.VERSION.SDK_INT));
         client.addHeader("rockfish_os_version_desc",Build.VERSION.RELEASE);
@@ -363,11 +375,17 @@ public class RockfishRestClient extends Activity{
         client.addHeader("rockfish_session_key",getRockfishSaveData("rockfish_session_key"));
         client.addHeader("rockfish_access_id",getRockfishSaveData("rockfish_access_id"));
         // 개인 정보 여부 판단 하여 값 설정 필요 /////////////////
-        client.addHeader("rockfish_ip",rockfishEncrypted(ROCKFISH_IP));
-        client.addHeader("rockfish_mac",rockfishEncrypted(ROCKFISH_MAC));
-        client.addHeader("rockfish_phone",rockfishEncrypted(ROCKFISH_PHONE));
-        client.addHeader("rockfish_device",rockfishEncrypted(Build.MODEL));
-        client.addHeader("rockfish_imei",rockfishEncrypted(Build.SERIAL));
+        //client.addHeader("rockfish_ip",rockfishEncrypted(ROCKFISH_IP));
+        //client.addHeader("rockfish_mac",rockfishEncrypted(ROCKFISH_MAC));
+        //client.addHeader("rockfish_phone",rockfishEncrypted(ROCKFISH_PHONE));
+        //client.addHeader("rockfish_device",rockfishEncrypted(Build.MODEL));
+        //client.addHeader("rockfish_imei",rockfishEncrypted(Build.SERIAL));
+        // 개인 정보 보호 관계로 소스상에서는 Temp 데이타 값 설정
+        client.addHeader("rockfish_ip",rockfishEncrypted("-"));
+        client.addHeader("rockfish_mac",rockfishEncrypted("-"));
+        client.addHeader("rockfish_phone",rockfishEncrypted("-"));
+        client.addHeader("rockfish_device",rockfishEncrypted("-"));
+        client.addHeader("rockfish_imei",rockfishEncrypted("-"));
         ///////////////////////////////////////////////////////////
         client.addHeader("rockfish_os_version", String.valueOf(Build.VERSION.SDK_INT));
         client.addHeader("rockfish_os_version_desc",Build.VERSION.RELEASE);
@@ -396,11 +414,17 @@ public class RockfishRestClient extends Activity{
         client.addHeader("rockfish_session_key",getRockfishSaveData("rockfish_session_key"));
         client.addHeader("rockfish_access_id",getRockfishSaveData("rockfish_access_id"));
         // 개인 정보 여부 판단 하여 값 설정 필요 /////////////////
-        client.addHeader("rockfish_ip",rockfishEncrypted(ROCKFISH_IP));
-        client.addHeader("rockfish_mac",rockfishEncrypted(ROCKFISH_MAC));
-        client.addHeader("rockfish_phone",rockfishEncrypted(ROCKFISH_PHONE));
-        client.addHeader("rockfish_device",rockfishEncrypted(Build.MODEL));
-        client.addHeader("rockfish_imei",rockfishEncrypted(Build.SERIAL));
+        //client.addHeader("rockfish_ip",rockfishEncrypted(ROCKFISH_IP));
+        //client.addHeader("rockfish_mac",rockfishEncrypted(ROCKFISH_MAC));
+        //client.addHeader("rockfish_phone",rockfishEncrypted(ROCKFISH_PHONE));
+        //client.addHeader("rockfish_device",rockfishEncrypted(Build.MODEL));
+        //client.addHeader("rockfish_imei",rockfishEncrypted(Build.SERIAL));
+        // 개인 정보 보호 관계로 소스상에서는 Temp 데이타 값 설정
+        client.addHeader("rockfish_ip",rockfishEncrypted("-"));
+        client.addHeader("rockfish_mac",rockfishEncrypted("-"));
+        client.addHeader("rockfish_phone",rockfishEncrypted("-"));
+        client.addHeader("rockfish_device",rockfishEncrypted("-"));
+        client.addHeader("rockfish_imei",rockfishEncrypted("-"));
         ///////////////////////////////////////////////////////////
         client.addHeader("rockfish_os_version", String.valueOf(Build.VERSION.SDK_INT));
         client.addHeader("rockfish_os_version_desc",Build.VERSION.RELEASE);
