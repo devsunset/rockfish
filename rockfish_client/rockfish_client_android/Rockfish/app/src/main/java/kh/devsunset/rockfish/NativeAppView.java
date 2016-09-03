@@ -5,8 +5,11 @@ package kh.devsunset.rockfish;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -21,8 +24,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -33,7 +34,7 @@ import kh.devsunset.rockfish.httpclient.RockfishRestClient;
  * <PRE>
  * Rockfish Native App Page
  * </PRE>
- * 
+ *
  * @author devsunset
  * @version 1.0
  * @since rockfish1.0
@@ -50,6 +51,7 @@ public class NativeAppView extends Activity {
     private static final String LOGTAG = "ROCKFISH_NATIVE";
 
     public static final int REQ_CODE_SELECT_IMAGE=100;
+    public static HashMap<String,String> UPLOAD_IMAGE_DATA = new HashMap<String,String>();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +136,7 @@ public class NativeAppView extends Activity {
                                 }
                             }catch(Exception e){
                                 e.getStackTrace();
+                                Toast.makeText(NativeAppView.this,"■■■■■ ROCKFISH GENERAL REQUEST ERROR ■■■■■"+e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -152,6 +155,7 @@ public class NativeAppView extends Activity {
                 }catch(Exception e){
                     e.getStackTrace();
                     Log.e(LOGTAG,"■■■■■ ROCKFISH GENERAL REQUEST ERROR ■■■■■"+e.getMessage());
+                    Toast.makeText(NativeAppView.this,"■■■■■ ROCKFISH GENERAL REQUEST ERROR ■■■■■"+e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -192,9 +196,38 @@ public class NativeAppView extends Activity {
 
                     HashMap<String,Object> fileData = new HashMap<String,Object>();
 
-                    //RockfishRestClient.request(sIpport,mSpMenusService.getSelectedItem().toString(), data, encData,fileData, new JsonHttpResponseHandler() { // 특정 parameter 암호화 처리
-                    //RockfishRestClient.request(sIpport,mSpMenusService.getSelectedItem().toString(), data, RockfishRestClient.ROCKFISH_PARAMETER_ENCRYPT,fileData, new JsonHttpResponseHandler() { // 모든 Parameter 암호화 처리
-                    RockfishRestClient.requestMultipart(sIpport,"ROCKFISH MULTIPART UPLOAD", data, null,fileData,new JsonHttpResponseHandler() { // 모든 Parameter 암호화 처리 안함
+                    if(UPLOAD_IMAGE_DATA !=null && !UPLOAD_IMAGE_DATA.isEmpty()){
+
+                        // [reference] : http://loopj.com/android-async-http/
+                        //Add an InputStream to the RequestParams to upload:
+                        //InputStream myInputStream = blah;
+                        //RequestParams params = new RequestParams();
+                        //params.put("secret_passwords", myInputStream, "passwords.txt");
+
+                        // ex) fileData.put("soundtrack^she-wolf.mp3",InputStream 데이타); // InputStream 으로 첨부 하는 경우
+
+
+                        //Add a File object to the RequestParams to upload:
+                        //File myFile = new File("/path/to/file.png");
+                        //RequestParams params = new RequestParams();
+                        //try {
+                        //    params.put("profile_picture", myFile);
+                        //} catch(FileNotFoundException e) {}
+
+                        fileData.put("ATTACH_IMAGE_FILE",UPLOAD_IMAGE_DATA.get("IMAGE_DATA")); // 파일 경로 전달 하여 첨부 (공통에서 파일 경로로 파일 객체 생성)
+
+
+                        //Add a byte array to the RequestParams to upload:
+                        //byte[] myByteArray = blah;
+                        //RequestParams params = new RequestParams();
+                        //params.put("soundtrack", new ByteArrayInputStream(myByteArray), "she-wolf.mp3");
+
+                        //ex) fileData.put("ATTACH_IMAGE_FILE^첨부파일명",byte array 데이타 ); // byte array 첨부 하는 경우
+                    }
+
+                    RockfishRestClient.requestMultipart(sIpport,"ROCKFISH_MULTIPART_UPLOAD", data, encData,fileData, new JsonHttpResponseHandler() { // 특정 parameter 암호화 처리
+                    //RockfishRestClient.requestMultipart(sIpport,mSpMenusService.getSelectedItem().toString(), data, RockfishRestClient.ROCKFISH_PARAMETER_ENCRYPT,fileData, new JsonHttpResponseHandler() { // 모든 Parameter 암호화 처리
+                    //RockfishRestClient.requestMultipart(sIpport,"ROCKFISH MULTIPART UPLOAD", data, null,fileData,new JsonHttpResponseHandler() { // 모든 Parameter 암호화 처리 안함
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             try {
@@ -208,11 +241,13 @@ public class NativeAppView extends Activity {
                                     // To-Do string 형식의 json 값을 파싱하여 원하는 결과 로직 처리 하면 됨 ^^
                                     Toast.makeText(NativeAppView.this, "Request  Success" , Toast.LENGTH_SHORT).show();
                                     Toast.makeText(NativeAppView.this, "Request  Success =>[" + response.getString("ROCKFISH_RESULT_JSON") + "]", Toast.LENGTH_SHORT).show();
+                                    UPLOAD_IMAGE_DATA.clear();
                                 }else{
                                     Toast.makeText(NativeAppView.this, "Request Fail" , Toast.LENGTH_SHORT).show();
                                 }
                             }catch(Exception e){
                                 e.getStackTrace();
+                                Toast.makeText(NativeAppView.this,"■■■■■ ROCKFISH MULTIPART REQUEST ERROR ■■■■■"+e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -230,7 +265,8 @@ public class NativeAppView extends Activity {
 
                 }catch(Exception e){
                     e.getStackTrace();
-                    Log.e(LOGTAG,"■■■■■ ROCKFISH GENERAL REQUEST ERROR ■■■■■"+e.getMessage());
+                    Log.e(LOGTAG,"■■■■■ ROCKFISH MULTIPART REQUEST ERROR ■■■■■"+e.getMessage());
+                    Toast.makeText(NativeAppView.this,"■■■■■ ROCKFISH MULTIPART REQUEST ERROR ■■■■■"+e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -260,16 +296,22 @@ public class NativeAppView extends Activity {
                     encData.add("TEMP1");
                     encData.add("TEMP2");
 
-                    // TO-DO 파일 저장 시 프로그레스바 구현해서 사용
 
-                    //RockfishRestClient.request(sIpport,"ROCKFISH_GENERAL_DOWNLOAD", data, encData, FileAsyncHttpResponseHandler(NativeAppView.this) { // 특정 parameter 암호화 처리
-                    //RockfishRestClient.request(sIpport,"ROCKFISH_GENERAL_DOWNLOAD", data, RockfishRestClient.ROCKFISH_PARAMETER_ENCRYPT, FileAsyncHttpResponseHandler(NativeAppView.this) { // 모든 Parameter 암호화 처리
+                    // TO-DO 파일 저장 시 프로그레스바 구현해서 사용
+                    //RockfishRestClient.requestDownload(sIpport,"ROCKFISH_GENERAL_DOWNLOAD", data, encData, FileAsyncHttpResponseHandler(NativeAppView.this) { // 특정 parameter 암호화 처리
+                    //RockfishRestClient.requestDownload(sIpport,"ROCKFISH_GENERAL_DOWNLOAD", data, RockfishRestClient.ROCKFISH_PARAMETER_ENCRYPT, FileAsyncHttpResponseHandler(NativeAppView.this) { // 모든 Parameter 암호화 처리
                     RockfishRestClient.requestDownload(sIpport,"ROCKFISH_GENERAL_DOWNLOAD", data, null, new FileAsyncHttpResponseHandler(NativeAppView.this) { // 모든 Parameter 암호화 처리 안함
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, File response) {
                             Toast.makeText(NativeAppView.this, "Request  Success" , Toast.LENGTH_SHORT).show();
-                            if(response !=null){
-                                if(copyFile(response,Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_DOWNLOADS )+File.separator+"rockfish_download.jpg")){
+                            if(response !=null && headers !=null){
+                                String fileName = "";
+                                for(int i=0;i<headers.length;i++){
+                                    if("content-disposition".equalsIgnoreCase(headers[i].getName())){
+                                        fileName = headers[i].getValue().substring(headers[i].getValue().indexOf("filename=")+9,headers[i].getValue().length());
+                                    }
+                                }
+                                if(RockfishRestClient.copyFile(response,Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_DOWNLOADS )+File.separator+fileName)){
                                     Toast.makeText(NativeAppView.this, "Request Save Success : Download 폴더에 파일 저장 되었음 ", Toast.LENGTH_SHORT).show();
                                 }else{
                                     Toast.makeText(NativeAppView.this, "Request  Save Fail ", Toast.LENGTH_SHORT).show();
@@ -287,6 +329,7 @@ public class NativeAppView extends Activity {
                 }catch(Exception e){
                     e.getStackTrace();
                     Log.e(LOGTAG,"■■■■■ ROCKFISH DOWNLOAD REQUEST ERROR ■■■■■"+e.getMessage());
+                    Toast.makeText(NativeAppView.this,"■■■■■ ROCKFISH DOWNLOAD REQUEST ERROR ■■■■■"+e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -294,71 +337,42 @@ public class NativeAppView extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Toast.makeText(getBaseContext(), "resultCode : "+resultCode,Toast.LENGTH_SHORT).show();
         if(requestCode == REQ_CODE_SELECT_IMAGE){
             if(resultCode==Activity.RESULT_OK){
                 try {
-                    Toast.makeText(getBaseContext(), "name_Str : "+data.getData() , Toast.LENGTH_SHORT).show();
+                    HashMap<String,String> selectedImageInfo = getImageInfoToUri(data.getData());
+                    Toast.makeText(getBaseContext(), "선택 파일 경로  : "+selectedImageInfo.get("imagePath")+" 파일명 :"+selectedImageInfo.get("imgName") , Toast.LENGTH_SHORT).show();
+
+                    UPLOAD_IMAGE_DATA.clear();
+                    UPLOAD_IMAGE_DATA.put("IMAGE_DATA",selectedImageInfo.get("imagePath"));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }else{
+                UPLOAD_IMAGE_DATA.clear();
+                Toast.makeText(getBaseContext(), "파일을 선택 하지 않았습니다." , Toast.LENGTH_SHORT).show();
             }
+        }else{
+            UPLOAD_IMAGE_DATA.clear();
+            Toast.makeText(getBaseContext(), "이미지 파일을 선택 하지 않았습니다." , Toast.LENGTH_SHORT).show();
         }
     }
 
-//    public String getImageNameToUri(Uri data) {
-//        String[] proj = { MediaStore.Images.Media.DATA };
-//        Cursor cursor = managedQuery(data, proj, null, null, null);
-//        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//
-//        cursor.moveToFirst();
-//
-//        String imgPath = cursor.getString(column_index);
-//        String imgName = imgPath.substring(imgPath.lastIndexOf("/")+1);
-//
-//        return imgName;
-//    }
 
-    private boolean copyFile(File file , String save_file){
-        boolean result = false;
-        if(file!=null&&file.exists()){
-            FileInputStream fis = null;
-            FileOutputStream newfos = null;
-            try {
-                 fis = new FileInputStream(file);
-                 newfos = new FileOutputStream(save_file);
-                int readcount=0;
-                byte[] buffer = new byte[1024];
-                while((readcount = fis.read(buffer,0,1024))!= -1){
-                    newfos.write(buffer,0,readcount);
-                }
-                if(newfos !=null){
-                    newfos.close();
-                }
+    public HashMap<String,String> getImageInfoToUri(Uri data) {
+        HashMap<String,String> imageMap = new HashMap<String,String>();
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(data, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 
-                if(fis !=null){
-                    fis.close();
-                }
-                result = true;
-            } catch (Exception e) {
-                e.printStackTrace();
-                result = false;
-            }finally{
-                try{
-                    if(newfos !=null){
-                        newfos.close();
-                    }
+        cursor.moveToFirst();
 
-                    if(fis !=null){
-                        fis.close();
-                    }
-                }catch (Exception e){
-                    result = false;
-                }
-            }
-        }else{
-            result = false;
-        }
-        return result;
+        String imgPath = cursor.getString(column_index);
+        String imgName = imgPath.substring(imgPath.lastIndexOf("/")+1);
+
+        imageMap.put("imagePath",imgPath);
+        imageMap.put("imgName",imgName);
+
+        return imageMap;
     }
 }

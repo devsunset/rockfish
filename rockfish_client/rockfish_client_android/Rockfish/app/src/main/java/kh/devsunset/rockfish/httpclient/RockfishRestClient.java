@@ -19,7 +19,9 @@ import com.loopj.android.http.RequestParams;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -118,7 +120,7 @@ public class RockfishRestClient extends Activity{
             if (encdata instanceof ArrayList) { // 특정 Parameter 암호화
                 if(encdata !=null && !((ArrayList) encdata).isEmpty()){
                     for(String s : (ArrayList<String>)encdata){
-                       if(data !=null && data.get(s) !=null && !"".equals( data.get(s))){
+                        if(data !=null && data.get(s) !=null && !"".equals( data.get(s))){
                             data.put(s,rockfishEncrypted(data.get(s)));
                             encParameter +=s+"|^|";
                         }
@@ -154,13 +156,13 @@ public class RockfishRestClient extends Activity{
         /* ROCKFISH CUSTMOMER HEADER*/
         client.addHeader("rockfish_session_key",getRockfishSaveData("rockfish_session_key"));
         client.addHeader("rockfish_access_id",getRockfishSaveData("rockfish_access_id"));
-            // 개인 정보 여부 판단 하여 값 설정 필요 /////////////////
-            client.addHeader("rockfish_ip",rockfishEncrypted(ROCKFISH_IP));
-            client.addHeader("rockfish_mac",rockfishEncrypted(ROCKFISH_MAC));
-            client.addHeader("rockfish_phone",rockfishEncrypted(ROCKFISH_PHONE));
-            client.addHeader("rockfish_device",rockfishEncrypted(Build.MODEL));
-            client.addHeader("rockfish_imei",rockfishEncrypted(Build.SERIAL));
-            ///////////////////////////////////////////////////////////
+        // 개인 정보 여부 판단 하여 값 설정 필요 /////////////////
+        client.addHeader("rockfish_ip",rockfishEncrypted(ROCKFISH_IP));
+        client.addHeader("rockfish_mac",rockfishEncrypted(ROCKFISH_MAC));
+        client.addHeader("rockfish_phone",rockfishEncrypted(ROCKFISH_PHONE));
+        client.addHeader("rockfish_device",rockfishEncrypted(Build.MODEL));
+        client.addHeader("rockfish_imei",rockfishEncrypted(Build.SERIAL));
+        ///////////////////////////////////////////////////////////
         client.addHeader("rockfish_os_version", String.valueOf(Build.VERSION.SDK_INT));
         client.addHeader("rockfish_os_version_desc",Build.VERSION.RELEASE);
         client.addHeader("rockfish_os",ROCKFISH_CLIENT_TYPE);
@@ -230,13 +232,13 @@ public class RockfishRestClient extends Activity{
         /* ROCKFISH CUSTMOMER HEADER*/
         client.addHeader("rockfish_session_key",getRockfishSaveData("rockfish_session_key"));
         client.addHeader("rockfish_access_id",getRockfishSaveData("rockfish_access_id"));
-            // 개인 정보 여부 판단 하여 값 설정 필요 /////////////////
-            client.addHeader("rockfish_ip",rockfishEncrypted(ROCKFISH_IP));
-            client.addHeader("rockfish_mac",rockfishEncrypted(ROCKFISH_MAC));
-            client.addHeader("rockfish_phone",rockfishEncrypted(ROCKFISH_PHONE));
-            client.addHeader("rockfish_device",rockfishEncrypted(Build.MODEL));
-            client.addHeader("rockfish_imei",rockfishEncrypted(Build.SERIAL));
-            ///////////////////////////////////////////////////////////
+        // 개인 정보 여부 판단 하여 값 설정 필요 /////////////////
+        client.addHeader("rockfish_ip",rockfishEncrypted(ROCKFISH_IP));
+        client.addHeader("rockfish_mac",rockfishEncrypted(ROCKFISH_MAC));
+        client.addHeader("rockfish_phone",rockfishEncrypted(ROCKFISH_PHONE));
+        client.addHeader("rockfish_device",rockfishEncrypted(Build.MODEL));
+        client.addHeader("rockfish_imei",rockfishEncrypted(Build.SERIAL));
+        ///////////////////////////////////////////////////////////
         client.addHeader("rockfish_os_version", String.valueOf(Build.VERSION.SDK_INT));
         client.addHeader("rockfish_os_version_desc",Build.VERSION.RELEASE);
         client.addHeader("rockfish_os",ROCKFISH_CLIENT_TYPE);
@@ -251,23 +253,23 @@ public class RockfishRestClient extends Activity{
 
         // [reference] : http://loopj.com/android-async-http/
         //Add an InputStream to the RequestParams to upload:
-            //InputStream myInputStream = blah;
-            //RequestParams params = new RequestParams();
-            //params.put("secret_passwords", myInputStream, "passwords.txt");
+        //InputStream myInputStream = blah;
+        //RequestParams params = new RequestParams();
+        //params.put("secret_passwords", myInputStream, "passwords.txt");
 
 
         //Add a File object to the RequestParams to upload:
-            //File myFile = new File("/path/to/file.png");
-            //RequestParams params = new RequestParams();
-            //try {
-            //    params.put("profile_picture", myFile);
-            //} catch(FileNotFoundException e) {}
+        //File myFile = new File("/path/to/file.png");
+        //RequestParams params = new RequestParams();
+        //try {
+        //    params.put("profile_picture", myFile);
+        //} catch(FileNotFoundException e) {}
 
 
         //Add a byte array to the RequestParams to upload:
-            //byte[] myByteArray = blah;
-            //RequestParams params = new RequestParams();
-            //params.put("soundtrack", new ByteArrayInputStream(myByteArray), "she-wolf.mp3");
+        //byte[] myByteArray = blah;
+        //RequestParams params = new RequestParams();
+        //params.put("soundtrack", new ByteArrayInputStream(myByteArray), "she-wolf.mp3");
 
         if(fileData !=null){
             Iterator<String> iterator = fileData.keySet().iterator();
@@ -360,13 +362,13 @@ public class RockfishRestClient extends Activity{
         /* ROCKFISH CUSTMOMER HEADER*/
         client.addHeader("rockfish_session_key",getRockfishSaveData("rockfish_session_key"));
         client.addHeader("rockfish_access_id",getRockfishSaveData("rockfish_access_id"));
-            // 개인 정보 여부 판단 하여 값 설정 필요 /////////////////
-            client.addHeader("rockfish_ip",rockfishEncrypted(ROCKFISH_IP));
-            client.addHeader("rockfish_mac",rockfishEncrypted(ROCKFISH_MAC));
-            client.addHeader("rockfish_phone",rockfishEncrypted(ROCKFISH_PHONE));
-            client.addHeader("rockfish_device",rockfishEncrypted(Build.MODEL));
-            client.addHeader("rockfish_imei",rockfishEncrypted(Build.SERIAL));
-            ///////////////////////////////////////////////////////////
+        // 개인 정보 여부 판단 하여 값 설정 필요 /////////////////
+        client.addHeader("rockfish_ip",rockfishEncrypted(ROCKFISH_IP));
+        client.addHeader("rockfish_mac",rockfishEncrypted(ROCKFISH_MAC));
+        client.addHeader("rockfish_phone",rockfishEncrypted(ROCKFISH_PHONE));
+        client.addHeader("rockfish_device",rockfishEncrypted(Build.MODEL));
+        client.addHeader("rockfish_imei",rockfishEncrypted(Build.SERIAL));
+        ///////////////////////////////////////////////////////////
         client.addHeader("rockfish_os_version", String.valueOf(Build.VERSION.SDK_INT));
         client.addHeader("rockfish_os_version_desc",Build.VERSION.RELEASE);
         client.addHeader("rockfish_os",ROCKFISH_CLIENT_TYPE);
@@ -380,6 +382,38 @@ public class RockfishRestClient extends Activity{
 
         RequestParams params = new RequestParams(data);
         client.post("https://"+ipport+"/rockfishController", params, responseHandler);
+    }
+
+    /**
+     * webview Download
+     * @param url
+     * @param responseHandler
+     * @throws Exception
+     */
+    public static void requestDownloadWebview(String url, FileAsyncHttpResponseHandler responseHandler) throws Exception {
+
+         /* ROCKFISH CUSTMOMER HEADER*/
+        client.addHeader("rockfish_session_key",getRockfishSaveData("rockfish_session_key"));
+        client.addHeader("rockfish_access_id",getRockfishSaveData("rockfish_access_id"));
+        // 개인 정보 여부 판단 하여 값 설정 필요 /////////////////
+        client.addHeader("rockfish_ip",rockfishEncrypted(ROCKFISH_IP));
+        client.addHeader("rockfish_mac",rockfishEncrypted(ROCKFISH_MAC));
+        client.addHeader("rockfish_phone",rockfishEncrypted(ROCKFISH_PHONE));
+        client.addHeader("rockfish_device",rockfishEncrypted(Build.MODEL));
+        client.addHeader("rockfish_imei",rockfishEncrypted(Build.SERIAL));
+        ///////////////////////////////////////////////////////////
+        client.addHeader("rockfish_os_version", String.valueOf(Build.VERSION.SDK_INT));
+        client.addHeader("rockfish_os_version_desc",Build.VERSION.RELEASE);
+        client.addHeader("rockfish_os",ROCKFISH_CLIENT_TYPE);
+        client.addHeader("rockfish_target_service","");
+        client.addHeader("rockfish_client_app",ROCKFISH_APP_NAME);
+        client.addHeader("rockfish_client_app_version",ROCKFISH_APP_VERSION);
+        client.addHeader("rockfish_send_type",ROCKFISH_DOWNLOAD_SEND_TYPE);
+        client.addHeader("rockfish_encrypt_parameter","");
+        /* ROCKFISH CUSTMOMER HEADER*/
+
+        RequestParams params = new RequestParams();
+        client.post(url, params, responseHandler);
     }
 
     /**
@@ -468,5 +502,54 @@ public class RockfishRestClient extends Activity{
         }else{
             return publicKey;
         }
+    }
+
+    /**
+     * file copy
+     * @param file
+     * @param save_file
+     * @return
+     */
+    public static boolean copyFile(File file , String save_file){
+        boolean result = false;
+        if(file!=null&&file.exists()){
+            FileInputStream fis = null;
+            FileOutputStream newfos = null;
+            try {
+                fis = new FileInputStream(file);
+                newfos = new FileOutputStream(save_file);
+                int readcount=0;
+                byte[] buffer = new byte[1024];
+                while((readcount = fis.read(buffer,0,1024))!= -1){
+                    newfos.write(buffer,0,readcount);
+                }
+                if(newfos !=null){
+                    newfos.close();
+                }
+
+                if(fis !=null){
+                    fis.close();
+                }
+                result = true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                result = false;
+            }finally{
+                try{
+                    if(newfos !=null){
+                        newfos.close();
+                    }
+
+                    if(fis !=null){
+                        fis.close();
+                    }
+                }catch (Exception e){
+                    result = false;
+                }
+            }
+        }else{
+            result = false;
+        }
+        return result;
     }
 }

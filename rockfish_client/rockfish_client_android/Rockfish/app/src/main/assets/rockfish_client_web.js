@@ -163,7 +163,7 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	xhr.setRequestHeader("rockfish_os_version_desc", navigator.userAgent);
 		    	xhr.setRequestHeader("rockfish_target_service", service);
 		    	xhr.setRequestHeader("rockfish_client_app", "Rockfish"); 		 // TO-DO	Client App
-		    	xhr.setRequestHeader("rockfish_client_app_version", "1.0.0");  // TO-DO	Client App Version
+		    	xhr.setRequestHeader("rockfish_client_app_version", "1.0");     // TO-DO	Client App Version
 		    	xhr.setRequestHeader("rockfish_send_type", "G");
 		    	xhr.setRequestHeader("rockfish_encrypt_parameter", encryptParameter);
 
@@ -213,7 +213,7 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	xhr.setRequestHeader("rockfish_os_version_desc", navigator.userAgent);
 		    	xhr.setRequestHeader("rockfish_target_service", service);
 		    	xhr.setRequestHeader("rockfish_client_app", "Rockfish"); 		 // TO-DO	Client App
-		    	xhr.setRequestHeader("rockfish_client_app_version", "1.0.0");  // TO-DO	Client App Version
+		    	xhr.setRequestHeader("rockfish_client_app_version", "1.0");     // TO-DO	Client App Version
 		    	xhr.setRequestHeader("rockfish_send_type", "M");
 		    	xhr.setRequestHeader("rockfish_encrypt_parameter", encryptParameter);
 
@@ -272,7 +272,7 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	xhr.setRequestHeader("rockfish_os_version_desc", navigator.userAgent);
 		    	xhr.setRequestHeader("rockfish_target_service", service);
 		    	xhr.setRequestHeader("rockfish_client_app", "Rockfish"); 		 // TO-DO	Client App
-		    	xhr.setRequestHeader("rockfish_client_app_version", "1.0.0");  // TO-DO	Client App Version
+		    	xhr.setRequestHeader("rockfish_client_app_version", "1.0");     // TO-DO	Client App Version
 		    	xhr.setRequestHeader("rockfish_send_type", "D");
 		    	xhr.setRequestHeader("rockfish_encrypt_parameter", encryptParameter);
 
@@ -388,10 +388,10 @@ function rockfishGetStorge(cName) {
  * @param data : json object
  *
  */
-function rockfishAjaxDownload(url, data) {		
-    location.href = url+"?ROCKFISH_TEMP_FILE="+encodeURIComponent(rockfishRsaEncrypt(data.ROCKFISH_TEMP_FILE))+"&ROCKFISH_REAL_FILE="+encodeURIComponent(rockfishRsaEncrypt(data.ROCKFISH_REAL_FILE));
-
-    /*
+function rockfishAjaxDownload(url, data) {
+   //To-Do (개선 필요)
+   location.href = url+"?ROCKFISH_TEMP_FILE="+encodeURIComponent(rockfishRsaEncrypt(data.ROCKFISH_TEMP_FILE))+"&ROCKFISH_REAL_FILE="+encodeURIComponent(rockfishRsaEncrypt(data.ROCKFISH_REAL_FILE));
+   /*
 	var agent = navigator.userAgent.toLowerCase();
 
  	if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
