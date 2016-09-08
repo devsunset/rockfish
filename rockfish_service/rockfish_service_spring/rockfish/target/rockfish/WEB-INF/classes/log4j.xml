@@ -55,7 +55,7 @@
     </logger>
 	
 	 <logger name="org.springframework.aop.interceptor.PerformanceMonitorInterceptor"  additivity="false">
-        <level value="ERROR"/>
+        <level value="TRACE"/>
         <appender-ref ref="rockfishLog" />
     </logger>
 	

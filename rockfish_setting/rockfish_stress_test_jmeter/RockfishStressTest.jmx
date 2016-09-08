@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="2.9" jmeter="3.0 r1743807">
-  <hashTree> 
+  <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
@@ -151,7 +151,7 @@
               </elementProp>
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">rockfish_session_key</stringProp>
-                <stringProp name="Header.value">ROCKFISH_SESSION_KEY-6053FEEA3D7541518DF39FFD6D913BAB</stringProp>
+                <stringProp name="Header.value">ROCKFISH_SESSION_KEY-B9B20DCC755D4AC3935D73677E1033C1</stringProp>
               </elementProp>
             </collectionProp>
             <stringProp name="TestPlan.comments">Rockfish HTTP Header Manager</stringProp>

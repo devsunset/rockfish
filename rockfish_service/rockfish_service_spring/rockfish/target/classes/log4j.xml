@@ -13,7 +13,7 @@
      
     <!-- 날짜별 로그 파일 생성 -->
     <appender name="rollingFile" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="/home/devsunset/devrepo/rockfish/logs/rockfish-service-spring-all.log"/>
+        <param name="File" value="/home/devsunset/devrepo/rockfish/logs/rockfish-service-spring-all_${LogServerPort}.log"/>
         <param name="Append" value="true"/>
         <!-- param name="MaxFileSize" value="100MB"/ -->
         <!-- param name="MaxBackupIndex" value="2"></param -->
@@ -25,7 +25,7 @@
      
     <!-- 날짜별 로그 파일 생성 -->
     <appender name="rockfishLog" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="/home/devsunset/devrepo/rockfish/logs/rockfish-service-spring.log"/>
+        <param name="File" value="/home/devsunset/devrepo/rockfish/logs/rockfish-service-spring_${LogServerPort}.log"/>
         <param name="Append" value="true"/>
         <!-- param name="MaxFileSize" value="100MB"/ -->
         <!-- param name="MaxBackupIndex" value="2"></param -->
@@ -38,7 +38,7 @@
     <!-- 날짜별 로그 파일 생성(에러만) -->
     <appender name="errFile" class="org.apache.log4j.DailyRollingFileAppender">
         <param name="Threshold" value="ERROR"/>
-        <param name="File" value="/home/devsunset/devrepo/rockfish/logs/rockfish-service-spring-error.log"/>
+        <param name="File" value="/home/devsunset/devrepo/rockfish/logs/rockfish-service-spring-error_${LogServerPort}.log"/>
         <param name="Append" value="true"/>
         <!-- param name="MaxFileSize" value="100MB"/ -->
         <!-- param name="MaxBackupIndex" value="2"></param -->

@@ -14,17 +14,17 @@
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	
-	<!-- config properties 설정 -->
-	<util:properties id="config"
-		location="classpath:config/config.properties" />
-		
+
 	<!-- MultipartResolver 설정 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="10000000" />
 		<property name="maxInMemorySize" value="100000000" />
 	</bean>
+
+	<!-- config properties 설정 -->
+	<util:properties id="config"
+		location="classpath:config/config.properties" />
 
 	<!-- message properties 설정 -->
 	<bean id="messageSource"
@@ -47,5 +47,13 @@
 	<bean id="message" class="kh.devsunset.rockfish.common.util.LangMessage">
 		<property name="messageSourceAccessor" ref="messageSourceAccessor" />
 	</bean>
+
+	<bean id="jedisConnFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:use-pool="true" p:host-name="127.0.0.1" p:port="6379" p:password="rockfish" />
+
+	<!-- redis template definition -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+		p:connection-factory-ref="jedisConnFactory" />
 
 </beans>
