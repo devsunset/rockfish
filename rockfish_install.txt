@@ -95,13 +95,24 @@ Windows , (Linux/OS X) 모두 해당 프로그램 기본 설정 으로 설치 �
     USE rockfish;
 
     # 테이블 생성
-    CREATE TABLE IF NOT EXISTS tb_rockfish (
+    CREATE TABLE IF NOT EXISTS TB_ROCKFISH (
       IDX int(10) unsigned NOT NULL AUTO_INCREMENT,
       TEMP1 varchar(255) DEFAULT '0',
       TEMP2 varchar(255) DEFAULT '0',
       TEMP3 varchar(255) DEFAULT '0',
       PRIMARY KEY (IDX)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+    INSERT INTO TB_ROCKFISH  ( TEMP1,TEMP2,TEMP3 )
+      VALUES ( 'TEMP1_VALUE1','TEMP2_VALUE1','TEMP3_VALUE1');
+
+    INSERT INTO TB_ROCKFISH  ( TEMP1,TEMP2,TEMP3 )
+      VALUES ( 'TEMP1_VALUE2','TEMP2_VALUE2','TEMP3_VALUE2');
+
+    INSERT INTO TB_ROCKFISH  ( TEMP1,TEMP2,TEMP3 )
+      VALUES ( 'TEMP1_VALUE3','TEMP2_VALUE3','TEMP3_VALUE3');
+
 
 ------------------------------------------------
 
@@ -334,7 +345,7 @@ show databases;
 
 use rockfish;
 
-CREATE TABLE IF NOT EXISTS tb_rockfish (
+CREATE TABLE IF NOT EXISTS TB_ROCKFISH (
   IDX int(10) unsigned NOT NULL AUTO_INCREMENT,
   TEMP1 varchar(255) DEFAULT '0',
   TEMP2 varchar(255) DEFAULT '0',
@@ -343,7 +354,18 @@ CREATE TABLE IF NOT EXISTS tb_rockfish (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-select * from tb_rockfish;
+
+INSERT INTO TB_ROCKFISH  ( TEMP1,TEMP2,TEMP3 )
+  VALUES ( 'TEMP1_VALUE1','TEMP2_VALUE1','TEMP3_VALUE1');
+
+INSERT INTO TB_ROCKFISH  ( TEMP1,TEMP2,TEMP3 )
+  VALUES ( 'TEMP1_VALUE2','TEMP2_VALUE2','TEMP3_VALUE2');
+
+INSERT INTO TB_ROCKFISH  ( TEMP1,TEMP2,TEMP3 )
+  VALUES ( 'TEMP1_VALUE3','TEMP2_VALUE3','TEMP3_VALUE3');
+      
+
+SELECT * FROM TB_ROCKFISH;
 
 -----------------------------------------------------
 
