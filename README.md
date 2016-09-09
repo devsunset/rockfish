@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------	
 
-#		 Introduce
+#		 ROCKFISH INTRODUCE
 
 -------------------------------------------------------------------------------	
 
@@ -262,20 +262,20 @@ GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
 		
 		Rockfish Client (Web Version)
 					HTTP Request
-								Login						로그인 버튼 클릭하여 로그인 실행 후 생성 된 ROCFISH_SESSION_KEY 값 리턴
+								Login					로그인 버튼 클릭하여 로그인 실행 후 생성 된 ROCFISH_SESSION_KEY 값 리턴
 								Login 유무 체크				로그인 실행 하기 전에 일반 C/R/U/D Multipart Upload/Download 실행시 로그인 여부 체크 
 								C/R/U/D Action				C/R/U/D 서비스 Action 호출 실행 후 json 타입 결과 리턴 Alert 창  출력
 								Multipart File Upload 		첨부 파일 업로드 Action 호출 실행 후  json 타입 결과 리턴 Alert 창  출력
 								File Download				파일 다운로드 실행 후 첨부 파일 다운로드 확인 (Android는 기본 Download 폴더에 저장됨)
-								암호화 처리					지정한 특정 parameter 암호화 처리 전송 
+								암호화 처리				지정한 특정 parameter 암호화 처리 전송 
 		Rockfish Client (Android Version)
 					HTTPS Request
-								Login						로그인 버튼 클릭하여 로그인 실행 후 생성 된 ROCFISH_SESSION_KEY 값 리턴
+								Login					로그인 버튼 클릭하여 로그인 실행 후 생성 된 ROCFISH_SESSION_KEY 값 리턴
 								Login 유무 체크				로그인 실행 하기 전에 일반 C/R/U/D Multipart Upload/Download 실행시 로그인 여부 체크 
 								C/R/U/D Action				C/R/U/D 서비스 Action 호출 실행 후 json 타입 결과 리턴 Alert 창  출력
 								Multipart File Upload 		첨부 파일 업로드 Action 호출 실행 후  json 타입 결과 리턴 Alert 창  출력
 								File Download				파일 다운로드 실행 후 첨부 파일 다운로드 확인 (Android는 기본 Download 폴더에 저장됨)
-								암호화 처리					지정한 특정 parameter 암호화 처리 전송 
+								암호화 처리				지정한 특정 parameter 암호화 처리 전송 
 		
 		Rockfish Console (node.js Version)
 					Main
