@@ -12,6 +12,9 @@
 #  [readme - rockfish_install.txt]
 <https://github.com/devsunset/rockfish/blob/master/rockfish_install.txt>
 
+#  [readme - rockfish_function.txt]
+<https://github.com/devsunset/rockfish/blob/master/rockfish_function.txt>
+
 ``` 
    Easy Simple Mobile Middleware
    
