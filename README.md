@@ -25,6 +25,13 @@
    Easy Simple Scale Out Support
 ``` 
 
+# ■ Process Flow
+
+####`    Client <-> (Load balancing) <->   Server & Console <-> (Load balancing) <->   Service` 
+
+# ■ License
+GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
+
 -------------------------------------------------------------------------------  
 
 #     Demo - (To-DO)
@@ -32,13 +39,6 @@
 -------------------------------------------------------------------------------  
 
 Server IP : 175.126.112.125
-
-# ■ Process Flow
-
-####`    Client <-> (Load balancing) <->   Server & Console <-> (Load balancing) <->   Service` 
-
-# ■ License
-GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
 
 -------------------------------------------------------------------------------	
 
