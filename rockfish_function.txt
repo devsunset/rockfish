@@ -115,6 +115,12 @@
 								Service 수정
 					Setting		
 								Rockfish Sever Setting Giude
+					Admin 	
+								Admin 리스트 조회
+								Admin 삭제 
+								Admin 상세 조회 
+								Admin 등록
+								Admin 수정
 		
 		Rockfish Server (node.js Version)
 					HTTP Service 
@@ -190,12 +196,12 @@
 					Monitoring 		
 								Service 호출 현황 세부 조회
 															날짜 검색 조건에 따른 데이타 조회 제공
-															Service 호출 Client OS 현황 조회 조회
-															Service 호출 Client OS Version 현황 조회 조회
-															Service 호출 Send Type (General/Multipart/Download) 현황 조회 조회
-															Service 호출 Encrypt Type 현황 조회 조회
-															Service 호출 Https Response Code 현황 조회 조회
-															Service 호출 Service Protocol 현황 조회 조회
+															Service 호출 Client OS 현황 조회 
+															Service 호출 Client OS Version 현황 조회 
+															Service 호출 Send Type (General/Multipart/Download) 현황 조회 
+															Service 호출 Encrypt Type 현황 조회 
+															Service 호출 Https Response Code 현황 조회 
+															Service 호출 Service Protocol 현황 조회 
 					Log
 								Service 호출 로그 조회
 															검색 조건에 의한 Service 호출 List 조회 
@@ -217,6 +223,17 @@
 					Setting		
 								Rockfish Sever Setting Giude
 															Rockfish Server config 설정 내용 가이드 제공
+
+					Admin 	
+								Admin 리스트 조회 / 삭제
+															등록 Admin List 조회
+															List 에서 선택한 Admin 대해 삭제 기능 
+								Admin 상세 조회 
+															List 에서 선택한 Admin 상세 정보 조회
+								Admin 등록
+															신규 Admin 등록 기능
+								Admin 수정
+															List 에서 선택한 Admin 상세 정보 수정
 		
 		Rockfish Server (node.js Version)
 					HTTP Service 
