@@ -36,7 +36,41 @@ Windows , (Linux/OS X) 모두 해당 프로그램 기본 설정 으로 설치 �
     use rockfish 
 
     # CREATE ROCKFISH_SERVICE_LOG TABLE
-    db.rockfish_service_log.insert({"ACCESS" : "SETUP", "REQUEST" : "SETUP", "RESPONSE" : "SETUP", "SERVICE_METHOD" : "SETUP", "SEND_TYPE" : "SETUP", "TARGET_SERVICE" : "SETUP", "REQUEST_TIME" : new Date(),  "RESPONSE_TIME" : new Date()})
+      db.rockfish_service_log.insert({
+      "ACCESS" : {
+        "ROCKFISH_SESSION_KEY" : "-",
+        "ROCKFISH_ACCESS_ID" : "-",
+        "ROCKFISH_IP" : "",
+        "ROCKFISH_MAC" : "",
+        "ROCKFISH_PHONE" : "",
+        "ROCKFISH_DEVICE" : "",
+        "ROCKFISH_IMEI" : "",
+        "ROCKFISH_OS" : "BROWSER",
+        "ROCKFISH_OS_VERSION" : "Netscape",
+        "ROCKFISH_OS_VERSION_DESC" : "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.101 Safari/537.36",
+        "ROCKFISH_TARGET_SERVICE" : "ROCKFISH_SETUP",
+        "ROCKFISH_CLIENT_APP" : "Rockfish",
+        "ROCKFISH_CLIENT_APP_VERSION" : "1.0",
+        "ROCKFISH_SEND_TYPE" : "G",
+        "ROCKFISH_ENCRYPT_PARAMETER" : "",
+        "ROCKFISH_ENCRYPT_YN" : "N"
+      },
+      "REQUEST" : {
+        "SETUP" : "SETUP"
+      },
+      "RESPONSE" : {
+        "ROCKFISH_RESULT_CODE" : "S",
+        "ROCKFISH_RESULT_MESSAGE" : "OK",
+        "ROCKFISH_HTTP_STATUS_CODE" : 200,
+        "ROCKFISH_HTTP_STATUS_MESSAGE" : "OK",
+        "ROCKFISH_RESULT_JSON" : ""
+      },
+      "SERVICE_METHOD" : "HTTP",
+      "SEND_TYPE" : "G",
+      "TARGET_SERVICE" : "SETUP",
+      "REQUEST_TIME" : new Date(),
+      "RESPONSE_TIME" : new Date()
+    })
 
 
     # CREATE ROCKFISH_SERVICE_MASTER TABLE
