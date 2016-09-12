@@ -8,8 +8,6 @@
 
 -------------------------------------------------------------------------------	
 
-# ■ Rockfish
-
 ``` 
    Easy Simple Mobile Middleware
    
@@ -34,6 +32,9 @@
 #  [readme - rockfish_function.txt]
 <https://github.com/devsunset/rockfish/blob/master/rockfish_function.txt>
 
+# ■ License
+GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
+
 -------------------------------------------------------------------------------  
 
 #     ■■ Demo - (To-DO)
@@ -49,11 +50,6 @@ Native 175.126.112.125:9999 , Web 175.126.112.125:8888
 Web Client : <http://175.126.112.125:7777/rockfish_client_web/rockfish_client_web.html>   
 
 Console     : <http://175.126.112.125:3000>  rockfish/rockfish
-
-
-
-# ■ License
-GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
 
 -------------------------------------------------------------------------------	
 
