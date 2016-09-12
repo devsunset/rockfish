@@ -771,6 +771,10 @@ Windows7 기준
  압축 용량 1G 여서 파일 올리는 곳 찾고 있습니다.
  공유 되면 링크 수정 하겠습니다.
 
+naver cloud에 임시 공유 (암호 : rockfish)
+- Download Link -
+http://naver.me/5yKXLKJm 
+
 
  (참고 - zip파일로 다운로드 시 rockfish_console/rockfish_console_nodejs
        모듈 파일 경로가 길어 압축 해제 시 오류 발생)
