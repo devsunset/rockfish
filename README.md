@@ -45,13 +45,13 @@ GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
 Server IP : 175.126.112.125
 
 
-Android Client : <https://play.google.com/store/apps/details?id=kh.devsunset.rockfish&hl=ko>  Native 175.126.112.125:9999 , Web 175.126.112.125:8888
+Android Client : <https://play.google.com/store/apps/details?id=kh.devsunset.rockfish&hl=ko>  
+Native 175.126.112.125:9999 , Web 175.126.112.125:8888
 
-Web Client : <http://175.126.112.125:7777/rockfish_client_web/rockfish_client_web.html>   Web 175.126.112.125:8888
-
+Web Client : <http://175.126.112.125:7777/rockfish_client_web/rockfish_client_web.html>   
+Web 175.126.112.125:8888
 
 Console     : <http://175.126.112.125:3000>  rockfish/rockfish
-
 
 -------------------------------------------------------------------------------	
 
