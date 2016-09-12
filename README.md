@@ -37,7 +37,7 @@ GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
 
 -------------------------------------------------------------------------------  
 
-#     ■■ Demo - (To-DO)
+#     ■■ Demo - (To-Do)
 
 -------------------------------------------------------------------------------  
 
@@ -60,7 +60,7 @@ Console     : <http://175.126.112.125:3000>  rockfish/rockfish
 # ■ Rockfish client
 ```java
    * rockfish client api  -Completed
-   * rockfish client (android) - TO-DO
+   * rockfish client (android) - Completed
    * rockfish client (web) - Completed  
 ``` 
 
