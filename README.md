@@ -9,7 +9,7 @@
 -------------------------------------------------------------------------------	
 
 ``` 
-   Easy Simple Mobile Middleware
+   Easy Simple Mobile Server Middleware
    
    Full Stack Mobile Develop Process
 
@@ -37,7 +37,7 @@ GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
 
 -------------------------------------------------------------------------------  
 
-#     ■■ Demo - (To-Do)
+#     ■■ Demo
 
 -------------------------------------------------------------------------------  
 
