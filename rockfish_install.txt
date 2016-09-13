@@ -784,6 +784,35 @@ rockfish_service/home/devsunset/devrepo/rockfish 폴더를
    rockfish_client/rockfish_client_web/rockfish_client_web.html 파일 브라우저에서 실행 후
    버튼 클릭 하여 실행 후 콘솔 상에서 서버와 통신 로그 확인 ^^
 
+■■■■■■■■■■■■■■■■■■■■■■■■■■
+###  ROCKFISH SERVICE START ###
+■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+1. mongodb start
+   nohup sudo mongod -auth --dbpath /home/devsunset/rockfish/data/db & 
+
+2. mariadb start
+   service mysql start
+
+3. redis start
+   sudo /usr/bin/redis-server /etc/redis/redis.conf
+
+3. tomcat 1 start
+   CATARINA_HOME\bin\startup.sh
+
+4. tomcat 2 start
+   CATARINA_HOME\bin\startup.sh
+
+5. nginx start
+   service nginx start
+
+6. rockfish console start
+  cd /home/devsunset/rockfihs/rockfish_console/rockfish_console_nodejs
+  nohup  npm start &
+
+7. rockfish server start
+   cd /rockfish/rockfish_server/rockfish_server_nodejs
+   nohup node rockfish_index.js &
 
 ■■■■■■■■■■■■■■■■■■■■■■■■■■
 ###  ROCKFISH 실행 프로그램 설치 및 설정 예제 II ###
@@ -833,14 +862,3 @@ http://naver.me/5yKXLKJm
    버튼 클릭 하여 실행 후 콘솔 상에서 서버와 통신 로그 확인 ^^
  
 ■■■■■■■■■■■■■■■■■■■■■■■■■■
-
-
-
-
-
-
-
-
-
-
-
