@@ -44,7 +44,8 @@ GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
 ■ ROCKFISH 4 MINUTE 30 SECONDS DEMO ■
 
    <https://youtu.be/a1-woEXZ6Wg>
-   [![ScreenShot](https://www.youtube.com/watch?v=a1-woEXZ6Wg&feature=youtu.be)](https://youtu.be/a1-woEXZ6Wg)
+   
+   [![ScreenShot](https://github.com/devsunset/rockfish/blob/master/screenshot.png)](https://youtu.be/a1-woEXZ6Wg)
 
 1. Rockfish 소개
    https://github.com/devsunset/rockfish
