@@ -128,3 +128,39 @@ Console     : <http://175.126.112.125:3000>  rockfish/rockfish
    * z_rockfish_docker - Next TO-DO   
    * z_rockfish_loadbalancing_haproxy - Next TO-DO 
 ```  	
+
+
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+■ ROCKFISH 3 MINUTE DEMO ■
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+
+1. Rockfish 소개  - 30 seconds
+
+
+2. Rockfish github 소개 - 30 seconds
+
+   https://github.com/devsunset/rockfish
+
+
+3. Demo 설명  - 2 minute
+
+   IDX,TEMP1,TEMP2,TEMP3 4개의 컬럼을 가진 TB_ROCKFISH 테이블에 
+   CRUD 처리 및 로그인 , 로그아웃 , 파일 업로드, 다운로드를 제공 하는 
+   스프링 기반 웹 프로젝트 서비스를 Tomcat 서버 2대에서 구동 하고 
+   단말 (Rockfish Android , Web version Sample Test 프로그램)에서 
+   Https,Http 통신을 사용하여 Rockfish Middleware 서버를 통해 서비스 
+   호출 테스트 및 관리 콘솔 에서 해당 서비스 모니터링 하는 시나리오 
+
+
+4. Next To-Do
+   - Rockfish 소개 
+   - Rockfish Client 소개 
+   - Rockfish Server 소개 
+   - Rockfish Console 소개 
+   - Rockfish Service 소개
+   - Rockfish Setting 소개
+   - Rockfish 맺음
