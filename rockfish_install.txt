@@ -845,7 +845,7 @@ Windows7 기준
 
 Google Drive에 임시 공유
 - Download Link -
-https://drive.google.com/file/d/0B-RetjmV0gmVREFjWUlDekJBT1E/view 
+https://drive.google.com/file/d/0B-RetjmV0gmVVFVWbWhEU21TYlU/view?usp=sharing
 
 
  위의 파일을 다운받아 C:\ 경로에 압축만 해제 하시고 몇가지 처리만 해주시면 됩니다. 
