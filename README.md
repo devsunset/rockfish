@@ -68,14 +68,26 @@ GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
 
    Console     : <http://175.126.112.125:3000>  rockfish/rockfish
 
-3. Next To-Do
+3. 동영상 소개
    - Rockfish 소개 
+    <https://www.youtube.com/watch?v=sDxu_vjbvdU>
+
    - Rockfish Service 소개
+    <https://www.youtube.com/watch?v=FwCHpq80U4M>
+
    - Rockfish Server 소개 
-   - Rockfish Console 소개 
-   - Rockfish Client 소개    
+    <https://www.youtube.com/watch?v=yiL-zqZGXVA>
+
+   - Rockfish Console 소개
+    <https://www.youtube.com/watch?v=iTIZIwQoeDU>
+
+   - Rockfish Client 소개 
+    <https://www.youtube.com/watch?v=6EYsBjVaTXY>
+
    - Rockfish Setting 소개
+
    - Rockfish 맺음
+    <https://www.youtube.com/watch?v=pFN1qQOXLOw>
 
 -------------------------------------------------------------------------------  
 
