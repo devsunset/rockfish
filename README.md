@@ -70,10 +70,10 @@ GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
 
 3. Next To-Do
    - Rockfish 소개 
-   - Rockfish Client 소개 
+   - Rockfish Service 소개
    - Rockfish Server 소개 
    - Rockfish Console 소개 
-   - Rockfish Service 소개
+   - Rockfish Client 소개    
    - Rockfish Setting 소개
    - Rockfish 맺음
 
