@@ -23,13 +23,13 @@
 ####`    Client <-> (Load balancing) <->   Server & Console <-> (Load balancing) <->   Service` 
 
 
-#  [readme - rockfish_introduce.pdf]
+#  [readme - rockfish_introduce.pdf] - 소개 
 <https://github.com/devsunset/rockfish/blob/master/rockfish_introduce.pdf>
 
-#  [readme - rockfish_install.txt]
+#  [readme - rockfish_install.txt] - 설치
 <https://github.com/devsunset/rockfish/blob/master/rockfish_install.txt>
 
-#  [readme - rockfish_function.txt]
+#  [readme - rockfish_function.txt] - 기능 테스트
 <https://github.com/devsunset/rockfish/blob/master/rockfish_function.txt>
 
 # ■ License
@@ -48,6 +48,7 @@ GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
    [![ScreenShot](https://github.com/devsunset/rockfish/blob/master/screenshot.png)](https://youtu.be/a1-woEXZ6Wg)
 
 1. Rockfish 소개
+
    https://github.com/devsunset/rockfish
 
 2. Demo 설명
@@ -69,25 +70,30 @@ GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
    Console     : <http://175.126.112.125:3000>  rockfish/rockfish
 
 3. 동영상 소개
+
    - Rockfish 소개 
-    <https://www.youtube.com/watch?v=sDxu_vjbvdU>
+   
+      <https://www.youtube.com/watch?v=sDxu_vjbvdU>
 
    - Rockfish Service 소개
-    <https://www.youtube.com/watch?v=FwCHpq80U4M>
+   
+      <https://www.youtube.com/watch?v=FwCHpq80U4M>
 
    - Rockfish Server 소개 
-    <https://www.youtube.com/watch?v=yiL-zqZGXVA>
+   
+      <https://www.youtube.com/watch?v=yiL-zqZGXVA>
 
    - Rockfish Console 소개
-    <https://www.youtube.com/watch?v=iTIZIwQoeDU>
+   
+      <https://www.youtube.com/watch?v=iTIZIwQoeDU>
 
    - Rockfish Client 소개 
-    <https://www.youtube.com/watch?v=6EYsBjVaTXY>
-
-   - Rockfish Setting 소개
+   
+      <https://www.youtube.com/watch?v=6EYsBjVaTXY>
 
    - Rockfish 맺음
-    <https://www.youtube.com/watch?v=pFN1qQOXLOw>
+   
+      <https://www.youtube.com/watch?v=pFN1qQOXLOw>
 
 -------------------------------------------------------------------------------  
 
@@ -106,7 +112,7 @@ GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
 
  Windows8,Windows10은 테스트 못해 보았는데 설치 하시는 분 계시면 설치 결과 feedback 주시면 
 
- 감사하겠습니다. ^^
+ 감사 하겠습니다. ^^
 
  통합 모듈 설치 방법은 아래와 같습니다. 
 
@@ -141,12 +147,19 @@ https://drive.google.com/file/d/0B-RetjmV0gmVVFVWbWhEU21TYlU/view?usp=sharing
   ### port 사용 현황 ###
 
   rockfish_console 3000
+  
   rockfish_server 8888 (http), 9999 (https)
+  
   nginx 7777
+  
   mongodb 27017
+  
   redis 6379
+  
   mariadb 3306
+  
   tomcat1 8080
+  
   tomcat2 8081
 
   실행 후 
