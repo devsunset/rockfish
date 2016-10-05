@@ -26,8 +26,37 @@
 #  [readme - rockfish_introduce.pdf] - 소개 
 <https://github.com/devsunset/rockfish/blob/master/rockfish_introduce.pdf>
 
+
+# 동영상 소개
+
+   - Rockfish 소개 
+   
+      <https://www.youtube.com/watch?v=sDxu_vjbvdU>
+
+   - Rockfish Service 소개
+   
+      <https://www.youtube.com/watch?v=FwCHpq80U4M>
+
+   - Rockfish Server 소개 
+   
+      <https://www.youtube.com/watch?v=yiL-zqZGXVA>
+
+   - Rockfish Console 소개
+   
+      <https://www.youtube.com/watch?v=iTIZIwQoeDU>
+
+   - Rockfish Client 소개 
+   
+      <https://www.youtube.com/watch?v=6EYsBjVaTXY>
+
+   - Rockfish 맺음
+   
+      <https://www.youtube.com/watch?v=pFN1qQOXLOw>
+      
+
 #  [readme - rockfish_install.txt] - 설치
 <https://github.com/devsunset/rockfish/blob/master/rockfish_install.txt>
+
 
 #  [readme - rockfish_function.txt] - 기능 테스트
 <https://github.com/devsunset/rockfish/blob/master/rockfish_function.txt>
@@ -68,32 +97,6 @@ GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
    Web Client : <http://175.126.112.125:7777/rockfish_client_web/rockfish_client_web.html>   
 
    Console     : <http://175.126.112.125:3000>  rockfish/rockfish
-
-3. 동영상 소개
-
-   - Rockfish 소개 
-   
-      <https://www.youtube.com/watch?v=sDxu_vjbvdU>
-
-   - Rockfish Service 소개
-   
-      <https://www.youtube.com/watch?v=FwCHpq80U4M>
-
-   - Rockfish Server 소개 
-   
-      <https://www.youtube.com/watch?v=yiL-zqZGXVA>
-
-   - Rockfish Console 소개
-   
-      <https://www.youtube.com/watch?v=iTIZIwQoeDU>
-
-   - Rockfish Client 소개 
-   
-      <https://www.youtube.com/watch?v=6EYsBjVaTXY>
-
-   - Rockfish 맺음
-   
-      <https://www.youtube.com/watch?v=pFN1qQOXLOw>
 
 -------------------------------------------------------------------------------  
 
