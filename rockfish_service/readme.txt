@@ -9,7 +9,7 @@
 
 -- rockfish 사용자 생성
 -- ID : rockfish
--- PW : rockfish
+-- PW : rockfish 
 
 -- rockfish 의 데이터베이스 구조 덤핑
 CREATE DATABASE IF NOT EXISTS rockfish /*!40100 DEFAULT CHARACTER SET utf8 */;
