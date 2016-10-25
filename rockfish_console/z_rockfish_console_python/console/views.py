@@ -6,7 +6,7 @@ import json
 import pymongo
 
 # mongodb client
-connection = pymongo.MongoClient('mongodb://rockfish:rockfish@localhost:27017/rockfish')
+connection = pymongo.MongoClient('mongodb:##rockfish:rockfish@localhost:27017/rockfish')
 db = connection.rockfish
 collection  = db.rockfish_admin_master
 
@@ -58,6 +58,10 @@ def user(request):
 def user_modal(request):
 	return render(request, 'console/user_modal.html')
 
+############################################################################################
+## LOGIN ,LOGOUT , SESSION CHECK PROCESS
+############################################################################################	
+
 # session check process
 def sessionCheck(request):
 	 response_data = {}
@@ -105,4 +109,165 @@ def logout(request):
     response_data = {}
     response_data['rockfish_result_code'] = 'S'
 
+    return JsonResponse(response_data)
+
+##############################################################################################
+## DASHBOARD PROCESS
+##############################################################################################
+
+## dashboard top 5 App Service Call process
+def dashboardTop5AppInfo(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+## dashboard Service Call Summary process
+def dashboardServiceInfo(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+## dashboard Service Call Result process
+def dashboardServiceResultInfo(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+## dashboard Service Call History process
+def dashboardServiceHistoryInfo(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+##############################################################################################
+## MONITORING PROCESS
+##############################################################################################
+
+## monitoring Client OS process
+def montoringClientOsInfo(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+## monitoring Client OS Version process
+def montoringClientOsVersionInfo(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+## monitoring Send Type process
+def montoringSendTypeInfo(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+## monitoring Encrypt process
+def montoringEncryptInfo(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+## monitoring Service Response Http Status Code process
+def montoringServiceResponseHttpStatusCodeInfo(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+## monitoringService Response Http Code Service Protocol process
+def montoringServiceProtocolInfo(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+##############################################################################################
+## LOG PROCESS
+##############################################################################################
+
+## log search list process
+def logSearchList(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+## log info process
+def logInfo(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+
+##############################################################################################
+## SERVICE PROCESS
+##############################################################################################
+
+## service search list process
+def serviceSearchList(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+## service info process
+def serviceInfo(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+## service save process
+def serviceSave(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+## service delete process
+def serviceDelete(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+##############################################################################################
+## ADMIN PROCESS
+##############################################################################################
+
+## admin search list process
+def adminSearchList(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+## admin info process
+def adminInfo(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+## admin save process
+def adminSave(request):
+    #TO-DO
+    response_data = {}
+    
+    return JsonResponse(response_data)
+
+## admin delete process
+def adminDelete(request):
+    #TO-DO
+    response_data = {}
+    
     return JsonResponse(response_data)
