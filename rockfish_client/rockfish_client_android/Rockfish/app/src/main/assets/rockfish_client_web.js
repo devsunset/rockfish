@@ -159,7 +159,7 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	xhr.setRequestHeader("rockfish_device", rockfishRsaEncrypt(""));					// Ignore Web Client
 				xhr.setRequestHeader("rockfish_imei", rockfishRsaEncrypt(""));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_os", "BROWSER");
-		    	xhr.setRequestHeader("rockfish_os_version", navigator.appName);
+		    	xhr.setRequestHeader("rockfish_os_version", rockfishBrowserType());
 		    	xhr.setRequestHeader("rockfish_os_version_desc", navigator.userAgent);
 		    	xhr.setRequestHeader("rockfish_target_service", service);
 		    	xhr.setRequestHeader("rockfish_client_app", "Rockfish"); 		 // TO-DO	Client App
@@ -209,7 +209,7 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	xhr.setRequestHeader("rockfish_device", rockfishRsaEncrypt(""));					// Ignore Web Client
 				xhr.setRequestHeader("rockfish_imei", rockfishRsaEncrypt(""));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_os", "BROWSER");
-		    	xhr.setRequestHeader("rockfish_os_version", navigator.appName);
+		    	xhr.setRequestHeader("rockfish_os_version", rockfishBrowserType());
 		    	xhr.setRequestHeader("rockfish_os_version_desc", navigator.userAgent);
 		    	xhr.setRequestHeader("rockfish_target_service", service);
 		    	xhr.setRequestHeader("rockfish_client_app", "Rockfish"); 		 // TO-DO	Client App
@@ -268,7 +268,7 @@ function rockfishAjax(service, data, encdata, callback, errorcallback, loadingba
 		    	xhr.setRequestHeader("rockfish_device", rockfishRsaEncrypt(""));					// Ignore Web Client
 				xhr.setRequestHeader("rockfish_imei", rockfishRsaEncrypt(""));						// Ignore Web Client
 		    	xhr.setRequestHeader("rockfish_os", "BROWSER");
-		    	xhr.setRequestHeader("rockfish_os_version", navigator.appName);
+		    	xhr.setRequestHeader("rockfish_os_version", rockfishBrowserType());
 		    	xhr.setRequestHeader("rockfish_os_version_desc", navigator.userAgent);
 		    	xhr.setRequestHeader("rockfish_target_service", service);
 		    	xhr.setRequestHeader("rockfish_client_app", "Rockfish"); 		 // TO-DO	Client App
@@ -378,6 +378,44 @@ function rockfishGetStorge(cName) {
 	    alert("현재 브라우저는 WebStorage를 지원하지 않습니다")
 	    return "";
 	}
+}
+
+/**
+ * <pre>
+ * get browser type
+ * </pre>
+ */
+function rockfishBrowserType(){
+	var agent = navigator.userAgent.toLowerCase();
+     var name = navigator.appName;
+     var browser = "Etc";
+    
+    // MS 계열 브라우저를 구분하기 위함.
+    if(name === 'Microsoft Internet Explorer' || agent.indexOf('trident') > -1 || agent.indexOf('edge/') > -1) {
+        browser = 'ie';
+        if(name === 'Microsoft Internet Explorer') { // IE old version (IE 10 or Lower)
+            agent = /msie ([0-9]{1,}[\.0-9]{0,})/.exec(agent);
+            browser += parseInt(agent[1]);
+        } else { // IE 11+
+            if(agent.indexOf('trident') > -1) { // IE 11 
+                browser += 11;
+            } else if(agent.indexOf('edge/') > -1) { // Edge
+                browser = 'edge';
+            }
+        }
+    } else if(agent.indexOf('safari') > -1) { // Chrome or Safari
+        if(agent.indexOf('opr') > -1) { // Opera
+            browser = 'opera';
+        } else if(agent.indexOf('chrome') > -1) { // Chrome
+            browser = 'chrome';
+        } else { // Safari
+            browser = 'safari';
+        }
+    } else if(agent.indexOf('firefox') > -1) { // Firefox
+        browser = 'firefox';
+    }
+
+    return browser;
 }
 
 /**
