@@ -22,6 +22,7 @@
 
 ####`    Client <-> (Load balancing) <->   Server & Console <-> (Load balancing) <->   Service` 
 
+ [![ScreenShot](https://github.com/devsunset/rockfish/blob/master/rockfish_system.png)]
 
 #  [readme - rockfish_introduce.pdf] - 소개 
 <https://github.com/devsunset/rockfish/blob/master/rockfish_introduce.pdf>
