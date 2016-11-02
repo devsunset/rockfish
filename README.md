@@ -68,6 +68,14 @@
       
       [![ScreenShot](https://ci6.googleusercontent.com/proxy/MbT4-Neal6P_l9Mcdk7ufs8fir9yi_CECfYunWhSjszZVg0oKn9SMGXrwusOl7miKOyieBaWGnUpNUvMAiKjRXBloj5dpgWkN1z_pmoXuBByb_d37kp0v-tWmv_fBl7P2rSAx8cdZHbNAy_PanpDm7rVoRlHVBGMYbPeN9I26siWK4JLxCTbTS7z=s0-d-e1-ft#http://i.ytimg.com/vi/pFN1qQOXLOw/hqdefault.jpg?w=480&h=270&feature=em-upload_owner&sigh=9oWf_eKb8A7u3V9S7yoyWiO45f4)](https://www.youtube.com/watch?v=pFN1qQOXLOw)
       
+
+#  [readme - rockfish_function.txt] - 기능 테스트
+<https://github.com/devsunset/rockfish/blob/master/rockfish_function.txt>
+
+
+# ■ License
+GNU LESSER GENERAL PUBLIC LICENSE Version 2.1      
+      
 -------------------------------------------------------------------------------  
 
 #     ■■ ROCKFISH INSTALL
@@ -146,15 +154,7 @@ https://drive.google.com/file/d/0B-RetjmV0gmVVFVWbWhEU21TYlU/view?usp=sharing
   Action 테스트 후 아래 콘솔로 접속 하셔서 서비스 통신 내역 확인해 보시기 바랍니다. 
 
   http://localhost:3000/ 로 접속 ID/PW (rockfish/rockfish)
-
-
-#  [readme - rockfish_function.txt] - 기능 테스트
-<https://github.com/devsunset/rockfish/blob/master/rockfish_function.txt>
-
-
-# ■ License
-GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
-
+  
 -------------------------------------------------------------------------------  
 
 #     ■■ Demo
