@@ -1,10 +1,6 @@
-
-#		 ■■■ Welcome to Rockfish World ■■■
-
-
 -------------------------------------------------------------------------------	
 
-#		 ■■ ROCKFISH INTRODUCE
+#		 ■■ ROCKFISH
 
 -------------------------------------------------------------------------------	
 
@@ -18,11 +14,16 @@
    Easy Simple Scale Out Support
 ``` 
 
-# ■ Process Flow
+-------------------------------------------------------------------------------	
+
+#		 ■■ ROCKFISH INTRODUCE
+
+-------------------------------------------------------------------------------	
 
 ####`    Client <-> (Load balancing) <->   Server & Console <-> (Load balancing) <->   Service` 
 
  ![ScreenShot](https://github.com/devsunset/rockfish/blob/master/rockfish_system.png)
+ 
 
 #  [readme - rockfish_introduce.pdf] - 소개 
 <https://github.com/devsunset/rockfish/blob/master/rockfish_introduce.pdf>
@@ -67,16 +68,17 @@
       
       [![ScreenShot](https://ci6.googleusercontent.com/proxy/MbT4-Neal6P_l9Mcdk7ufs8fir9yi_CECfYunWhSjszZVg0oKn9SMGXrwusOl7miKOyieBaWGnUpNUvMAiKjRXBloj5dpgWkN1z_pmoXuBByb_d37kp0v-tWmv_fBl7P2rSAx8cdZHbNAy_PanpDm7rVoRlHVBGMYbPeN9I26siWK4JLxCTbTS7z=s0-d-e1-ft#http://i.ytimg.com/vi/pFN1qQOXLOw/hqdefault.jpg?w=480&h=270&feature=em-upload_owner&sigh=9oWf_eKb8A7u3V9S7yoyWiO45f4)](https://www.youtube.com/watch?v=pFN1qQOXLOw)
       
+-------------------------------------------------------------------------------  
+
+#     ■■ ROCKFISH INSTALL
+
+-------------------------------------------------------------------------------       
 
 #  [readme - rockfish_install.txt] - 설치
 <https://github.com/devsunset/rockfish/blob/master/rockfish_install.txt>
 
--------------------------------------------------------------------------------  
 
-#     ■■ 1 minute Install
-
-------------------------------------------------------------------------------- 
-
+#  [1 minute install] - 설치
 자세한 설치 방법은 아래 rockfish_install.txt 파일을 참조하세요 
 <https://github.com/devsunset/rockfish/blob/master/rockfish_install.txt>
 
@@ -148,6 +150,7 @@ https://drive.google.com/file/d/0B-RetjmV0gmVVFVWbWhEU21TYlU/view?usp=sharing
 
 #  [readme - rockfish_function.txt] - 기능 테스트
 <https://github.com/devsunset/rockfish/blob/master/rockfish_function.txt>
+
 
 # ■ License
 GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
