@@ -22,7 +22,7 @@
 
 ####`    Client <-> (Load balancing) <->   Server & Console <-> (Load balancing) <->   Service` 
 
- [![ScreenShot](https://github.com/devsunset/rockfish/blob/master/rockfish_system.png)]
+ ![ScreenShot](https://github.com/devsunset/rockfish/blob/master/rockfish_system.png)
 
 #  [readme - rockfish_introduce.pdf] - 소개 
 <https://github.com/devsunset/rockfish/blob/master/rockfish_introduce.pdf>
@@ -70,47 +70,6 @@
 
 #  [readme - rockfish_install.txt] - 설치
 <https://github.com/devsunset/rockfish/blob/master/rockfish_install.txt>
-
-
-#  [readme - rockfish_function.txt] - 기능 테스트
-<https://github.com/devsunset/rockfish/blob/master/rockfish_function.txt>
-
-# ■ License
-GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
-
--------------------------------------------------------------------------------  
-
-#     ■■ Demo
-
--------------------------------------------------------------------------------  
-
-■ ROCKFISH 4 MINUTE 30 SECONDS DEMO ■
-
-   <https://youtu.be/a1-woEXZ6Wg>
-   
-   [![ScreenShot](https://github.com/devsunset/rockfish/blob/master/screenshot.png)](https://youtu.be/a1-woEXZ6Wg)
-
-1. Rockfish 소개
-
-   https://github.com/devsunset/rockfish
-
-2. Demo 설명
-
-   IDX,TEMP1,TEMP2,TEMP3 4개의 컬럼을 가진 TB_ROCKFISH 테이블에 
-   CRUD 처리 및 로그인 , 로그아웃 , 파일 업로드, 다운로드를 제공 하는 
-   스프링 기반 웹 프로젝트 서비스를 Tomcat 서버 2대에서 구동 하고 
-   단말 (Rockfish Android , Web version Sample Test 프로그램)에서 
-   Https,Http 통신을 사용하여 Rockfish Middleware 서버를 통해 서비스 
-   호출 테스트 및 관리 콘솔 에서 해당 서비스 모니터링 하는 시나리오 
-
-   Server IP : 175.126.112.125
-
-   Android Client : <https://play.google.com/store/apps/details?id=kh.devsunset.rockfish&hl=ko>  
-   Native 175.126.112.125:9999 , Web 175.126.112.125:8888
-
-   Web Client : <http://175.126.112.125:7777/rockfish_client_web/rockfish_client_web.html>   
-
-   Console     : <http://175.126.112.125:3000>  rockfish/rockfish
 
 -------------------------------------------------------------------------------  
 
@@ -185,6 +144,47 @@ https://drive.google.com/file/d/0B-RetjmV0gmVVFVWbWhEU21TYlU/view?usp=sharing
   Action 테스트 후 아래 콘솔로 접속 하셔서 서비스 통신 내역 확인해 보시기 바랍니다. 
 
   http://localhost:3000/ 로 접속 ID/PW (rockfish/rockfish)
+
+
+#  [readme - rockfish_function.txt] - 기능 테스트
+<https://github.com/devsunset/rockfish/blob/master/rockfish_function.txt>
+
+# ■ License
+GNU LESSER GENERAL PUBLIC LICENSE Version 2.1
+
+-------------------------------------------------------------------------------  
+
+#     ■■ Demo
+
+-------------------------------------------------------------------------------  
+
+■ ROCKFISH 4 MINUTE 30 SECONDS DEMO ■
+
+   <https://youtu.be/a1-woEXZ6Wg>
+   
+   [![ScreenShot](https://github.com/devsunset/rockfish/blob/master/screenshot.png)](https://youtu.be/a1-woEXZ6Wg)
+
+1. Rockfish 소개
+
+   https://github.com/devsunset/rockfish
+
+2. Demo 설명
+
+   IDX,TEMP1,TEMP2,TEMP3 4개의 컬럼을 가진 TB_ROCKFISH 테이블에 
+   CRUD 처리 및 로그인 , 로그아웃 , 파일 업로드, 다운로드를 제공 하는 
+   스프링 기반 웹 프로젝트 서비스를 Tomcat 서버 2대에서 구동 하고 
+   단말 (Rockfish Android , Web version Sample Test 프로그램)에서 
+   Https,Http 통신을 사용하여 Rockfish Middleware 서버를 통해 서비스 
+   호출 테스트 및 관리 콘솔 에서 해당 서비스 모니터링 하는 시나리오 
+
+   Server IP : 175.126.112.125
+
+   Android Client : <https://play.google.com/store/apps/details?id=kh.devsunset.rockfish&hl=ko>  
+   Native 175.126.112.125:9999 , Web 175.126.112.125:8888
+
+   Web Client : <http://175.126.112.125:7777/rockfish_client_web/rockfish_client_web.html>   
+
+   Console     : <http://175.126.112.125:3000>  rockfish/rockfish
 
 -------------------------------------------------------------------------------	
 
