@@ -222,9 +222,10 @@ https://drive.google.com/file/d/0B-RetjmV0gmVVFVWbWhEU21TYlU/view?usp=sharing
 
 # ■ Rockfish setting
 ```java
-   (Authentication), (Authorization), (Access Control), (Load balancing), (Stress Test) 
+   (Authentication), (Authorization), (Access Control), (Load balancing), (CI), (Stress Test) 
    * rockfish_control_redis - Completed 
-   * rockfish_loadbalancing_nginx - Completed  
+   * rockfish_loadbalancing_nginx - Completed 
+   * rockfish_ci - Completed   
    * rockfish_stress_test_jmeter - Completed
 ``` 
 
