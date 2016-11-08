@@ -48,7 +48,7 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter {
 			
 		    // HEADER
 		    Enumeration<String> em = request.getHeaderNames();
-			log.debug("■■■■■■■■■■■■■■■ request.getHeaderNames() ■■■■■■■■■■■■■■■");
+			log.debug("em request.getHeaderNames() em");
 		    while(em.hasMoreElements()){
 		        String name = em.nextElement() ;
 		        String val = request.getHeader(name) ;
@@ -56,7 +56,7 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter {
 		    }
 			// REQUEST PARAMETER
 			Enumeration params = request.getParameterNames();
-			log.debug("■■■■■■■■■■■■■■■ request.getParameterNames() ■■■■■■■■■■■■■■■");
+			log.debug("em request.getParameterNames() em");
 			String[] values = null;
 			while (params.hasMoreElements()){
 				String name = (String)params.nextElement();

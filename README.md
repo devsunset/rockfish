@@ -74,7 +74,8 @@
 
 
 # ■ License
-GNU LESSER GENERAL PUBLIC LICENSE Version 2.1      
+  Apache License
+                           Version 2.0      
       
 -------------------------------------------------------------------------------  
 
