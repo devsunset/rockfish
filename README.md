@@ -67,9 +67,9 @@
 
 ■ ROCKFISH 14 MINUTE DEMO ■
 
-   <https://www.youtube.com/watch?v=fYVJlEjYmZ8>
+   <https://youtu.be/fYVJlEjYmZ8>
 
-   [![ScreenShot](https://github.com/devsunset/rockfish/blob/master/screenshot.png)](https://www.youtube.com/watch?v=fYVJlEjYmZ8)
+   [![ScreenShot](https://github.com/devsunset/rockfish/blob/master/screenshot.png)](https://youtu.be/fYVJlEjYmZ8)
    
 
  -------------------------------------------------------------------------------  
