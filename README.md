@@ -28,8 +28,59 @@
 #  [readme - rockfish_introduce.pdf] - 소개 
 <https://github.com/devsunset/rockfish/blob/master/rockfish_introduce.pdf>
 
+#  [readme - rockfish_function.txt] - 기능 테스트
+<https://github.com/devsunset/rockfish/blob/master/rockfish_function.txt>
 
-# 동영상 소개
+
+ -------------------------------------------------------------------------------  
+
+#     ■■ Demo
+
+-------------------------------------------------------------------------------  
+
+■ ROCKFISH 4 MINUTE 30 SECONDS DEMO ■
+
+   <https://youtu.be/a1-woEXZ6Wg>
+   
+   [![ScreenShot](https://github.com/devsunset/rockfish/blob/master/screenshot.png)](https://youtu.be/a1-woEXZ6Wg)
+
+
+
+■ ROCKFISH 14 MINUTE DEMO ■
+
+   <https://www.youtube.com/watch?v=fYVJlEjYmZ8>
+
+   [![ScreenShot](https://github.com/devsunset/rockfish/blob/master/screenshot.png)](https://www.youtube.com/watch?v=fYVJlEjYmZ8)
+   
+
+1. Rockfish 소개
+
+   https://github.com/devsunset/rockfish
+
+2. Demo 설명
+
+   IDX,TEMP1,TEMP2,TEMP3 4개의 컬럼을 가진 TB_ROCKFISH 테이블에 
+   CRUD 처리 및 로그인 , 로그아웃 , 파일 업로드, 다운로드를 제공 하는 
+   스프링 기반 웹 프로젝트 서비스를 Tomcat 서버 2대에서 구동 하고 
+   단말 (Rockfish Android , Web version Sample Test 프로그램)에서 
+   Https,Http 통신을 사용하여 Rockfish Middleware 서버를 통해 서비스 
+   호출 테스트 및 관리 콘솔 에서 해당 서비스 모니터링 하는 시나리오 
+
+   Server IP : 175.126.112.125
+
+   Android Client : <https://play.google.com/store/apps/details?id=kh.devsunset.rockfish&hl=ko>  
+   Native 175.126.112.125:9999 , Web 175.126.112.125:8888
+
+   Web Client : <http://175.126.112.125:7777/rockfish_client_web/rockfish_client_web.html>   
+
+   Console     : <http://175.126.112.125:3000>  rockfish/rockfish
+
+
+ -------------------------------------------------------------------------------  
+
+#     ■■ Lecture
+
+-------------------------------------------------------------------------------  
 
    - Rockfish 소개 
    
@@ -68,14 +119,6 @@
       
       [![ScreenShot](https://ci6.googleusercontent.com/proxy/MbT4-Neal6P_l9Mcdk7ufs8fir9yi_CECfYunWhSjszZVg0oKn9SMGXrwusOl7miKOyieBaWGnUpNUvMAiKjRXBloj5dpgWkN1z_pmoXuBByb_d37kp0v-tWmv_fBl7P2rSAx8cdZHbNAy_PanpDm7rVoRlHVBGMYbPeN9I26siWK4JLxCTbTS7z=s0-d-e1-ft#http://i.ytimg.com/vi/pFN1qQOXLOw/hqdefault.jpg?w=480&h=270&feature=em-upload_owner&sigh=9oWf_eKb8A7u3V9S7yoyWiO45f4)](https://www.youtube.com/watch?v=pFN1qQOXLOw)
       
-
-#  [readme - rockfish_function.txt] - 기능 테스트
-<https://github.com/devsunset/rockfish/blob/master/rockfish_function.txt>
-
-
-# ■ License
-  Apache License
-                           Version 2.0      
       
 -------------------------------------------------------------------------------  
 
@@ -164,49 +207,6 @@ https://drive.google.com/file/d/0B-RetjmV0gmVaFJSai0zS1F0S2s/view?usp=sharing - 
 
   http://localhost:3000/ 로 접속 ID/PW (rockfish/rockfish)
   
--------------------------------------------------------------------------------  
-
-#     ■■ Demo
-
--------------------------------------------------------------------------------  
-
-■ ROCKFISH 4 MINUTE 30 SECONDS DEMO ■
-
-   <https://youtu.be/a1-woEXZ6Wg>
-   
-   [![ScreenShot](https://github.com/devsunset/rockfish/blob/master/screenshot.png)](https://youtu.be/a1-woEXZ6Wg)
-
-
-
-■ ROCKFISH 14 MINUTE DEMO ■
-
-   <https://www.youtube.com/watch?v=fYVJlEjYmZ8>
-
-   [![ScreenShot](https://github.com/devsunset/rockfish/blob/master/screenshot.png)](https://www.youtube.com/watch?v=fYVJlEjYmZ8)
-   
-
-1. Rockfish 소개
-
-   https://github.com/devsunset/rockfish
-
-2. Demo 설명
-
-   IDX,TEMP1,TEMP2,TEMP3 4개의 컬럼을 가진 TB_ROCKFISH 테이블에 
-   CRUD 처리 및 로그인 , 로그아웃 , 파일 업로드, 다운로드를 제공 하는 
-   스프링 기반 웹 프로젝트 서비스를 Tomcat 서버 2대에서 구동 하고 
-   단말 (Rockfish Android , Web version Sample Test 프로그램)에서 
-   Https,Http 통신을 사용하여 Rockfish Middleware 서버를 통해 서비스 
-   호출 테스트 및 관리 콘솔 에서 해당 서비스 모니터링 하는 시나리오 
-
-   Server IP : 175.126.112.125
-
-   Android Client : <https://play.google.com/store/apps/details?id=kh.devsunset.rockfish&hl=ko>  
-   Native 175.126.112.125:9999 , Web 175.126.112.125:8888
-
-   Web Client : <http://175.126.112.125:7777/rockfish_client_web/rockfish_client_web.html>   
-
-   Console     : <http://175.126.112.125:3000>  rockfish/rockfish
-
 -------------------------------------------------------------------------------	
 
 #		■■ Completed Module
@@ -302,3 +302,8 @@ I WANT YOU ^^
    * z_rockfish_docker - Next TO-DO   
    * z_rockfish_loadbalancing_haproxy - Next TO-DO 
 ```  	
+
+
+# ■ License
+  Apache License
+                           Version 2.0      
