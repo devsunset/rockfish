@@ -28,6 +28,12 @@
 #  [readme - rockfish_introduce.pdf] - 소개 
 <https://github.com/devsunset/rockfish/blob/master/rockfish_introduce.pdf>
 
+#  [readme - rockfish_pt.zip] - presentation
+<https://github.com/devsunset/rockfish/blob/master/rockfish_pt.zip>
+
+rockfish_pt.zip 압축 해제 /rockfish_pt/rockfish/pt/rockfish.html
+브라우져에서 실행 PgDn 버튼 클릭 하면서 보기 (reveal.js로 작성)
+
 #  [readme - rockfish_function.txt] - 기능 테스트
 <https://github.com/devsunset/rockfish/blob/master/rockfish_function.txt>
 
@@ -148,7 +154,7 @@ Google Drive에 임시 공유
 https://drive.google.com/file/d/0B-RetjmV0gmVVFVWbWhEU21TYlU/view?usp=sharing - rockfish.zip
 
 
-https://drive.google.com/file/d/0B-RetjmV0gmVRk9JbGJ3UUR3UXc/view - cirepo.zip
+https://drive.google.com/file/d/0B-RetjmV0gmVRk9JbGJ3UUR3UXc/view?usp=sharing- cirepo.zip
 
 
 https://drive.google.com/file/d/0B-RetjmV0gmVaFJSai0zS1F0S2s/view?usp=sharing - dev.zip
@@ -235,10 +241,11 @@ https://drive.google.com/file/d/0B-RetjmV0gmVaFJSai0zS1F0S2s/view?usp=sharing - 
 
 # ■ Rockfish setting
 ```java
-   (Authentication), (Authorization), (Access Control), (Load balancing), (CI), (Stress Test) 
-   * rockfish_control_redis - Completed 
-   * rockfish_loadbalancing_nginx - Completed 
+   (Authentication), (Authorization), (Access Control), (Load balancing), (CI), (Stress Test) (APM)
+   * rockfish_apm - Completed   
    * rockfish_ci - Completed   
+   * rockfish_control_redis - Completed 
+   * rockfish_loadbalancing_nginx - Completed   
    * rockfish_stress_test_jmeter - Completed
 ``` 
 
