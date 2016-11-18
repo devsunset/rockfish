@@ -23,16 +23,16 @@
  ![ScreenShot](https://github.com/devsunset/rockfish/blob/master/rockfish_system.png)
  
 
-#  [readme - rockfish_introduce.pdf] - introduce 
+#  [introduce - rockfish_introduce.pdf]
 <https://github.com/devsunset/rockfish/blob/master/rockfish_introduce.pdf>
 
-#  [readme - rockfish_pt.zip] - presentation
+#  [presentation - rockfish_pt.zip]
 <https://github.com/devsunset/rockfish/blob/master/rockfish_pt.zip>
 
 rockfish_pt.zip 압축 해제 /rockfish_pt/rockfish/pt/rockfish.html
 브라우져에서 실행 PgDn 버튼 클릭 하면서 보기 (reveal.js로 작성)
 
-#  [readme - rockfish_function.txt] - function
+#  [function - rockfish_function.txt]
 <https://github.com/devsunset/rockfish/blob/master/rockfish_function.txt>
 
 
@@ -177,6 +177,7 @@ https://drive.google.com/file/d/0B-RetjmV0gmVaFJSai0zS1F0S2s/view?usp=sharing - 
   C:\rockfish\runWindows\rockfish.bat  
   
   (기존 설치 프로그램이 존재한다면 시작 시 포트 충돌 발생할 경우 있음)
+  
   (기존 서비스 종료 후 테스트 하거나 설치 프로그램 포트 변경 후 실행)
 
   ### port 사용 현황 ###
