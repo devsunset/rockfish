@@ -126,7 +126,7 @@ rockfish_pt.zip 압축 해제 /rockfish_pt/rockfish/pt/rockfish.html
 
 -------------------------------------------------------------------------------       
 
-#  [readme - rockfish_install.txt] - install
+#  [install - rockfish_install.txt]S
 <https://github.com/devsunset/rockfish/blob/master/rockfish_install.txt>
 
 
@@ -294,6 +294,17 @@ I WANT YOU ^^ 함께 rockfish 오픈 소스 프로젝트 진행 하실 분 환�
    * z_rockfish_docker - Next TO-DO   
    * z_rockfish_loadbalancing_haproxy - Next TO-DO 
 ```  	
+
+
+------------------------------------------------------------------------------- 
+
+#   ■■ Rockfish Google Groups Link
+
+https://groups.google.com/forum/#!forum/rockfish
+
+------------------------------------------------------------------------------- 
+
+
 
 
 # ■ License
