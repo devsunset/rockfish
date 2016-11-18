@@ -140,9 +140,7 @@ rockfish_pt.zip 압축 해제 /rockfish_pt/rockfish/pt/rockfish.html
 
  Windows7 64bit 환경 에서 테스트 하였으며 32bit에서는 동작 안합니다.
 
- Windows8,Windows10은 테스트 못해 보았는데 설치 하시는 분 계시면 설치 결과 feedback 주시면 
-
- 감사 하겠습니다. ^^
+ Windows8,Windows10은 테스트 못해 보았는데 설치 하시는 분 계시면 설치 결과 feedback 주시면  감사 하겠습니다. ^^
 
  통합 모듈 설치 방법은 아래와 같습니다. 
 
@@ -162,8 +160,7 @@ https://drive.google.com/file/d/0B-RetjmV0gmVaFJSai0zS1F0S2s/view?usp=sharing - 
 
  (참고 - zip파일로 다운로드 시 모듈 파일 경로가 길어 압축 해제 시 오류 발생)
 
-  Windows 에서는 반디집 (무료 압축 파일 - 개인/기업 모두 사용 가능) 사용 하여
-  압축 해제 하시기 바랍니다.   
+  Windows 에서는 반디집 (무료 압축 파일 - 개인/기업 모두 사용 가능) 사용 하여 압축 해제 하시기 바랍니다.   
 
   https://www.bandisoft.co.kr/bandizip/help/longpath/
     
