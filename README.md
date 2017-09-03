@@ -129,17 +129,13 @@ rockfish_pt.zip 압축 해제 /rockfish_pt/rockfish/pt/rockfish.html 실행
 <https://github.com/devsunset/rockfish/blob/master/rockfish_install.txt>
 
 
-#  [1 minute install] - 설치
+#  [1 minute install]
 자세한 설치 방법은 아래 rockfish_install.txt 파일을 참조하세요 
 <https://github.com/devsunset/rockfish/blob/master/rockfish_install.txt>
 
  복잡한 설치와 설정 없이 일단 다운받아 실행 하여 Rockfish가 어떤 SW인지 알고 싶으신 분들을 위해 
 
- zip파일로 통합 설치 본을 제공해 드립니다.
-
- Windows7 64bit 환경 에서 테스트 하였으며 32bit에서는 동작 안합니다.
-
- Windows8,Windows10은 테스트 못해 보았는데 설치 하시는 분 계시면 설치 결과 feedback 주시면  감사 하겠습니다. ^^
+ Windows 64bit   환경에서 zip파일로 통합 설치 본을 제공해 드립니다.
 
  통합 모듈 설치 방법은 아래와 같습니다. 
 
