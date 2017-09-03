@@ -35,6 +35,52 @@ rockfish_pt.zip 압축 해제 /rockfish_pt/rockfish/pt/rockfish.html 실행
 <https://github.com/devsunset/rockfish/blob/master/rockfish_function.txt>
 
 
+-------------------------------------------------------------------------------	
+
+#		■■ Module
+
+-------------------------------------------------------------------------------	
+
+# ■ Rockfish client
+```java
+   * rockfish client api  
+   * rockfish client (android) 
+   * rockfish client (web)
+``` 
+
+# ■ Rockfish console
+```java
+   * rockfish console ui (AXU & axisj) 
+   * rockfish console (nodejs & express)
+``` 
+
+# ■ Rockfish server
+```java
+   * rockfish server (nodejs)
+``` 
+   
+# ■ Rockfish service
+```java
+   * rockfish service (spring)
+   * rockfish service (web) - prototype version
+``` 
+
+# ■ Rockfish setting
+```java
+   (Authentication), (Authorization), (Access Control), (Load balancing), (CI), (Stress Test) (APM)
+   * rockfish_apm 
+   * rockfish_ci
+   * rockfish_control_redis
+   * rockfish_loadbalancing_nginx  
+   * rockfish_stress_test_jmeter
+``` 
+
+------------------------------------------------------------------------------- 
+
+#   ■■ Rockfish Google Groups Link
+
+https://groups.google.com/forum/#!forum/rockfish
+
  -------------------------------------------------------------------------------  
 
 #     ■■ Demo
@@ -202,56 +248,7 @@ https://drive.google.com/file/d/0B-RetjmV0gmVaFJSai0zS1F0S2s/view?usp=sharing - 
 
   http://localhost:3000/ 로 접속 ID/PW (rockfish/rockfish)
   
--------------------------------------------------------------------------------	
-
-#		■■ Module
-
--------------------------------------------------------------------------------	
-
-# ■ Rockfish client
-```java
-   * rockfish client api  
-   * rockfish client (android) 
-   * rockfish client (web)
-``` 
-
-# ■ Rockfish console
-```java
-   * rockfish console ui (AXU & axisj) 
-   * rockfish console (nodejs & express)
-``` 
-
-# ■ Rockfish server
-```java
-   * rockfish server (nodejs)
-``` 
-   
-# ■ Rockfish service
-```java
-   * rockfish service (spring)
-   * rockfish service (web) - prototype version
-``` 
-
-# ■ Rockfish setting
-```java
-   (Authentication), (Authorization), (Access Control), (Load balancing), (CI), (Stress Test) (APM)
-   * rockfish_apm 
-   * rockfish_ci
-   * rockfish_control_redis
-   * rockfish_loadbalancing_nginx  
-   * rockfish_stress_test_jmeter
-``` 
-
 ------------------------------------------------------------------------------- 
-
-#   ■■ Rockfish Google Groups Link
-
-https://groups.google.com/forum/#!forum/rockfish
-
-------------------------------------------------------------------------------- 
-
-
-
 
 # ■ License
   Apache License
