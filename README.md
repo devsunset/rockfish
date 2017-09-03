@@ -29,8 +29,7 @@
 #  [presentation - rockfish_pt.zip]
 <https://github.com/devsunset/rockfish/blob/master/rockfish_pt.zip>
 
-rockfish_pt.zip 압축 해제 /rockfish_pt/rockfish/pt/rockfish.html
-브라우져에서 실행 PgDn 버튼 클릭 하면서 보기 (reveal.js로 작성)
+rockfish_pt.zip 압축 해제 /rockfish_pt/rockfish/pt/rockfish.html 실행
 
 #  [function - rockfish_function.txt]
 <https://github.com/devsunset/rockfish/blob/master/rockfish_function.txt>
@@ -67,14 +66,14 @@ rockfish_pt.zip 압축 해제 /rockfish_pt/rockfish/pt/rockfish.html
 
 ■ ROCKFISH DEMO LINK ■
 
-   Server IP : 175.126.112.125
+   Server IP : localhost
 
    Android Client : <https://play.google.com/store/apps/details?id=kh.devsunset.rockfish&hl=ko>  
-   Native 175.126.112.125:9999 , Web 175.126.112.125:8888
+   Native localhost:9999 , Web localhost:8888
 
-   Web Client : <http://175.126.112.125:7777/rockfish_client_web/rockfish_client_web.html>   
+   Web Client : <http://localhost:7777/rockfish_client_web/rockfish_client_web.html>   
 
-   Console     : <http://175.126.112.125:3000>  rockfish/rockfish
+   Console     : <http://localhost:3000>  rockfish/rockfish
 
  -------------------------------------------------------------------------------  
 
@@ -126,7 +125,7 @@ rockfish_pt.zip 압축 해제 /rockfish_pt/rockfish/pt/rockfish.html
 
 -------------------------------------------------------------------------------       
 
-#  [install - rockfish_install.txt]S
+#  [install - rockfish_install.txt]
 <https://github.com/devsunset/rockfish/blob/master/rockfish_install.txt>
 
 
@@ -209,92 +208,43 @@ https://drive.google.com/file/d/0B-RetjmV0gmVaFJSai0zS1F0S2s/view?usp=sharing - 
   
 -------------------------------------------------------------------------------	
 
-#		■■ Completed Module
+#		■■ Module
 
 -------------------------------------------------------------------------------	
 
 # ■ Rockfish client
 ```java
-   * rockfish client api  -Completed
-   * rockfish client (android) - Completed
-   * rockfish client (web) - Completed  
+   * rockfish client api  
+   * rockfish client (android) 
+   * rockfish client (web)
 ``` 
 
 # ■ Rockfish console
 ```java
-   * rockfish console ui (AXU & axisj) - Completed  
-   * rockfish console (nodejs & express) - Completed
+   * rockfish console ui (AXU & axisj) 
+   * rockfish console (nodejs & express)
 ``` 
 
 # ■ Rockfish server
 ```java
-   * rockfish server (nodejs) - Completed
+   * rockfish server (nodejs)
 ``` 
    
 # ■ Rockfish service
 ```java
-   * rockfish service (spring) - Completed
-   * rockfish service (web) - prototype version completed
+   * rockfish service (spring)
+   * rockfish service (web) - prototype version
 ``` 
 
 # ■ Rockfish setting
 ```java
    (Authentication), (Authorization), (Access Control), (Load balancing), (CI), (Stress Test) (APM)
-   * rockfish_apm - Completed   
-   * rockfish_ci - Completed   
-   * rockfish_control_redis - Completed 
-   * rockfish_loadbalancing_nginx - Completed   
-   * rockfish_stress_test_jmeter - Completed
+   * rockfish_apm 
+   * rockfish_ci
+   * rockfish_control_redis
+   * rockfish_loadbalancing_nginx  
+   * rockfish_stress_test_jmeter
 ``` 
-
--------------------------------------------------------------------------------	
-
-#		■■ Next To-Do Module
-
-I WANT YOU ^^ 함께 rockfish 오픈 소스 프로젝트 진행 하실 분 환영합니다.
-
-아래 Next To-Do 모듈에 대해 같이 공부하며 진행 하실 분 계시면  부담 갖지 마시고  devsunset@gmail.com 으로 연락 주세요 ^^
-
-서로 아는건 공유하고 모르는건 같이 배워 가며 즐겁게 코딩하실 마음만  있으시면 언제든지 환영 합니다. 
-
-아래 모듈 말고 다른 언어나 기술로 추가 하시고 싶은 내용이 있으시다면 의견 주시면 감사하겠습니다.
-
--------------------------------------------------------------------------------	
-
-# ■ Rockfish client
-```java
-   * z_rockfish client (etc) - Next TO-DO
-   * z_rockfish client (iphone) - Next TO-DO
-   * z_rockfish client (ms) - Next TO-DO
-   * z_rockfish client (tizen) - Next TO-DO
-``` 
-
-# ■ Rockfish console
-```java 
-   * z_rockfish console (python & django) - Next TO-DO   
-   * z_rockfish console (ruby & rails) - Next TO-DO
-```
-
-# ■ Rockfish server
-```java
-   * z_rockfish server (erlang) - Next TO-DO
-   * z_rockfish server (go) - Next TO-DO
-``` 
-   
-# ■ Rockfish service
-```java
-   * z_rockfish service (spring boot) - Next TO-DO
-   * z_rockfish service (play) - Next TO-DO
-   * z_rockfish service (vert.x) - Next TO-DO
-```    
-   
-# ■ Rockfish setting
-```java
-   * z_rockfish_control_couchbase - Next TO-DO       
-   * z_rockfish_docker - Next TO-DO   
-   * z_rockfish_loadbalancing_haproxy - Next TO-DO 
-```  	
-
 
 ------------------------------------------------------------------------------- 
 
