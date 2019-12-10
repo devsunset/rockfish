@@ -74,14 +74,7 @@ rockfish_pt.zip 압축 해제 /rockfish_pt/rockfish/pt/rockfish.html 실행
    * rockfish_loadbalancing_nginx  
    * rockfish_stress_test_jmeter
 ``` 
-
-------------------------------------------------------------------------------- 
-
-#   ■■ Rockfish Google Groups Link
-
-https://groups.google.com/forum/#!forum/rockfish
-
- -------------------------------------------------------------------------------  
+-------------------------------------------------------------------------------  
 
 #     ■■ Demo
 
