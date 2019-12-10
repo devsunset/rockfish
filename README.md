@@ -175,52 +175,6 @@ https://groups.google.com/forum/#!forum/rockfish
 <https://github.com/devsunset/rockfish/blob/master/rockfish_install.txt>
 
 
-#  [1 minute install]
-자세한 설치 방법은 아래 rockfish_install.txt 파일을 참조하세요 
-<https://github.com/devsunset/rockfish/blob/master/rockfish_install.txt>
-
- 복잡한 설치와 설정 없이 일단 다운받아 실행 하여 Rockfish가 어떤 SW인지 알고 싶으신 분들을 위해 
-
- Windows 64bit   환경에서 zip파일로 통합 설치 본을 제공해 드립니다.
-
- 통합 모듈 설치 방법은 아래와 같습니다. 
-
-Google Drive에 임시 공유
-- Download Link -
-
-https://drive.google.com/file/d/0B-RetjmV0gmVVFVWbWhEU21TYlU/view?usp=sharing - rockfish.zip
-
-
-https://drive.google.com/file/d/0B-RetjmV0gmVRk9JbGJ3UUR3UXc/view?usp=sharing- cirepo.zip
-
-
-https://drive.google.com/file/d/0B-RetjmV0gmVaFJSai0zS1F0S2s/view?usp=sharing - dev.zip
-
-
- 위의 파일을 다운받아 C:\ 경로에 압축만 해제 하시고 몇가지 처리만 해주시면 됩니다. 
-
- (참고 - zip파일로 다운로드 시 모듈 파일 경로가 길어 압축 해제 시 오류 발생)
-
-  Windows 에서는 반디집 (무료 압축 파일 - 개인/기업 모두 사용 가능) 사용 하여 압축 해제 하시기 바랍니다.   
-
-  https://www.bandisoft.co.kr/bandizip/help/longpath/
-    
-  압축 해제후 
-  rockfish_service\home 디렉토리를 C:\ 경로에 복사 하세요.
-
-  MongoDB 실행시에 MSVCP120.DLL 파일 찾을 수 없다는 오류 발생 시
-  아래 링크 에서 windows 64bit 기준 vcredist_x64.exe, vcredist_x86.exe 파일을
-  다운 받아 설치 하시기 바랍니다.  (rockfish\runWindows\install 경로에 파일 첨부했습니다.)
-  https://www.microsoft.com/ko-KR/download/details.aspx?id=40784
-  
-  아래 배치 파일 실행하면 rockfish 프로그램 시작 됨
-
-  C:\rockfish\runWindows\rockfish.bat  
-  
-  (기존 설치 프로그램이 존재한다면 시작 시 포트 충돌 발생할 경우 있음)
-  
-  (기존 서비스 종료 후 테스트 하거나 설치 프로그램 포트 변경 후 실행)
-
   ### port 사용 현황 ###
 
   rockfish_console 3000
