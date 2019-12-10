@@ -107,7 +107,6 @@ rockfish_pt.zip 압축 해제 /rockfish_pt/rockfish/pt/rockfish.html 실행
 
    Server IP : localhost
 
-   Android Client : <https://play.google.com/store/apps/details?id=kh.devsunset.rockfish&hl=ko>  
    Native localhost:9999 , Web localhost:8888
 
    Web Client : <http://localhost:7777/rockfish_client_web/rockfish_client_web.html>   
