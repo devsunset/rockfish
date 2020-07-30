@@ -167,6 +167,19 @@ rockfish_pt.zip 압축 해제 /rockfish_pt/rockfish/pt/rockfish.html 실행
 <https://github.com/devsunset/rockfish/blob/master/rockfish_install.txt>
 
 
+rockfish_pt.zip
+https://drive.google.com/file/d/1sCeDUrdzN9mThNU-xQQpitNMbSsr9CbA/view?usp=sharing
+
+rockfish.zip
+https://drive.google.com/file/d/1I23knxbcv9azImK_TMOHgIfPpEem3Gxa/view?usp=sharing
+
+dev.zip
+https://drive.google.com/file/d/1kLl2wdcQbFoF3pJ837yD01GSXLI8DaI5/view?usp=sharing
+
+cirepo.zip
+https://drive.google.com/file/d/1fNFmBjm2IQV3dCqRsytdbs6u4B1C1vMl/view?usp=sharing
+
+
   ### port 사용 현황 ###
 
   rockfish_console 3000
